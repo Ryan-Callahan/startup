@@ -24,3 +24,7 @@ in command line:
 ```
 ssh -i "C:\Users\ryanc\BYU\Winter24\cs260\production.pem" ubuntu@3.85.182.55
 ```
+or 
+```
+ssh -i "C:\Users\ryanc\BYU\Winter24\cs260\production.pem" ubuntu@schedulizer260.com
+```
