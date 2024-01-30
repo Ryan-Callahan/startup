@@ -28,3 +28,5 @@ or
 ```
 ssh -i "C:\Users\ryanc\BYU\Winter24\cs260\production.pem" ubuntu@schedulizer260.com
 ```
+
+this is new notes
