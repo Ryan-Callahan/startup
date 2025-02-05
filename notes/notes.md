@@ -22,11 +22,11 @@ Current domain: http://3.85.182.55/
 ### SSH
 in command line:
 ```
-ssh -i "C:\Users\ryanc\BYU\Winter24\cs260\production.pem" ubuntu@3.85.182.55
+ssh -i "C:\Users\ryanc\BYU\Winter25\cs260\DO_NOT_COMMIT_260RSAkey.pem" ubuntu@3.85.182.55
 ```
 or 
 ```
-ssh -i "C:\Users\ryanc\BYU\Winter24\cs260\production.pem" ubuntu@schedulizer260.com
+ssh -i "C:\Users\ryanc\BYU\Winter25\cs260\DO_NOT_COMMIT_260RSAkey.pem" ubuntu@schedulizer260.com
 ```
 
 this is new notes
