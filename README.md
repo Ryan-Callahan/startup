@@ -31,11 +31,16 @@ with co-workers, teammates, friends, etc.!
 - WebSocket - Calendars can be shared and will be updated in real time
 
 ### HTML Deliverable
-- HTML Pages - 
-- Links - 
-- Text - 
+- HTML Pages - Added four html pages (index, createAccount, dashboard, about) for the functionality of the website
+- Links - Every core page can be navigated to from any other core page. A link to the github repo is available in the
+footer of every page.
+- Text - The final product won't have very much plain text that isn't part of some dialog object, most of it is on the
+about page. Relevant info has been added.
 - Images - 
-- Login - 
-- 3rd Party placeholder - 
-- Database data -
-- WebSocket -
+- Login - Current user is displayed at the top of the header in every page, and obviously on the login page itself.
+- 3rd Party placeholder - The third part call will be added to the footer of every page as a random "Monster Hunter"
+monster description generated every time the page is initially loaded.
+- Database data - Database data will be displayed in the current user info at the top, as well as on the main dashboard
+in the form of the calendar itself.
+- WebSocket - A live chat box will be placed right below the calendar, and will display the selected chat. Group
+calendars will also reload for every user whenever they are updated by any user
