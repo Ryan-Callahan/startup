@@ -25,5 +25,17 @@ with co-workers, teammates, friends, etc.!
 - Service - available endpoints will be:
   - calendar event CRUD operations
   - login, logout, register. Will require authentication, which will be stored in db
+  - Third-party service will be the [https://mhw-db.com](https://docs.mhw-db.com) API, which will display a random
+  monster description at the login page for fun.
 - DB - used to store user info, authentications, and calendar events
 - WebSocket - Calendars can be shared and will be updated in real time
+
+### HTML Deliverable
+- HTML Pages - 
+- Links - 
+- Text - 
+- Images - 
+- Login - 
+- 3rd Party placeholder - 
+- Database data -
+- WebSocket -
