@@ -36,7 +36,8 @@ with co-workers, teammates, friends, etc.!
 footer of every page.
 - Text - The final product won't have very much plain text that isn't part of some dialog object, most of it is on the
 about page. Relevant info has been added.
-- Images - 
+- Images - The page doesn't really have a functional use for images, so I'll probably add more once I get to styling
+everything. But technically the calendar placeholder is an image, and there's also my unused error page, so...
 - Login - Current user is displayed at the top of the header in every page, and obviously on the login page itself.
 - 3rd Party placeholder - The third part call will be added to the footer of every page as a random "Monster Hunter"
 monster description generated every time the page is initially loaded.
