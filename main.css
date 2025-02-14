@@ -1,5 +1,4 @@
 header {
-
     background-color: #0f1e36;
 }
 
@@ -35,10 +34,27 @@ h1 {
     padding: 1em;
 }
 
+.nav {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .column {
     display: grid;
     grid-row-gap: 1em;
     justify-items: center;
+}
+
+.profile-button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: rgba(4, 13, 23, 0);
+}
+
+.profile-button .image {
+    width: auto;
+    transform: translateX(-20%) translateY(-3%);
 }
 
 .error-window {
