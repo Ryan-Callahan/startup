@@ -47,7 +47,7 @@ h1 {
 }
 .error-window .box {
     height: 100%;
-    width: 55%;
+    width: 100%;
     display: grid;
     place-items: center;
     border: 2px solid black;
