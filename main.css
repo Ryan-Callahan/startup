@@ -1,21 +1,44 @@
 header {
+
     background-color: #0f1e36;
 }
 
 main {
-    display: block;
+    display: grid;
     align-items: center;
-    margin-top: 4em;
+    margin-top: 5em;
     padding: 2em;
+    grid-row-gap: 1em;
+    justify-items: center;
 }
 
 footer {
+    display: grid;
     background-color: #0f1e36;
     padding: 1em;
+    justify-items: center;
+}
+
+form {
+    display: inline-grid;
+    grid-row-gap: 10px;
+    grid-column-gap: 4px;
+}
+
+h1 {
+    font-size: 50pt;
+    max-font-size: 50pt;
+    min-font-size: 12pt;
 }
 
 .navbar {
     padding: 1em;
+}
+
+.column {
+    display: grid;
+    grid-row-gap: 1em;
+    justify-items: center;
 }
 
 .error-window {

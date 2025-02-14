@@ -13,10 +13,11 @@
     />
     <link rel="stylesheet" href="main.css"/>
 </head>
+
 <body class="bg-dark text-light">
     <header class="fixed-top bg-solid border-bottom">
         <nav class="navbar navbar-dark">
-            <p class="navbar-brand">Schedulizer260</p>
+            <div class="navbar-brand">Schedulizer260</div>
             <ul class="nav">
                 <li class="nav-item">
                     <a class="nav-link link-light" href="index.html">Login</a>
@@ -28,18 +29,18 @@
                     <a class="nav-link link-secondary" href="about.html">About</a>
                 </li>
             </ul>
-            <p>This is a placeholder for the username display/logout button.</p>
+            <div>This is a placeholder for the username display/logout button.</div>
         </nav>
     </header>
 
     <main>
-        <div class="">
+        <div>
             <h1>Welcome to Schedulizer260!</h1>
         </div>
-
-        <div>
-            <h3>Log in or create an account</h3>
-            <form>
+        <br />
+        <div class="column">
+            <form action="dashboard.html">
+                <h3>Log in or create an account</h3>
                 <div>
                     <input type="text" name="username" placeholder="Username/Email">
                     <input type="password" name="password" placeholder="password">
@@ -48,9 +49,9 @@
                     <button type="submit">Login</button>
                 </div>
             </form>
-            <p>OR</p>
+            <section>OR</section>
             <form action="createAccount.html">
-                <button>Create new account</button>
+                <button type="submit">Create new account</button>
             </form>
         </div>
     </main>
