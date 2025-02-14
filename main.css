@@ -1,0 +1,32 @@
+header {
+    background-color: #0f1e36;
+}
+
+main {
+    display: block;
+    align-items: center;
+    margin-top: 4em;
+    padding: 2em;
+}
+
+footer {
+    background-color: #0f1e36;
+    padding: 1em;
+}
+
+.navbar {
+    padding: 1em;
+}
+
+.error-window {
+    display: grid;
+    place-items: center;
+}
+.error-window .box {
+    height: 100%;
+    width: 55%;
+    display: grid;
+    place-items: center;
+    border: 2px solid black;
+    font-size: 1vw;
+}
