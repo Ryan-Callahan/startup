@@ -45,3 +45,13 @@ monster description generated every time the page is initially loaded.
 in the form of the calendar itself.
 - WebSocket - A live chat box will be placed right below the calendar, and will display the selected chat. Group
 calendars will also reload for every user whenever they are updated by any user
+
+### CSS Deliverable
+- Header, Footer, Main content body - all are visible and have their own styling within main.css.
+- Nav elements - found in the header on each page, styled appropriately according to the page the user is currently on.
+- Responsive window resizing - :) I tried
+- Application elements - Everything that can be reasonable done without React has been styled, such as the login/create
+  account pages, the nav, and the footer.
+- Application text content - All text on the site has been appropriately styled and sized to look professional.
+- Application images - yes these exist now. all three of them. placeholder text has been removed and images are sized 
+  appropriately.
