@@ -10,7 +10,7 @@ and when you will work on them, allowing you to work in harmony with all the oth
 Working on a team? Schedulizer has you covered, with shared planners and features to help you coordinate 
 with co-workers, teammates, friends, etc.!
 
-![Schedulizer Mockup](schedulizer_mockup.png)
+![Schedulizer Mockup](public/schedulizer_mockup.png)
 
 ### Core Features:
 - Ability to create, edit, view, and utilize multiple planners through the web

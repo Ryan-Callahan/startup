@@ -29,4 +29,14 @@ or
 ssh -i "C:\Users\ryanc\BYU\Winter25\cs260\DO_NOT_COMMIT_260RSAkey.pem" ubuntu@schedulizer260.com
 ```
 
-this is new notes
+### Deployment
+
+deployFiles
+```
+./deployFiles.sh -k "C:\Users\ryanc\BYU\Winter25\cs260\DO_NOT_COMMIT_260RSAkey.pem" -h schedulizer260.com -s startup
+```
+
+deployReact
+```
+./deployFiles.sh -k "C:\Users\ryanc\BYU\Winter25\cs260\DO_NOT_COMMIT_260RSAkey.pem" -h schedulizer260.com -s startup
+```

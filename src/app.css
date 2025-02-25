@@ -30,6 +30,12 @@ h1 {
     min-font-size: 12pt;
 }
 
+.body {
+    display: flex;
+    flex-direction: column;
+    min-width: 375px;
+}
+
 .navbar {
     padding: 1em;
 }
