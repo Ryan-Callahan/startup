@@ -55,3 +55,9 @@ calendars will also reload for every user whenever they are updated by any user
 - Application text content - All text on the site has been appropriately styled and sized to look professional.
 - Application images - yes these exist now. all three of them. placeholder text has been removed and images are sized 
   appropriately.
+
+### React Phase 1
+- this was indeed bundled using vite
+- app.jsx is being used to keep the header and footer uniform regardless of which route is currently selected.
+- Routing is being used to select which page is being rendered
+- 

@@ -6,6 +6,7 @@ import { Login } from './login/login';
 import { Dashboard } from './dashboard/dashboard';
 import { About } from './about/about';
 import { CreateAccount } from './login/createAccount';
+import {Nav, NavItem} from "react-bootstrap";
 
 export default function App() {
     return (
@@ -14,17 +15,17 @@ export default function App() {
                 <header className="fixed-top bg-solid border-bottom">
                     <nav className="navbar navbar-dark">
                         <div className="navbar-brand">Schedulizer260</div>
-                        <ul className="nav">
-                            <li className="nav-item">
+                        <Nav className="nav" variant="pills" defaultActiveKey="">
+                            <NavItem className="nav-item">
                                 <NavLink className="nav-link link-light" to="">Login</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink className="nav-link link-secondary" to="dashboard">Home</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink className="nav-link link-secondary" to="about">About</NavLink>
-                            </li>
-                        </ul>
+                            </NavItem>
+                            <NavItem className="nav-item">
+                                <NavLink className="nav-link link-light" eventKey="link-1" to="dashboard">Home</NavLink>
+                            </NavItem>
+                            <NavItem className="nav-item">
+                                <NavLink className="nav-link link-light" to="about">About</NavLink>
+                            </NavItem>
+                        </Nav>
                         <button className="profile-button">
                             <img alt="profile-circle" src="/profile-circle.svg"
                                  className="profile-button image"/>
