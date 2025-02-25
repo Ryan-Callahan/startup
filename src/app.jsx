@@ -1,7 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
-import {Routes} from "react-router-dom";
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { Login } from './login/login';
+import { Dashboard } from './dashboard/dashboard';
+import { About } from './about/about';
+import { CreateAccount } from './login/createAccount';
 
 export default function App() {
     return (
@@ -12,27 +16,31 @@ export default function App() {
                         <div className="navbar-brand">Schedulizer260</div>
                         <ul className="nav">
                             <li className="nav-item">
-                                <a className="nav-link link-light" href="login.html">Login</a>
+                                <NavLink className="nav-link link-light" to="">Login</NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link link-secondary" href="../dashboard/dashboard.html">Home</a>
+                                <NavLink className="nav-link link-secondary" to="dashboard">Home</NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link link-secondary" href="../about/about.html">About</a>
+                                <NavLink className="nav-link link-secondary" to="about">About</NavLink>
                             </li>
                         </ul>
                         <button className="profile-button">
-                            <img alt="profile-circle" src="../../public/profile-circle.svg"
+                            <img alt="profile-circle" src="/profile-circle.svg"
                                  className="profile-button image"/>
                         </button>
                     </nav>
                 </header>
 
                 <Routes>
-
+                    <Route path='/' element={<Login />} exact/>
+                    <Route path='/about' element={<About />}/>
+                    <Route path='/dashboard' element={<Dashboard />}/>
+                    <Route path='/createAccount' element={<CreateAccount />}/>
+                    <Route path='*' element={<NotFound />}/>
                 </Routes>
 
-                <footer className="border-top fixed-bottom">
+                <footer className="border-top">
                     <p>placeholder for third party service dialog</p>
                     <small>Ryan Callahan 2025</small>
                     <div>
@@ -43,4 +51,8 @@ export default function App() {
             </div>
         </BrowserRouter>
     );
+}
+
+function NotFound() {
+    return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
 }

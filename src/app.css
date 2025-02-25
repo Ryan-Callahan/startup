@@ -3,6 +3,7 @@ header {
 }
 
 main {
+    flex: 1 calc(100vh - 180px);
     display: grid;
     align-items: center;
     margin-top: 5em;
@@ -28,6 +29,11 @@ h1 {
     font-size: 50pt;
     max-font-size: 50pt;
     min-font-size: 12pt;
+}
+
+a {
+    padding-right: 3px;
+    padding-left: 3px;
 }
 
 .body {
