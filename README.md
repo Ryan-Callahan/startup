@@ -60,4 +60,4 @@ calendars will also reload for every user whenever they are updated by any user
 - this was indeed bundled using vite
 - app.jsx is being used to keep the header and footer uniform regardless of which route is currently selected.
 - Routing is being used to select which page is being rendered
-- 
+- Forms are built using react-bootstrap's Form components
