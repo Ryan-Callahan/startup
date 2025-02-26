@@ -1,24 +1,24 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
+import {Form, FormControl, FormGroup} from "react-bootstrap";
 export function Login() {
     return (
         <main>
             <div className="column">
                 <h1>Welcome to Schedulizer!</h1>
-                <form action="../dashboard">
+                <Form>
                     <h3>Log in or create an account</h3>
-                    <div>
-                        <input type="text" name="username" placeholder="Username/Email"/>
-                        <input type="password" name="password" placeholder="password"/>
-                    </div>
-                    <div>
-                        <button type="submit">Login</button>
-                    </div>
-                </form>
+                    <FormGroup>
+                        <FormControl type="username" placeholder="Username/Email"/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <FormControl type="password" placeholder="password"/>
+                    </FormGroup>
+                    <Button variant="primary" type="submit" href="../dashboard">Login</Button>
+                </Form>
                 <section>OR</section>
-                <form action="../createAccount">
-                    <button type="submit">Create new account</button>
-                </form>
+                <Button variant="primary" href="../createAccount">Create new account</Button>
             </div>
         </main>
     );

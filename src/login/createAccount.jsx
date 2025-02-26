@@ -1,49 +1,33 @@
 import React from 'react';
+import {Form, FormControl, FormGroup, FormLabel} from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
 export function CreateAccount() {
     return (
         <main>
             <div className="column">
                 <h2>Create an account</h2>
-                <form className="container" action="../dashboard/dashboard.html">
-                    <div className="row">
-                        <div className="col-lg-6">
-                            <label htmlFor="email">Enter an email address:</label>
-                        </div>
-                        <div className="col-lg-6">
-                            <input type="email" id="email" placeholder="Email" required/>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-lg-6">
-                            <label htmlFor="username">Create a username:</label>
-                        </div>
-                        <div className="col-lg-6">
-                            <input type="text" id="username" placeholder="Username" required/>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-lg-6">
-                            <label htmlFor="password">Create a Password:</label>
-                        </div>
-                        <div className="col-lg-6">
-                            <input type="password" id="password" placeholder="password" required/>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-lg-6">
-                            <label htmlFor="verify-password">Re-enter password:</label>
-                        </div>
-                        <div className="col-lg-6">
-                            <input type="password" id="verify-password" placeholder="password" required/>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <button type="submit">Create account</button>
-                        </div>
-                    </div>
-                </form>
+                <Form className="container" action="../dashboard">
+                    <FormGroup>
+                        <FormLabel>Enter an email address:</FormLabel>
+                        <FormControl type="email" placeholder="Email" required/>
+                    </FormGroup>
+                    <FormGroup>
+                        <FormLabel>Create a username:</FormLabel>
+                        <FormControl type="username" placeholder="Username" required/>
+                    </FormGroup>
+                    <FormGroup>
+                        <FormLabel htmlFor="password">Create a Password:</FormLabel>
+                        <FormControl type="password" id="password" placeholder="password" required/>
+                    </FormGroup>
+                    <FormGroup>
+                        <FormLabel htmlFor="verify-password">Re-enter password:</FormLabel>
+                        <FormControl type="password" id="verify-password" placeholder="password" required/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Button variant="primary" type="submit">Create account</Button>
+                    </FormGroup>
+                </Form>
             </div>
 
             <br/>
