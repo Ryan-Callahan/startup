@@ -2,7 +2,7 @@ import React from 'react';
 
 export function Error() {
     return (
-        <main>
+        <>
             <div className="error-window">
                 <h1>We have encountered an error!</h1>
                 <div className="box">
@@ -14,6 +14,6 @@ export function Error() {
 
             <br/>
             <hr/>
-        </main>
+        </>
     );
 }

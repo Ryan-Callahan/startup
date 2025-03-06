@@ -36,6 +36,10 @@ a {
     padding-left: 3px;
 }
 
+errorMessage {
+    color: red;
+}
+
 .body {
     display: flex;
     flex-direction: column;

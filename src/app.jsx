@@ -7,8 +7,13 @@ import { Dashboard } from './dashboard/dashboard';
 import { About } from './about/about';
 import { CreateAccount } from './login/createAccount';
 import {Nav, NavItem} from "react-bootstrap";
+import {AuthState} from "./login/authState";
 
 export default function App() {
+    const [user, setUser] = React.useState(localStorage.getItem('user') || '');
+    const currentAuthState = user ? AuthState.Authenticated : AuthState.Unauthenticated;
+    const [authState, setAuthState] = React.useState(currentAuthState);
+
     return (
         <BrowserRouter>
             <div className="body bg-dark text-light">
@@ -19,9 +24,11 @@ export default function App() {
                             <NavItem className="nav-item">
                                 <NavLink className="nav-link link-light" to="">Login</NavLink>
                             </NavItem>
-                            <NavItem className="nav-item">
-                                <NavLink className="nav-link link-light" eventKey="link-1" to="dashboard">Home</NavLink>
-                            </NavItem>
+                            {authState === AuthState.Authenticated && (
+                                <NavItem className="nav-item">
+                                    <NavLink className="nav-link link-light" eventKey="link-1" to="dashboard">Home</NavLink>
+                                </NavItem>
+                            )}
                             <NavItem className="nav-item">
                                 <NavLink className="nav-link link-light" to="about">About</NavLink>
                             </NavItem>
@@ -34,7 +41,16 @@ export default function App() {
                 </header>
 
                 <Routes>
-                    <Route path='/' element={<Login />} exact/>
+                    <Route path='/' element={
+                        <Login
+                            user={user}
+                            authState={authState}
+                            onAuthChange={(user, authState) => {
+                                setAuthState(authState);
+                                setUser(user);
+                            }}
+                        />
+                    } exact/>
                     <Route path='/about' element={<About />}/>
                     <Route path='/dashboard' element={<Dashboard />}/>
                     <Route path='/createAccount' element={<CreateAccount />}/>
