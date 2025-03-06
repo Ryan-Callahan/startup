@@ -1,23 +1,16 @@
 import {Form, FormControl, FormGroup} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import React from "react";
-import { useNavigate } from 'react-router-dom';
 import {CreateAccount} from "./createAccount";
 
 export function LoggedOut(props) {
     const [user, setUser] = React.useState(props.user);
     const [password, setPassword] = React.useState('');
-    const navigate = useNavigate();
     const [creating, setCreating] = React.useState(false);
 
     async function loginUser(user) {
         localStorage.setItem('user', user);
         props.onLogin(user);
-    }
-
-    async function createUser() {
-        setCreating(true)
-        localStorage.setItem('creating', creating)
     }
 
     return (

@@ -1,11 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
-import { Login } from './login/login';
-import { Dashboard } from './dashboard/dashboard';
-import { About } from './about/about';
-import { CreateAccount } from './login/createAccount';
+import {BrowserRouter, NavLink, Route, Routes} from 'react-router-dom';
+import {Login} from './login/login';
+import {Dashboard} from './dashboard/dashboard';
+import {About} from './about/about';
+import {CreateAccount} from './login/createAccount';
 import {Nav, NavItem} from "react-bootstrap";
 import {AuthState} from "./login/authState";
 
