@@ -73,6 +73,11 @@ errorMessage {
     transform: translateX(-20%) translateY(-3%);
 }
 
+.profile-menu {
+    display: flex;
+    padding-left: 10px;
+}
+
 .error-window {
     display: grid;
     place-items: center;
@@ -84,4 +89,8 @@ errorMessage {
     place-items: center;
     border: 2px solid black;
     font-size: 1vw;
+}
+
+.fixed-top {
+    z-index: 300;
 }

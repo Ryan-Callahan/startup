@@ -8,6 +8,7 @@ import {About} from './about/about';
 import {CreateAccount} from './login/createAccount';
 import {Nav, NavItem} from "react-bootstrap";
 import {AuthState} from "./login/authState";
+import {Profile} from "./profile/profile";
 
 export default function App() {
     const [user, setUser] = React.useState(localStorage.getItem('user') || '');
@@ -33,10 +34,7 @@ export default function App() {
                                 <NavLink className="nav-link link-light" to="about">About</NavLink>
                             </NavItem>
                         </Nav>
-                        <button className="profile-button">
-                            <img alt="profile-circle" src="/profile-circle.svg"
-                                 className="profile-button image"/>
-                        </button>
+                        <Profile/>
                     </nav>
                 </header>
 
