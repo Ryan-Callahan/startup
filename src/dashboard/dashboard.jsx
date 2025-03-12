@@ -1,5 +1,7 @@
 import React from 'react';
 import Button from "react-bootstrap/Button";
+import {Col, Container, Row} from "react-bootstrap";
+import {Calendar} from "./calendar";
 
 export function Dashboard() {
     function getEpochToMinute() {
@@ -15,16 +17,26 @@ export function Dashboard() {
 
     return (
         <main>
-            <div>
-                <div>
-                    <p>this is a placeholder for the main calendar display, which will rely heavily on CSS and
-                        React.</p>
-                    <img alt="calendar mockup" src="../../public/schedulizer_mockup.png" width="100%"/>
-                </div>
-                <div>
-                    <p>this is a placeholder for the active live chat box.</p>
-                </div>
-            </div>
+            <Container>
+                <Row>
+                    <Col>
+                        this is a placeholder for the main calendar display, which will rely heavily on CSS and React.
+                    </Col>
+                    <Col></Col>
+                    <Col></Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Calendar />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        this is a placeholder for the active live chat box.
+                    </Col>
+                    <Col></Col>
+                </Row>
+            </Container>
 
             {/*TODO TEMPORARY COMMENTED CODE*/}
             {/*<Button onClick={() => console.log(getEpochToMinute())}>epoch</Button>*/}
