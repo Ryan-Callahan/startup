@@ -1,17 +1,33 @@
+.content {
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-bottom: 2px;
+}
+
+.calendar-container {
+    height: calc(100%);
+    overflow: hidden;
+}
+
 .calendar {
     border: 3px solid black;
     background-color: #474747;
+    height: 100%;
+    overflow-y: auto;
 }
 
-.weekRow {
-    border-bottom: 2px dashed grey;
+.day {
+
 }
 
 .weekHeader {
-    border-bottom: 3px solid #2e2e2e;
+    border-bottom: 3px solid #1e1e1e;
+    border-top: 3px solid #1e1e1e;
+    border-left: 2px solid #1e1e1e;
+    border-right: 2px solid #1e1e1e;
 }
 
-.timeCell {
-    border-left: 2px solid #2e2e2e;
-    border-right: 2px solid #2e2e2e;
+.time {
+    border-left: 2px solid #1e1e1e;
+    border-right: 2px solid #1e1e1e;
 }

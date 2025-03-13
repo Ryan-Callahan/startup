@@ -1,10 +1,9 @@
 import React from "react";
 import {Col, Container, Row} from "react-bootstrap";
-import {WeekRow} from "./weekRow";
+import {Day} from "./day";
 import './calendar.css';
 
 export function Calendar(props) {
-
     function weekHeader () {
         return (
             <Row className="weekHeader">
@@ -20,14 +19,17 @@ export function Calendar(props) {
     }
 
     return (
-        <Container className="calendar" fluid>
+        <Container className="calendar">
             {weekHeader()}
-            <WeekRow time='0800'/>
-            <WeekRow time='0900'/>
-            <WeekRow time='1000'/>
-            <WeekRow time='1100'/>
-            <WeekRow time='1200'/>
-            <WeekRow time='1300'/>
+            <Row>
+                <Day day='sunday'/>
+                <Day day='monday'/>
+                <Day day='tuesday'/>
+                <Day day='wednesday'/>
+                <Day day='thursday'/>
+                <Day day='friday'/>
+                <Day day='saturday'/>
+            </Row>
         </Container>
     )
 }
