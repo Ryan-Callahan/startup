@@ -7,13 +7,13 @@ export function Calendar(props) {
     function weekHeader () {
         return (
             <Row className="weekHeader">
-                <Col className="timeCell">Sunday</Col>
-                <Col className="timeCell">Monday</Col>
-                <Col className="timeCell">Tuesday</Col>
-                <Col className="timeCell">Wednesday</Col>
-                <Col className="timeCell">Thursday</Col>
-                <Col className="timeCell">Friday</Col>
-                <Col className="timeCell">Saturday</Col>
+                <Col className="time">Sunday</Col>
+                <Col className="time">Monday</Col>
+                <Col className="time">Tuesday</Col>
+                <Col className="time">Wednesday</Col>
+                <Col className="time">Thursday</Col>
+                <Col className="time">Friday</Col>
+                <Col className="time">Saturday</Col>
             </Row>
         )
     }

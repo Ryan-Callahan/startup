@@ -27,7 +27,7 @@ export function Dashboard() {
                 </Row>
                 <Row>
                     <Col>
-                        <div style={{maxHeight: '100vh', overflow: 'auto'}}>
+                        <div style={{maxHeight: '80vh', overflow: 'auto', border: '3px solid black'}}>
                             <Calendar />
                         </div>
                     </Col>
