@@ -23,6 +23,10 @@ export function Time(props) {
         return (formattedHour() + ":" + formattedMinute() + getSuffix());
     }
 
+    function getEvents() {
+        localStorage.getItem(props.time)
+    }
+
     return (
         <Row className="time">
             <Container fluid style={{borderBottom: '2px dashed rgba(128, 128, 128, 0.50)'}}>

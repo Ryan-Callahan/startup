@@ -57,6 +57,27 @@ deployReact
  - each event will be a one-column grid with title, description, etc.
  - clicking an event should open a modal for that event where it can be edited and viewed
 
+### Calendar Dates
+ - Upon rendering the Calendar:
+   - get the active week
+     - default active week will be whatever the week of the current date is
+   - render the whole week
+   - if the current day is within the active week, highlight the day in the header
+   - pass the time for each day into each Day reference
+ - Upon rendering each Day:
+   - calculate each time in that day for whatever magnitude the calendar is going by
+     - default being by the hour
+   - pass each time into each Time reference
+ - Upon rendering each Time:
+   - pull the active calendars for the user
+   - pull any events for that specific time from active calendars
+   - render each event for that time
+ - note - for development purposes, probably only one or two events will be allowed per date until I can figure out a
+   viable solution for making each time cell the same uniform size.
+   - possible solutions:
+     - make each cell a set size, display the number of events per day if too many events to fit in cell, create a
+       modal for each cell that renders all events
+
 ### The Event JSON Object
  - Each event will consist of:
    - Parent calendar
