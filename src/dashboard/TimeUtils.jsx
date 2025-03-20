@@ -9,7 +9,7 @@ class TimeUtils {
     }
 
     /**
-     * takes a time in epoch format and floors it to the current day
+     * takes a time in epoch format and floors it to the current day according to users current timezone
      * @param time
      * @returns {number}
      */
@@ -32,7 +32,6 @@ class TimeUtils {
      */
     static getCurrentWeek() {
         let now = new Date();
-        now = new Date(self.getTimezoneTime(now));
         now.setDate(now.getDate() - now.getDay())
         return now;
     }
@@ -47,3 +46,5 @@ class TimeUtils {
         return (then);
     }
 }
+
+export default TimeUtils;

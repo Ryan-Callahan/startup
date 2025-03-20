@@ -2,8 +2,12 @@ import React from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import {Day} from "./day";
 import './calendar.css';
+import TimeUtils from "./TimeUtils";
 
 export function Calendar(props) {
+    const currentWeek = props.activeWeek;
+    console.log("activeWeek: " + currentWeek.toUTCString());
+
     function weekHeader () {
         return (
             <Row className="weekHeader">

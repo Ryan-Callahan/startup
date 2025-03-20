@@ -2,11 +2,19 @@ import React from 'react';
 import Button from "react-bootstrap/Button";
 import {Col, Container, Row} from "react-bootstrap";
 import {Calendar} from "./calendar";
+import TimeUtils from './TimeUtils'
 
 export function Dashboard() {
 
+    /**
+     * Returns the active week in local time, not in UTC time. The calendar will be rendered in local time
+     *  and this is where the conversion takes place.
+     * @returns {Date}
+     */
     function getActiveWeek() {
-        return TimeUtils.getCurrentWeek();
+        const currentWeek = TimeUtils.getCurrentWeek();
+        let timezoneAdjustedWeek = TimeUtils.getTimezoneTime(currentWeek);
+        return TimeUtils.getDateFromEpoch(TimeUtils.getEpochToDay(timezoneAdjustedWeek.getTime()));
     }
 
     return (
@@ -35,8 +43,8 @@ export function Dashboard() {
             </Container>
 
             {/*TODO TEMPORARY COMMENTED CODE*/}
-            <Button onClick={() => console.log(getEpochToDay(getCurrentWeek()))}>epoch</Button>
-            <Button onClick={() => console.log(getDateFromEpoch(getEpochToDay(getCurrentWeek())).toUTCString())}>date</Button>
+            <Button onClick={() => console.log(TimeUtils.getEpochToDay(TimeUtils.getCurrentWeek()))}>epoch</Button>
+            <Button onClick={() => console.log(TimeUtils.getDateFromEpoch(TimeUtils.getEpochToDay(TimeUtils.getCurrentWeek())))}>date</Button>
 
             <hr/>
         </main>

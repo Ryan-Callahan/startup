@@ -77,6 +77,8 @@ deployReact
    - possible solutions:
      - make each cell a set size, display the number of events per day if too many events to fit in cell, create a
        modal for each cell that renders all events
+ - The db will store times in UTC time, the frontend will render times according to local time. I need to find a way
+   to convert between the two for this purpose
 
 ### The Event JSON Object
  - Each event will consist of:
