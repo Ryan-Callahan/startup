@@ -10,7 +10,7 @@ export function Day(props) {
     return (
         <Col className="day">
             <Row className="weekHeader time content">
-                {TimeUtils.getDayAsString(props.day)}
+                {TimeUtils.getDateAsString(props.day)}
             </Row>
             <Time time={TimeUtils.getDatePlusHours(props.day, 0)}/>
             <Time time={TimeUtils.getDatePlusHours(props.day, 1)}/>
