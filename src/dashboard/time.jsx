@@ -1,11 +1,9 @@
 import React from "react";
-import {Col, Container, Row} from "react-bootstrap";
+import {Container, Row} from "react-bootstrap";
 
 export function Time(props) {
-    const time = props.time;
-    const day = props.day;
-    let hour = Math.floor(time / 100);
-    const minutes = time % 100;
+    const hour = props.time.getUTCHours();
+    const minutes = props.time.getUTCMinutes();
 
     function formattedHour() {
         return (hour > 12 ? hour - 12 : hour === 0 ? 12 : hour);
@@ -20,11 +18,11 @@ export function Time(props) {
     }
 
     function formattedTime() {
-        return (formattedHour() + ":" + formattedMinute() + getSuffix());
+        return (formattedHour() + ":" + formattedMinute() + ' ' + getSuffix());
     }
 
     function getEvents() {
-        localStorage.getItem(props.time)
+        localStorage.getItem(props.time.getTime())
     }
 
     return (

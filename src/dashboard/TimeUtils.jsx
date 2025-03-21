@@ -32,6 +32,7 @@ class TimeUtils {
      */
     static getCurrentWeek() {
         let now = new Date();
+        console.log("Current Date: " + now)
         now.setDate(now.getDate() - now.getDay())
         return now;
     }
@@ -44,6 +45,38 @@ class TimeUtils {
     static getDateFromEpoch(date) {
         const then = new Date(date);
         return (then);
+    }
+
+    static getDatePlusDays(date, days) {
+        const newDate = new Date(date.getTime());
+        newDate.setDate(newDate.getDate() + days);
+        return newDate;
+    }
+
+    static getDatePlusHours(date, hours) {
+        const newDate = new Date(date.getTime());
+        newDate.setUTCHours(newDate.getUTCHours() + hours);
+        return newDate;
+    }
+
+    static getDayAsString(date) {
+        switch (date.getUTCDay()) {
+            case 0:
+                return 'Sunday';
+            case 1:
+                return 'Monday';
+            case 2:
+                return 'Tuesday';
+            case 3:
+                return 'Wednesday';
+            case 4:
+                return 'Thursday';
+            case 5:
+                return 'Friday';
+            case 6:
+                return 'Saturday';
+
+        }
     }
 }
 

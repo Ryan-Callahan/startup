@@ -1,35 +1,41 @@
 import React from "react";
 import {Col, Row} from "react-bootstrap";
 import {Time} from "./time";
+import TimeUtils from "./TimeUtils";
 
 export function Day(props) {
+    console.log(props.day.toUTCString());
+    console.log(TimeUtils.getDayAsString(props.day))
 
     return (
         <Col className="day">
-            <Time time='0000' day={props.day}/>
-            <Time time='0100' day={props.day}/>
-            <Time time='0200' day={props.day}/>
-            <Time time='0300' day={props.day}/>
-            <Time time='0400' day={props.day}/>
-            <Time time='0500' day={props.day}/>
-            <Time time='0600' day={props.day}/>
-            <Time time='0700' day={props.day}/>
-            <Time time='0800' day={props.day}/>
-            <Time time='0900' day={props.day}/>
-            <Time time='1000' day={props.day}/>
-            <Time time='1100' day={props.day}/>
-            <Time time='1200' day={props.day}/>
-            <Time time='1300' day={props.day}/>
-            <Time time='1400' day={props.day}/>
-            <Time time='1500' day={props.day}/>
-            <Time time='1600' day={props.day}/>
-            <Time time='1700' day={props.day}/>
-            <Time time='1800' day={props.day}/>
-            <Time time='1900' day={props.day}/>
-            <Time time='2000' day={props.day}/>
-            <Time time='2100' day={props.day}/>
-            <Time time='2200' day={props.day}/>
-            <Time time='2300' day={props.day}/>
+            <Row className="weekHeader time content">
+                {TimeUtils.getDayAsString(props.day)}
+            </Row>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 0)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 1)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 2)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 3)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 4)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 5)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 6)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 7)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 8)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 9)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 10)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 11)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 12)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 13)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 14)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 15)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 16)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 17)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 18)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 19)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 20)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 21)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 22)}/>
+            <Time time={TimeUtils.getDatePlusHours(props.day, 23)}/>
         </Col>
     )
 }
