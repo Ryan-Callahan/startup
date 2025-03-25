@@ -66,3 +66,4 @@ calendars will also reload for every user whenever they are updated by any user
 - React is being used for the login process to display the correct forms for logging in, logging out, and creating
   a page.
 - reactjs-popup is a module being used to display the profile menu in the top right corner of the webpage.
+- The calendar is being rendered using React. Functionality is mostly there and just requires the database to be implemented now.
