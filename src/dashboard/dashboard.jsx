@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from "react-bootstrap/Button";
 import {Col, Container, Row} from "react-bootstrap";
-import {Calendar} from "./calendar";
-import TimeUtils from './TimeUtils'
+import {Calendar} from "./calendar/calendar";
+import TimeUtils from './calendar/TimeUtils'
 
 export function Dashboard() {
 

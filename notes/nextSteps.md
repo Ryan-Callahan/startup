@@ -1,0 +1,5 @@
+- implement writing events
+- read events from local storage
+- calendar paginator
+- make random thing at bottom
+- move to next phase

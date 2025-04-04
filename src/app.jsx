@@ -34,7 +34,7 @@ export default function App() {
                                 <NavLink className="nav-link link-light" to="about">About</NavLink>
                             </NavItem>
                         </Nav>
-                        <Profile/>
+                        <Profile />
                     </nav>
                 </header>
 

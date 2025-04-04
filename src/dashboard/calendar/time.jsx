@@ -1,5 +1,6 @@
 import React from "react";
 import {Container, Row} from "react-bootstrap";
+import {Event} from "../event/event";
 
 export function Time(props) {
     const hour = props.time.getUTCHours();
@@ -23,6 +24,9 @@ export function Time(props) {
 
     function getEvents() {
         localStorage.getItem(props.time.getTime())
+        return (
+            <div className="event-window"><Event/></div>
+        )
     }
 
     return (
@@ -32,8 +36,8 @@ export function Time(props) {
                     <Row style={{borderBottom: '1px dashed rgba(0, 0, 0, 0.30)'}}>
                         {formattedTime()}
                     </Row>
-                    <Row>
-                        placeholder text for the events
+                    <Row >
+                        {getEvents()}
                     </Row>
                 </div>
             </Container>
