@@ -96,21 +96,25 @@ deployReact
    would allow the DAO to pull only events related to calendars the user is entitled to, without pulling every single 
    event from every single calendar that takes place at a given date only to display a fraction of them.
 
+Calendar JSON
 ```json
 {
   "calendarID" : 4,
   "dates" : [
     {
       "date": 1741312740000,
-      "events": [
-        {
-          "EventID": 1,
-          "name": "Ryan's appointment",
-          "description": "the appointed hour shall arrive"
-        }
-      ]
+      "events": ["..."]
     }
   ]
+}
+```
+
+Event JSON
+```json
+{
+    "EventID": 1,
+    "name": "Ryan's appointment",
+    "description": "the appointed hour shall arrive"
 }
 ```
 

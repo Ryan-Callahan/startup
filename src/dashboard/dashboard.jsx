@@ -22,10 +22,10 @@ export function Dashboard() {
             <Container>
                 <Row>
                     <Col>
-                        this is a placeholder for the main calendar display, which will rely heavily on CSS and React.
+                        Calendars
                     </Col>
-                    <Col></Col>
-                    <Col></Col>
+                    <Col>Paginator</Col>
+                    <Col>Create Event</Col>
                 </Row>
                 <Row>
                     <Col>
@@ -36,15 +36,17 @@ export function Dashboard() {
                 </Row>
                 <Row>
                     <Col>
-                        this is a placeholder for the active live chat box.
+                        Chats
                     </Col>
-                    <Col></Col>
+                    <Col>Chatbox</Col>
                 </Row>
             </Container>
 
             {/*TODO TEMPORARY COMMENTED CODE*/}
+            *****THIS IS TEMPORARY CODE*****
             <Button onClick={() => console.log(TimeUtils.getEpochToDay(TimeUtils.getCurrentWeek()))}>epoch</Button>
             <Button onClick={() => console.log(TimeUtils.getDateFromEpoch(TimeUtils.getEpochToDay(TimeUtils.getCurrentWeek())))}>date</Button>
+            *****THIS IS TEMPORARY CODE*****
 
             <hr/>
         </main>
