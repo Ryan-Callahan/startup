@@ -23,9 +23,9 @@ export function Time(props) {
     }
 
     function getEvents() {
-        localStorage.getItem(props.time.getTime())
+        const evnt = 7
         return (
-            <div className="event-window"><Event/></div>
+            <div className="event-window"><Event time={formattedTime()} date={props.time} event={evnt}/></div>
         )
     }
 
@@ -36,7 +36,7 @@ export function Time(props) {
                     <Row style={{borderBottom: '1px dashed rgba(0, 0, 0, 0.30)'}}>
                         {formattedTime()}
                     </Row>
-                    <Row >
+                    <Row>
                         {getEvents()}
                     </Row>
                 </div>

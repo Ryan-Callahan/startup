@@ -5,6 +5,11 @@ import {Calendar} from "./calendar/calendar";
 import TimeUtils from './calendar/TimeUtils'
 
 export function Dashboard() {
+    //TODO THIS IS TEST CODE
+    localStorage.setItem("4", '["1743292800000", "1741312984000"]')
+    localStorage.setItem("1743292800000", '["1", "2"]')
+    localStorage.setItem("1", '{"name": "Ryan\'s appointment", "description": "the appointed hour shall arrive"}')
+    localStorage.setItem("2", '{"name": "Second appointment", "description": "the appointed hour has arrived"}')
 
     /**
      * Returns the active week in local time, not in UTC time. The calendar will be rendered in local time
@@ -30,7 +35,7 @@ export function Dashboard() {
                 <Row>
                     <Col>
                         <div style={{maxHeight: '80vh', overflow: 'auto', border: '3px solid black'}}>
-                            <Calendar activeWeek={getActiveWeek()} />
+                            <Calendar activeWeek={getActiveWeek()} calendars="4" />
                         </div>
                     </Col>
                 </Row>
