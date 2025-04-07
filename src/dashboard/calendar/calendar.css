@@ -15,7 +15,7 @@
 }
 
 .day {
-
+    min-width: 100px;
 }
 
 .weekHeader {
@@ -29,7 +29,11 @@
 }
 
 .event-window {
-    padding: 0;
+    padding: 0 4px 0 0;
     height: 100px;
     overflow: hidden;
+}
+
+.event-modal-wrapper {
+    width: 50px;
 }

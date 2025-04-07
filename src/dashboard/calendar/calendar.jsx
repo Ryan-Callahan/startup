@@ -7,20 +7,26 @@ import TimeUtils from "./TimeUtils";
 export function Calendar(props) {
     const currentWeek = props.activeWeek;
 
-    function getDay(day) {
+    function getDateFromDay(day) {
         return TimeUtils.getDatePlusDays(currentWeek, day);
+    }
+
+    function get() {
+
+    }
+
+    function getDays() {
+        const days = []
+        for (let i = 0; i < 7; i++) {
+            days.push(<Day day={getDateFromDay(i)} calendars={props.calendars}/>)
+        }
+        return <>{days}</>
     }
 
     return (
         <Container className="calendar">
             <Row>
-                <Day day={getDay(0)}/>
-                <Day day={getDay(1)}/>
-                <Day day={getDay(2)}/>
-                <Day day={getDay(3)}/>
-                <Day day={getDay(4)}/>
-                <Day day={getDay(5)}/>
-                <Day day={getDay(6)}/>
+                {getDays()}
             </Row>
         </Container>
     )
