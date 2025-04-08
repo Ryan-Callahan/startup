@@ -8,9 +8,11 @@ export function Event(props) {
 
     function getEventCard() {
         return (
-            <Card>
-                {event["name"]}
-            </Card>
+            <div className="event-card-container">
+                <Card>
+                    {event["name"]}
+                </Card>
+            </div>
         )
     }
 

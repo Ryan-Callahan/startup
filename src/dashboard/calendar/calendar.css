@@ -37,3 +37,13 @@
 .event-modal-wrapper {
     width: 50px;
 }
+
+.overflow-card {
+    width: 20%;
+    text-align: center;
+}
+
+.event-card-container {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}

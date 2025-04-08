@@ -1,6 +1,7 @@
 import React from "react";
-import {Container, Row} from "react-bootstrap";
+import {Card, Container, Row} from "react-bootstrap";
 import {Event} from "../event/event";
+import Popup from "reactjs-popup";
 
 export function Time(props) {
     const hour = props.time.getUTCHours();
@@ -23,18 +24,28 @@ export function Time(props) {
         return (formattedHour() + ":" + formattedMinute() + ' ' + getSuffix());
     }
 
+    function getOverflowingEvents(o) {
+        return (
+            <Popup
+                trigger={
+                    <div className="event-card-container overflow-card"><Card>...</Card></div>
+                }
+                position="bottom left"
+            >{o}</Popup>
+        )
+    }
+
     function getEvents() {
         const e = []
+        const o = []
         if (events != null) {
             for (let i = 0; i < events.length; i++) {
-                const event = events[i]
-                console.log("Event Time: " + formattedTime() + "\nEvent: " + event) //TODO remove debug
-                e.push(
-                    <Event time={formattedTime()} date={props.time} eventID={event}/>
-                )
+                const event = <Event time={formattedTime()} date={props.time} eventID={events[i]}/>;
+                (i < 2) ? e.push(event) : o.push(event);
             }
         }
-        return <div className="event-window">{e}</div>
+        if (o.length > 0) { e.push(getOverflowingEvents(o)) }
+        return <div className="event-window">{e}</div>;
     }
 
     return (
