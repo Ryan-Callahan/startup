@@ -25,11 +25,14 @@ export function Time(props) {
 
     function getEvents() {
         const e = []
-        for (const event in events) {
-            console.log(formattedTime())
-            e.push(
-                <Event time={formattedTime()} date={props.time} event={event}/>
-            )
+        if (events != null) {
+            for (let i = 0; i < events.length; i++) {
+                const event = events[i]
+                console.log("Event Time: " + formattedTime() + "\nEvent: " + event) //TODO remove debug
+                e.push(
+                    <Event time={formattedTime()} date={props.time} eventID={event}/>
+                )
+            }
         }
         return <div className="event-window">{e}</div>
     }

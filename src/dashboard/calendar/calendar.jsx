@@ -10,9 +10,9 @@ export function Calendar(props) {
 
     const timesList = []
     new Set(calendars.flatMap(calendar => {
-        return localStorage.getItem(calendar).split(',')
+        return JSON.parse(localStorage.getItem(calendar))
     })).forEach(item => timesList.push(item))
-    console.log("Times list: " + timesList)
+    console.log("Times list: " + timesList) //TODO remove debug
 
     function getDateFromDay(day) {
         return TimeUtils.getDatePlusDays(currentWeek, day);

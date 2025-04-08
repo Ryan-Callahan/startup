@@ -6,15 +6,15 @@ import TimeUtils from './calendar/TimeUtils'
 
 export function Dashboard() {
     //TODO THIS IS TEST CODE
-    localStorage.setItem("4", ["1743292800000", "1744085526000"])
-    localStorage.setItem("5", ["1743292800000", "1744070400000", "1744070194236", "1744070399000"])
-    localStorage.setItem("1744070400000", ["1", "2"])
-    localStorage.setItem("1744070399000", ["3"])
-    localStorage.setItem("1744085526000", ["2"])
-    localStorage.setItem("1744070194236", ["1"])
-    localStorage.setItem("1", {"name": "Ryan\'s appointment", "description": "the appointed hour shall arrive"})
-    localStorage.setItem("2", {"name": "Second appointment", "description": "the appointed hour has arrived"})
-    localStorage.setItem("3", {"name": "Third Appointment", "description": "the appointed hour has passed"})
+    localStorage.setItem("4", '["1743292800000", "1744085526000"]')
+    localStorage.setItem("5", '["1743292800000", "1744070400000", "1744070194236", "1744070399000"]')
+    localStorage.setItem("1744070400000", '["event1", "event2"]')
+    localStorage.setItem("1744070399000", '["event3"]')
+    localStorage.setItem("1744085526000", '["event2"]')
+    localStorage.setItem("1744070194236", '["event1"]')
+    localStorage.setItem("event1", '{"name": "Ryan\'s appointment", "description": "the appointed hour shall arrive"}')
+    localStorage.setItem("event2", '{"name": "Second appointment", "description": "the appointed hour has arrived"}')
+    localStorage.setItem("event3", '{"name": "Third Appointment", "description": "the appointed hour has passed"}')
     const calendars = ["4", "5"]
 
     /**
