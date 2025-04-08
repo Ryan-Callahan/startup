@@ -4,17 +4,24 @@ import {Time} from "./time";
 import TimeUtils from "./TimeUtils";
 
 export function Day(props) {
-    const calendars = localStorage.getItem(props.calendars)
-    const times = []
-    for (const calendar of calendars) {
-        times.push(localStorage.getItem(calendar))
-    }
-
+    const eventTimes = props.eventTimes
+    console.log(props.day.toUTCString(), eventTimes)
+    const relevantTimes = new Map
+    eventTimes.map(time => {
+        const roundedTime = TimeUtils.getEpochToHour(time)
+        if (!relevantTimes.has(roundedTime)) {
+            relevantTimes.set(roundedTime, [time])
+        } else {
+            relevantTimes.get(roundedTime).push(time)
+        }
+    })
 
     function getEventsForTime(time) {
-        if (time in times) {
-            console.log("retrieved time: " + localStorage.getItem(time))
-            return localStorage.getItem(time)
+        if (relevantTimes.has(time)) {
+            const eventTimes = relevantTimes.get(time)
+            const events = eventTimes.flatMap(t => localStorage.getItem(t))
+            console.log("retrieved time: " + time + "\ntime keys : " + relevantTimes.get(time) + "\nEvents: " + events)
+            return events
         } else {
             return null
         }
@@ -23,8 +30,8 @@ export function Day(props) {
     function getTimes() {
         const times = []
         for (let i = 0; i < 24; i++) {
-            const time = TimeUtils.getDatePlusHours(props.day, i)
-            times.push(<Time time={time} events={getEventsForTime(time.getTime())}/>)
+            const date = TimeUtils.getDatePlusHours(props.day, i)
+            times.push(<Time time={date} events={getEventsForTime(date.getTime())}/>)
         }
         return <>{times}</>
     }

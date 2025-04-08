@@ -5,6 +5,7 @@ import {Event} from "../event/event";
 export function Time(props) {
     const hour = props.time.getUTCHours();
     const minutes = props.time.getUTCMinutes();
+    const events = props.events
 
     function formattedHour() {
         return (hour > 12 ? hour - 12 : hour === 0 ? 12 : hour);
@@ -23,10 +24,14 @@ export function Time(props) {
     }
 
     function getEvents() {
-        const evnt = 7
-        return (
-            <div className="event-window"><Event time={formattedTime()} date={props.time} event={evnt}/></div>
-        )
+        const e = []
+        for (const event in events) {
+            console.log(formattedTime())
+            e.push(
+                <Event time={formattedTime()} date={props.time} event={event}/>
+            )
+        }
+        return <div className="event-window">{e}</div>
     }
 
     return (

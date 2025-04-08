@@ -8,6 +8,10 @@ class TimeUtils {
         return (Math.floor(time / 60000) * 60000);
     }
 
+    static getEpochToHour(time) {
+        return (Math.floor(time / 3600000) * 3600000)
+    }
+
     /**
      * takes a time in epoch format and floors it to the current day according to users current timezone
      * @param time {Number}
@@ -119,6 +123,12 @@ class TimeUtils {
             case 3: return day + 'rd';
             default: return day + 'th';
         }
+    }
+
+    static isDateSameDay(day, time) {
+        return day.getUTCDate() === time.getUTCDate()
+            && day.getUTCMonth() === time.getUTCMonth()
+            && day.getUTCFullYear() === time.getUTCFullYear();
     }
 }
 
