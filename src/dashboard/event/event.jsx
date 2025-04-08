@@ -5,6 +5,7 @@ import TimeUtils from "../calendar/TimeUtils";
 
 export function Event(props) {
     const event = props.event
+    //todo start here and render event properly
 
     function getEventCard() {
         return (
