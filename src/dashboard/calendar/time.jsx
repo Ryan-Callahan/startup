@@ -31,6 +31,7 @@ export function Time(props) {
                     <div className="event-card-container overflow-card"><Card>...</Card></div>
                 }
                 position="bottom left"
+                key={"Overflow-" + eventIDs}
             >{o}</Popup>
         )
     }
@@ -42,7 +43,7 @@ export function Time(props) {
             for (let i = 0; i < eventIDs.length; i++) {
                 let event = localStorage.getItem(eventIDs[i]);
                 if (event != null) {
-                    const eventElement = <Event time={formattedTime()} date={props.time} event={JSON.parse(event)}/>;
+                    const eventElement = <Event key={"Event-" + eventIDs[i]} time={formattedTime()} date={props.time} event={JSON.parse(event)}/>;
                     (i < 2) ? e.push(eventElement) : o.push(eventElement);
                 }
             }

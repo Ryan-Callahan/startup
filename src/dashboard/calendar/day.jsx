@@ -31,7 +31,7 @@ export function Day(props) {
         const times = []
         for (let i = 0; i < 24; i++) {
             const date = TimeUtils.getDatePlusHours(props.day, i)
-            times.push(<Time time={date} eventIDs={getEventIDsForTime(date.getTime())}/>)
+            times.push(<Time key={"Time-" + date.getTime()} time={date} eventIDs={getEventIDsForTime(date.getTime())}/>)
         }
         return <>{times}</>
     }

@@ -33,7 +33,7 @@ export function Calendar(props) {
         const days = []
         for (let i = 0; i < 7; i++) {
             const day = getDateFromDay(i)
-            days.push(<Day day={day} eventTimes={getEventsForDay(day)}/>)
+            days.push(<Day key={"Date-" + day.getTime()} day={day} eventTimes={getEventsForDay(day)}/>)
         }
         return <>{days}</>
     }
