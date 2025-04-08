@@ -75,6 +75,23 @@ class TimeUtils {
         return newDate;
     }
 
+    static getNextDay(date) {
+        return new Date(date.getTime() + 86400000);
+    }
+
+    static getNextWeek(date) {
+        return new Date(date.getTime() + (86400000 * 7));
+    }
+
+    static getPreviousDay(date) {
+        return new Date(date.getTime() - 86400000);
+    }
+
+    static getPreviousWeek(date) {
+        return new Date(date.getTime() - (86400000 * 7));
+    }
+
+
     /**
      * Returns the day of the week relative to the given date
      * @param date {Date}

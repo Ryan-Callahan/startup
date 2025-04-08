@@ -4,7 +4,7 @@ import {Card, Container, Row} from "react-bootstrap";
 import TimeUtils from "../calendar/TimeUtils";
 
 export function Event(props) {
-    const event = JSON.parse(localStorage.getItem(props.eventID))
+    const event = props.event
 
     function getEventCard() {
         return (
