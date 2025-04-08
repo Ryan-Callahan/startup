@@ -5,7 +5,7 @@ import TimeUtils from "./TimeUtils";
 
 export function Day(props) {
     const eventTimes = props.eventTimes
-    console.log(props.day.toUTCString(), eventTimes) //TODO remove debug
+    // console.log(props.day.toUTCString(), eventTimes) //TODO remove debug
     const relevantTimes = new Map
     eventTimes.map(time => {
         const roundedTime = TimeUtils.getEpochToHour(time)
@@ -20,7 +20,7 @@ export function Day(props) {
         if (relevantTimes.has(time)) {
             const eventTimes = relevantTimes.get(time)
             const events = eventTimes.flatMap(t => JSON.parse(localStorage.getItem(t)))
-            console.log("retrieved time: " + time + "\ntime keys : " + relevantTimes.get(time) + "\nEvents: " + events) //TODO remove debug
+            // console.log("retrieved time: " + time + "\ntime keys : " + relevantTimes.get(time) + "\nEvents: " + events) //TODO remove debug
             return events
         } else {
             return null

@@ -36,7 +36,6 @@ class TimeUtils {
      */
     static getCurrentWeek() {
         let now = new Date();
-        console.log("Current Date: " + now)
         now.setDate(now.getDate() - now.getDay())
         return now;
     }
