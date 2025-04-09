@@ -40,6 +40,18 @@ class TimeUtils {
         return now;
     }
 
+
+    /**
+     * Returns the active week in local time, not in UTC time. The calendar will be rendered in local time
+     *  and this is where the conversion takes place.
+     * @returns {Date}
+     */
+    static getTimezonedCurrentWeek() {
+        const currentWeek = TimeUtils.getCurrentWeek();
+        let timezoneAdjustedWeek = TimeUtils.getTimezoneTime(currentWeek);
+        return TimeUtils.getDateFromEpoch(TimeUtils.getEpochToDay(timezoneAdjustedWeek.getTime()));
+    }
+
     /**
      * tales a time in epoch format and converts it to a Date
      * @param date {Number}

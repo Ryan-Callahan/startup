@@ -33,7 +33,7 @@ export function CreateEvent({name, description, time, calendars, id, allCalendar
         localStorage.setItem(eventID, event)
 
         let eventIDs = []
-        const time = eventTime.getTime()
+        const time = TimeUtils.getEpochToMinute(TimeUtils.getTimezoneTime(eventTime).getTime())
         if (localStorage.getItem(time) !== null) {
             eventIDs.push(JSON.parse(localStorage.getItem(time)))
         }
@@ -53,7 +53,6 @@ export function CreateEvent({name, description, time, calendars, id, allCalendar
                 localStorage.setItem(calendar, times)
             }
         }
-        console.log(eventID, eventName, eventDescription, eventTime, eventCalendars)
         window.location.reload()
     }
 

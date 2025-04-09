@@ -13,19 +13,8 @@ export function Dashboard() {
     let allowedCalendars = JSON.parse(localStorage.getItem("testUser-entitledCalendars"))
     let activeCalendars = JSON.parse(localStorage.getItem("testUser-activeCalendars"))
 
-    const [activeWeek, updateActiveWeek] = React.useState(getTimezonedCurrentWeek())
+    const [activeWeek, updateActiveWeek] = React.useState(TimeUtils.getTimezonedCurrentWeek())
     const [calendars, setCalendars] = React.useState(new Map(allowedCalendars.map(calendar => [calendar, (activeCalendars.includes(calendar))])))
-
-    /**
-     * Returns the active week in local time, not in UTC time. The calendar will be rendered in local time
-     *  and this is where the conversion takes place.
-     * @returns {Date}
-     */
-    function getTimezonedCurrentWeek() {
-        const currentWeek = TimeUtils.getCurrentWeek();
-        let timezoneAdjustedWeek = TimeUtils.getTimezoneTime(currentWeek);
-        return TimeUtils.getDateFromEpoch(TimeUtils.getEpochToDay(timezoneAdjustedWeek.getTime()));
-    }
 
     function getActiveCalendars() {
         const activeCalendars = []
@@ -43,7 +32,7 @@ export function Dashboard() {
                 <Row>
                     <Col><Button onClick={() => updateActiveWeek(TimeUtils.getPreviousWeek(activeWeek))}>&lt;&lt;</Button></Col>
                     <Col><Button onClick={() => updateActiveWeek(TimeUtils.getPreviousDay(activeWeek))}>&lt;</Button></Col>
-                    <Col><Button onClick={() => updateActiveWeek(getTimezonedCurrentWeek())}>Today</Button></Col>
+                    <Col><Button onClick={() => updateActiveWeek(TimeUtils.getTimezonedCurrentWeek())}>Today</Button></Col>
                     <Col><Button onClick={() => updateActiveWeek(TimeUtils.getNextDay(activeWeek))}>&gt;</Button></Col>
                     <Col><Button onClick={() => updateActiveWeek(TimeUtils.getNextWeek(activeWeek))}>&gt;&gt;</Button></Col>
                 </Row>
