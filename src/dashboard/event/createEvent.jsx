@@ -3,37 +3,46 @@ import Popup from "reactjs-popup";
 import Button from "react-bootstrap/Button";
 import {Form, FormControl, FormGroup, FormLabel} from "react-bootstrap";
 import TimeUtils from "../calendar/TimeUtils";
+import {CalendarSelector} from "../calendar/calendarSelector";
+import CalendarSelectorUtils from "../calendar/CalendarSelectorUtils";
 
-export function CreateEvent(props) {
-    const [eventName, setEventName] = React.useState((props.name != null) ? props.name : "");
-    const [eventDescription, setEventDescription] = React.useState((props.description != null) ? props.description : "");
-    const [eventTime, setEventTime] = React.useState((props.time != null) ? props.time : TimeUtils.getEpochToHour(new Date()))
-    const [eventCalendar, setEventCalendar] = React.useState((props.calendar != null) ? props.calendar : "7")
-    const [eventID, setEventID] = React.useState((props.id != null) ? props.id : "testEvent")
+export function CreateEvent({name, description, time, calendars, id, allCalendars}) {
+    const [eventName, setEventName] = React.useState((name != null) ? name : "");
+    const [eventDescription, setEventDescription] = React.useState((description != null) ? description : "");
+    const [eventTime, setEventTime] = React.useState((time != null) ? time : TimeUtils.getEpochToHour(new Date()))
+    const [eventCalendars, setEventCalendars] = React.useState((calendars != null) ? calendars : new Map(allCalendars.map(calendar => [calendar, false])))
+    const [eventID, setEventID] = React.useState((id != null) ? id : "testEvent")
+    React.useEffect(() => console.log("shut up"))
 
     function createEvent() {
         const event = JSON.stringify({
             name: eventName,
             description: eventDescription
         })
-
-        let time = []
-        if (localStorage.getItem(eventTime) !== null) {
-            time.push(JSON.parse(localStorage.getItem(eventTime)))
-        }
-        time.push(eventID)
-        time = JSON.stringify(time.flat())
-
-        let calendar = []
-        if (localStorage.getItem(eventCalendar) !== null) {
-            calendar.push(JSON.parse(localStorage.getItem(eventCalendar)))
-        }
-        calendar.push(eventTime.toString())
-        calendar = JSON.stringify(calendar.flat())
-
         localStorage.setItem(eventID, event)
-        localStorage.setItem(eventTime, time)
-        localStorage.setItem(eventCalendar, calendar)
+
+        let eventIDs = []
+        if (localStorage.getItem(eventTime) !== null) {
+            eventIDs.push(JSON.parse(localStorage.getItem(eventTime)))
+        }
+        eventIDs.push(eventID)
+        eventIDs = JSON.stringify(eventIDs.flat())
+        localStorage.setItem(eventTime, eventIDs)
+
+
+        for (const calendar of eventCalendars.keys()) {
+            if (eventCalendars.get(calendar)) {
+                let times = []
+                if (localStorage.getItem(calendar) !== null) {
+                    times.push(JSON.parse(localStorage.getItem(calendar)))
+                }
+                times.push(eventTime.toString())
+                times = JSON.stringify(times.flat())
+                localStorage.setItem(calendar, times)
+            }
+        }
+        console.log(eventID, eventName, eventDescription, eventTime, eventCalendars)
+        window.location.reload()
     }
 
     return (
@@ -43,21 +52,31 @@ export function CreateEvent(props) {
             }
             modal
         >
-            <Form>
-                <FormGroup>
-                    <FormLabel>
-                        Name of Event:
-                    </FormLabel>
-                    <FormControl type="text" value={eventName} onChange={(e) => setEventName(e.target.value)}/>
-                </FormGroup>
-                <FormGroup>
-                    <FormLabel>Description:</FormLabel>
-                    <FormControl type="description" value={eventDescription} onChange={(e) => setEventDescription(e.target.value)}/>
-                </FormGroup>
-                <FormGroup>
-                    <Button variant="primary" onClick={() => createEvent()} disabled={!eventName}>Create Event</Button>
-                </FormGroup>
-            </Form>
+            {close => (
+                <Form>
+                    <FormGroup>
+                        <FormLabel>
+                            Name of Event:
+                        </FormLabel>
+                        <FormControl type="text" value={eventName} onChange={(e) => setEventName(e.target.value)}/>
+                    </FormGroup>
+                    <FormGroup>
+                        <FormLabel>Description:</FormLabel>
+                        <FormControl type="description" value={eventDescription} onChange={(e) => setEventDescription(e.target.value)}/>
+                    </FormGroup>
+                    <FormGroup>
+                        <FormLabel>Date:</FormLabel>
+                    </FormGroup>
+                    <FormGroup>
+                        <FormLabel>Calendars:</FormLabel>
+                        {CalendarSelectorUtils.getCalendarBoxes(eventCalendars, setEventCalendars)}
+                    </FormGroup>
+                    <FormGroup>
+                        <Button variant="primary" onClick={() => { close(); createEvent()}} disabled={!eventName}>Create Event</Button>
+                        <Button variant="primary" onClick={() => close()}>Cancel Event</Button>
+                    </FormGroup>
+                </Form>
+            )}
         </Popup>
     )
 }
