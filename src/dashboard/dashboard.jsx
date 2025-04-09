@@ -4,7 +4,6 @@ import {Col, Container, Row} from "react-bootstrap";
 import {Calendar} from "./calendar/calendar";
 import {CreateEvent} from "./event/createEvent"
 import TimeUtils from './calendar/TimeUtils'
-import Popup from "reactjs-popup";
 import {CalendarSelector} from "./calendar/calendarSelector";
 
 export function Dashboard() {
@@ -68,19 +67,15 @@ export function Dashboard() {
         <main>
             <Container>
                 <Row>
-                    <Col>
-                        <CalendarSelector calendars={calendars} setCalendars={setCalendars} />
-                    </Col>
+                    <Col><CalendarSelector calendars={calendars} setCalendars={setCalendars}/></Col>
                     <Col>{getCalendarPaginator()}</Col>
-                    <Col>
-                        <CreateEvent />
-                    </Col>
+                    <Col><CreateEvent/></Col>
                 </Row>
-                <br />
+                <br/>
                 <Row>
                     <Col>
                         <div style={{maxHeight: '80vh', overflow: 'auto', border: '3px solid black'}}>
-                            <Calendar activeWeek={activeWeek} calendars={getActiveCalendars()} />
+                            <Calendar activeWeek={activeWeek} calendars={getActiveCalendars()}/>
                         </div>
                     </Col>
                 </Row>
@@ -97,7 +92,8 @@ export function Dashboard() {
             <Button onClick={() => console.log("Current Time in Epoch: " + new Date().getTime())}>time epoch</Button>
             <Button onClick={() => console.log("Current Time in Epoch: " + new Date().toString())}>time string</Button>
             <Button onClick={() => console.log("Current Day in Epoch: " + TimeUtils.getEpochToDay(new Date().getTime()))}>day epoch</Button>
-            <Button onClick={() => console.log("Current Week: " + TimeUtils.getDateFromEpoch(TimeUtils.getEpochToDay(TimeUtils.getCurrentWeek())))}>week date</Button>
+            <Button onClick={() => console.log("Current Week: " + TimeUtils.getDateFromEpoch(TimeUtils.getEpochToDay(TimeUtils.getCurrentWeek())))}>week
+                date</Button>
             *****THIS IS TEMPORARY CODE*****
 
             <hr/>

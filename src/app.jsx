@@ -34,7 +34,7 @@ export default function App() {
                                 <NavLink className="nav-link link-light" to="about">About</NavLink>
                             </NavItem>
                         </Nav>
-                        <Profile />
+                        <Profile/>
                     </nav>
                 </header>
 
@@ -49,10 +49,10 @@ export default function App() {
                             }}
                         />
                     } exact/>
-                    <Route path='/about' element={<About />}/>
-                    <Route path='/dashboard' element={<Dashboard />}/>
-                    <Route path='/createAccount' element={<CreateAccount />}/>
-                    <Route path='*' element={<NotFound />}/>
+                    <Route path='/about' element={<About/>}/>
+                    <Route path='/dashboard' element={<Dashboard/>}/>
+                    <Route path='/createAccount' element={<CreateAccount/>}/>
+                    <Route path='*' element={<NotFound/>}/>
                 </Routes>
 
                 <footer className="border-top">

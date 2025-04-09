@@ -16,6 +16,7 @@ export function Calendar(props) {
     new Set(calendars.flatMap(calendar => {
         return JSON.parse(localStorage.getItem(calendar))
     })).forEach(item => timesList.push(item))
+
     // console.log("Times list: " + timesList) //TODO remove debug
 
     function getDateFromDay(day) {

@@ -3,7 +3,7 @@ import {LoggedOut} from './loggedOut';
 import {LoggedIn} from './loggedIn';
 import {AuthState} from "./authState";
 
-export function Login({ user, authState, onAuthChange}) {
+export function Login({user, authState, onAuthChange}) {
     return (
         <main>
             <div className="column">

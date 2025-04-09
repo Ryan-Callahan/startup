@@ -82,6 +82,7 @@ errorMessage {
     display: grid;
     place-items: center;
 }
+
 .error-window .box {
     height: 100%;
     width: 100%;

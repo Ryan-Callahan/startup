@@ -15,10 +15,10 @@ export function Profile() {
         <>
             <Popup
                 trigger={
-                <button className="profile-button">
-                    <img alt="profile-circle" src="/profile-circle.svg"
-                         className="profile-button image"/>
-                </button>
+                    <button className="profile-button">
+                        <img alt="profile-circle" src="/profile-circle.svg"
+                             className="profile-button image"/>
+                    </button>
                 }
                 position="bottom right"
                 on="hover"

@@ -17,19 +17,19 @@ export function LoggedOut(props) {
         <>
             {creating === false && (
                 <>
-                <Form>
-                    <h3>Log in or create an account</h3>
-                    <FormGroup>
-                        <FormControl type="username" placeholder="Username/Email" value={user} onChange={(e) => setUser(e.target.value)}/>
-                    </FormGroup>
+                    <Form>
+                        <h3>Log in or create an account</h3>
+                        <FormGroup>
+                            <FormControl type="username" placeholder="Username/Email" value={user} onChange={(e) => setUser(e.target.value)}/>
+                        </FormGroup>
 
-                    <FormGroup>
-                        <FormControl type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                    </FormGroup>
-                    <Button variant="primary" onClick={() => loginUser(user)} disabled={!user || !password}>Login</Button>
-                </Form>
-                <section>OR</section>
-                <Button variant="primary" onClick={() => setCreating(true)}>Create new account</Button>
+                        <FormGroup>
+                            <FormControl type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                        </FormGroup>
+                        <Button variant="primary" onClick={() => loginUser(user)} disabled={!user || !password}>Login</Button>
+                    </Form>
+                    <section>OR</section>
+                    <Button variant="primary" onClick={() => setCreating(true)}>Create new account</Button>
                 </>
             )}
             {creating === true && (

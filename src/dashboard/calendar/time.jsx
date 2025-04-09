@@ -48,7 +48,9 @@ export function Time(props) {
                 }
             }
         }
-        if (o.length > 0) { e.push(getOverflowingEvents(o)) }
+        if (o.length > 0) {
+            e.push(getOverflowingEvents(o))
+        }
         return <div className="event-window">{e}</div>;
     }
 

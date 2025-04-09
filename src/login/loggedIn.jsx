@@ -14,7 +14,7 @@ export function LoggedIn(props) {
         <>
             <h4>Currently signed in:</h4>
             <div>{props.user}</div>
-            <Button variant='primary' onClick={() => navigate('/dashboard')} >Go to Dashboard</Button>
+            <Button variant='primary' onClick={() => navigate('/dashboard')}>Go to Dashboard</Button>
             <Button variant='secondary' onClick={() => logout()}>Logout</Button>
         </>
     )
