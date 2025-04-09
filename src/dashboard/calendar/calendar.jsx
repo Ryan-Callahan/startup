@@ -8,10 +8,6 @@ export function Calendar(props) {
     const currentWeek = props.activeWeek;
     const calendars = props.calendars
 
-    React.useEffect(() => {
-        console.log("This is me using the useEffect hook")
-    })
-
     const timesList = []
     new Set(calendars.flatMap(calendar => {
         return JSON.parse(localStorage.getItem(calendar))

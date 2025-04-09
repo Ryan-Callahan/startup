@@ -9,6 +9,7 @@ import {CreateAccount} from './login/createAccount';
 import {Nav, NavItem} from "react-bootstrap";
 import {AuthState} from "./login/authState";
 import {Profile} from "./profile/profile";
+import {MonsterFact} from "./monster-fact/monsterFact";
 
 export default function App() {
     const [user, setUser] = React.useState(localStorage.getItem('user') || '');
@@ -56,7 +57,7 @@ export default function App() {
                 </Routes>
 
                 <footer className="border-top">
-                    <p>placeholder for third party service dialog</p>
+                    <MonsterFact />
                     <small>Ryan Callahan 2025</small>
                     <div>
                         <a href="https://github.com/Ryan-Callahan/startup/tree/main">Github</a>
