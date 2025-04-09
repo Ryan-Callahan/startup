@@ -21,7 +21,7 @@ export function Dashboard() {
     localStorage.setItem("event3", '{"name": "Third Appointment", "description": "the appointed hour has passed"}')
     localStorage.setItem("event4", '{"name": "Fourth Appointment", "description": "4"}')
     localStorage.setItem("event5", '{"name": "Fifth Appointment", "description": "5"}')
-    const allowedCalendars = ["4", "5", "6"]
+    const allowedCalendars = ["4", "5", "6", "7"]
     const activeCalendars = ["4", "5"]
 
     localStorage.setItem("event6", '{"name": "Sixth Appointment", "description": "6"}')
@@ -86,16 +86,6 @@ export function Dashboard() {
                     <Col>Chatbox</Col>
                 </Row>
             </Container>
-
-            {/*TODO TEMPORARY COMMENTED CODE*/}
-            *****THIS IS TEMPORARY CODE*****
-            <Button onClick={() => console.log("Current Time in Epoch: " + new Date().getTime())}>time epoch</Button>
-            <Button onClick={() => console.log("Current Time in Epoch: " + new Date().toString())}>time string</Button>
-            <Button onClick={() => console.log("Current Day in Epoch: " + TimeUtils.getEpochToDay(new Date().getTime()))}>day epoch</Button>
-            <Button onClick={() => console.log("Current Week: " + TimeUtils.getDateFromEpoch(TimeUtils.getEpochToDay(TimeUtils.getCurrentWeek())))}>week
-                date</Button>
-            *****THIS IS TEMPORARY CODE*****
-
             <hr/>
         </main>
     );

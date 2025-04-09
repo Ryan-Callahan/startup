@@ -17,8 +17,6 @@ export function Calendar(props) {
         return JSON.parse(localStorage.getItem(calendar))
     })).forEach(item => timesList.push(item))
 
-    // console.log("Times list: " + timesList) //TODO remove debug
-
     function getDateFromDay(day) {
         return TimeUtils.getDatePlusDays(currentWeek, day);
     }
