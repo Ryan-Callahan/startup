@@ -2,9 +2,15 @@ import React from 'react';
 import Popup from "reactjs-popup";
 import {Card, Container, Row} from "react-bootstrap";
 import TimeUtils from "../calendar/TimeUtils";
+import Button from "react-bootstrap/Button";
+import {CreateEvent} from "./createEvent";
 
 export function Event(props) {
     const event = props.event
+
+    function deleteEvent() {
+        console.log("event will be deleted when I have built a DAO that will actually delete events properly..... there is no way in heck I am doing that in javascript")
+    }
 
     function getEventCard() {
         return (
@@ -35,6 +41,7 @@ export function Event(props) {
                 <Row style={{paddingTop: "5px"}}>
                     {event.description}
                 </Row>
+                <Button type="secondary" onClick={() => deleteEvent()}>Delete Event</Button>
             </Container>
         </Popup>
     )
