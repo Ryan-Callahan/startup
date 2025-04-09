@@ -2,14 +2,29 @@ import {Form} from "react-bootstrap";
 import React from "react";
 
 class CalendarSelectorUtils {
-    static getCalendarBoxes(calendars, setCalendars) {
-        function toggleActiveCalendar(calendar, calendars, setCalendars) {
+    static isCalendarSelected(calendars) {
+        for (const value of calendars.values()) {
+            if (value === true) {
+                return true
+            }
+        }
+        return false
+    }
+
+    static getCpp() {
+        return this.c++;
+    }
+
+    static getCalendarBoxes(calendars, setCalendars, setCalendarIsSelected) {
+
+        function toggleActiveCalendar(calendar) {
             const updatedCalendars = new Map(calendars)
             if (calendars.get(calendar) === true) {
                 updatedCalendars.set(calendar, false)
             } else {
                 updatedCalendars.set(calendar, true)
             }
+            setCalendarIsSelected(CalendarSelectorUtils.isCalendarSelected(updatedCalendars))
             setCalendars(updatedCalendars)
         }
 
@@ -21,7 +36,7 @@ class CalendarSelectorUtils {
                     type="switch"
                     label={calendar}
                     checked={calendars.get(calendar)}
-                    onChange={() => toggleActiveCalendar(calendar, calendars, setCalendars)}
+                    onChange={() => toggleActiveCalendar(calendar)}
                 />
             )
         }
