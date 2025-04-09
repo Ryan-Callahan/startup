@@ -56,12 +56,6 @@ export function Dashboard() {
                         </div>
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
-                        Chats
-                    </Col>
-                    <Col>Chatbox</Col>
-                </Row>
             </Container>
             <hr/>
         </main>
