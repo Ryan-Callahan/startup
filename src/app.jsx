@@ -12,9 +12,22 @@ import {Profile} from "./profile/profile";
 import {MonsterFact} from "./monster-fact/monsterFact";
 
 export default function App() {
-    const [user, setUser] = React.useState(localStorage.getItem('user') || '');
+    const [user, setUser] = React.useState();
     const currentAuthState = user ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
+
+    React.useEffect(() => {
+        async function getUser() {
+            const response = await fetch('/api/auth/username')
+            const body = await response.json();
+            if (body) {
+                setUser(body.username)
+                setAuthState(AuthState.Authenticated)
+            }
+        }
+
+        getUser().then(r => null)
+    }, [])
 
     return (
         <BrowserRouter>
