@@ -27,7 +27,7 @@ apiRouter.post('/auth/create', async (req, res) => {
     } else {
         const user = await createUser(req.body.username, req.body.password);
         setAuthCookie(res, user.token);
-        res.send({ email: user.username });
+        res.send({ username: user.username });
     }
 });
 
@@ -62,10 +62,21 @@ const verifyAuth = async (req, res, next) => {
     }
 };
 
+apiRouter.post('/users/calendars', verifyAuth, async (req, res) => {
+    let user = await findUser('token', req.cookies[authCookieName])
+    user = addCalendarToUser(user, req.body);
+    res.send({ username: user.username, calendars: user.calendars})
+});
+
+apiRouter.get('/users/calendars', verifyAuth, async (req, res) => {
+    const user = await findUser('token', req.cookies[authCookieName]);
+    res.send({ username: user.username, calendars: user.calendars })
+})
+
 apiRouter.post('/calendars', verifyAuth, (req, res) => {
     calendars = updateCalendars(req.body);
     res.send(calendars);
-})
+});
 
 apiRouter.get('/calendars', verifyAuth, (req, res) => {
     res.send(calendars);
@@ -96,6 +107,7 @@ async function createUser(username, password) {
         username: username,
         password: hashedPassword,
         token: uuid.v4(),
+        calendars: []
     };
     users.push(user);
 
@@ -106,6 +118,12 @@ async function findUser(field, value) {
     if (!value) return null;
 
     return users.find((u) => u[field] === value);
+}
+
+function addCalendarToUser(user, calendars) {
+    user.calendars = calendars;
+    users.splice(users.indexOf(user), 1, user);
+    return user
 }
 
 function updateCalendars(newCalendar) {

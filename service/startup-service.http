@@ -31,15 +31,58 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:3000/api/users/calendars
+Content-Type: application/json
+
+[
+  1
+]
+
+###
+
+GET http://localhost:3000/api/users/calendars
+
+###
+
 POST http://localhost:3000/api/calendars
 Content-Type: application/json
 
 {
   "calendar-id": 1,
-  "event-times": []
+  "event-times": [1744322520000]
 }
 
 ###
 
 GET http://localhost:3000/api/calendars
 
+###
+
+POST http://localhost:3000/api/times
+Content-Type: application/json
+
+{
+  "time": 1744322520000,
+  "event-ids": [1]
+}
+
+###
+
+GET http://localhost:3000/api/times
+
+###
+
+POST http://localhost:3000/api/events
+Content-Type: application/json
+
+{
+  "event-id": 1,
+  "event": {
+    "name": "test event",
+    "description": "this is a test"
+  }
+}
+
+###
+
+GET http://localhost:3000/api/events
