@@ -5,6 +5,7 @@ const uuid = require('uuid');
 const {genSalt, hash} = require("bcryptjs");
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static('public'));
 
 const salt = bcrypt.genSaltSync(10);
