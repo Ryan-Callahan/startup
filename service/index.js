@@ -43,6 +43,15 @@ apiRouter.post('/auth/login', async (req, res) => {
     res.status(401).send({ msg: 'Unauthorized' });
 });
 
+apiRouter.get('/auth/username', async (req, res) => {
+    const user = await findUser('token', req.cookies[authCookieName]);
+    if (user) {
+        res.send({ username: user.username })
+    } else {
+        res.status(202).end()
+    }
+})
+
 apiRouter.delete('/auth/logout', async (req, res) => {
     const user = await findUser('token', req.cookies[authCookieName]);
     if (user) {
