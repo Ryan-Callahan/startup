@@ -1,0 +1,27 @@
+#Create a file with the .http or .rest extension.
+#In the created file, use the Add Request editor shortcut link or compose the request manually.
+#Click the Run button in the gutter to run the request and view the received response.
+#Use the Examples editor shortcut link to explore the additional features and capabilities.
+#Use the Open Log editor shortcut link to get an overview of the 50 recently executed requests and rerun any of them.
+
+###
+POST http://localhost:3000/api/auth/create
+Content-Type: application/json
+
+{
+  "username": "ryan",
+  "password": "callahan"
+}
+
+###
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "ryan",
+  "password": "callahan"
+}
+
+###
+DELETE http://localhost:3000/api/auth/logout
+Content-Type: application/json

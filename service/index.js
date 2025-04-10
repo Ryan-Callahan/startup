@@ -5,6 +5,7 @@ const uuid = require('uuid');
 const {genSalt, hash} = require("bcryptjs");
 const app = express();
 app.use(express.json());
+app.use(express.static('public'));
 
 const salt = bcrypt.genSaltSync(10);
 const authCookieName = 'token';
@@ -24,7 +25,6 @@ apiRouter.post('/auth/create', async (req, res) => {
         res.status(409).send({ msg: 'Existing user' });
     } else {
         const user = await createUser(req.body.username, req.body.password);
-
         setAuthCookie(res, user.token);
         res.send({ email: user.username });
     }
