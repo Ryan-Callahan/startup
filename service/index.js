@@ -71,15 +71,33 @@ apiRouter.get('/calendars', verifyAuth, (req, res) => {
     res.send(calendars);
 });
 
+apiRouter.post('/times', verifyAuth, (req, res) => {
+    times = updateTimes(req.body);
+    res.send(times);
+});
+
+apiRouter.get('/times', verifyAuth, (req, res) => {
+    res.send(times);
+});
+
+apiRouter.post('/events', verifyAuth, (req, res) => {
+    events = updateEvents(req.body);
+    res.send(events);
+});
+
+apiRouter.get('/events', verifyAuth, (req, res) => {
+    res.send(events);
+});
+
 async function createUser(username, password) {
-    const hashedPassword = await bcrypt.hash(password, salt)
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     const user = {
         username: username,
         password: hashedPassword,
         token: uuid.v4(),
     };
-    users.push(user)
+    users.push(user);
 
     return user;
 }
@@ -94,12 +112,36 @@ function updateCalendars(newCalendar) {
     const previousCalendar = calendars.find((c) => c['calendar-id'] === newCalendar['calendar-id']);
 
     if (previousCalendar) {
-        calendars.splice(calendars.indexOf(previousCalendar), 1, newCalendar)
+        calendars.splice(calendars.indexOf(previousCalendar), 1, newCalendar);
     } else {
-        calendars.push(newCalendar)
+        calendars.push(newCalendar);
     }
 
-    return calendars
+    return calendars;
+}
+
+function updateTimes(newTime) {
+    const previousTime = times.find((t) => t['time'] === newTime['time']);
+
+    if (previousTime) {
+        times.splice(times.indexOf(previousTime), 1, newTime);
+    } else {
+        times.push(newTime);
+    }
+
+    return times;
+}
+
+function updateEvents(newEvent) {
+    const previousEvent = events.find((e) => e['event-id'] === newEvent['event-id']);
+
+    if (previousEvent) {
+        events.splice(events.indexOf(previousEvent), 1, newEvent);
+    } else {
+        events.push(newEvent);
+    }
+
+    return events;
 }
 
 function setAuthCookie(res, authToken) {
