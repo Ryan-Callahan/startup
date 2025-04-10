@@ -7,7 +7,6 @@ export function MonsterFact(props) {
     React.useEffect(() => {
         const interval = setInterval(() => {
             setActiveFact(oldFact => getNewFact())
-            console.log("new fact")
         }, 5000)
 
         return () => clearInterval(interval)

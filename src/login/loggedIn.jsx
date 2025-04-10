@@ -5,9 +5,12 @@ import Button from "react-bootstrap/Button";
 export function LoggedIn(props) {
     const navigate = useNavigate()
 
-    function logout() {
-        localStorage.removeItem('user');
-        props.onLogout();
+    async function logout() {
+        await fetch('/api/auth/logout', {
+            method: 'DELETE'
+        })
+            .catch(() => {})
+            .finally(() => {props.onLogout();});
     }
 
     return (
