@@ -23,6 +23,9 @@ export default function App() {
             if (body) {
                 setUser(body.username)
                 setAuthState(AuthState.Authenticated)
+            } else {
+                setUser('')
+                setAuthState(AuthState.Unauthenticated)
             }
         }
 
