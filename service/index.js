@@ -61,6 +61,15 @@ const verifyAuth = async (req, res, next) => {
     }
 };
 
+apiRouter.get('/calendars', verifyAuth, (req, res) => {
+    res.send(calendars);
+});
+
+apiRouter.post('/calendar', verifyAuth, (req, res) => {
+    calendars = updateCalendars(JSON.parse(req.body));
+    res.send(calendars);
+})
+
 async function createUser(username, password) {
     const hashedPassword = await bcrypt.hash(password, salt)
 
@@ -78,6 +87,18 @@ async function findUser(field, value) {
     if (!value) return null;
 
     return users.find((u) => u[field] === value);
+}
+
+async function updateCalendars(newCalendar) {
+    const previousCalendar = calendars.find((c) => c['calendarID'] === newCalendar['calendarID']);
+
+    if (previousCalendar) {
+        calendars.splice(calendars.indexOf(previousCalendar), 0, newCalendar)
+    } else {
+        calendars.push(newCalendar)
+    }
+
+    return calendars
 }
 
 function setAuthCookie(res, authToken) {
