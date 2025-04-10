@@ -62,14 +62,14 @@ const verifyAuth = async (req, res, next) => {
     }
 };
 
+apiRouter.post('/calendar', verifyAuth, (req, res) => {
+    calendars = updateCalendars(req.body);
+    res.send(calendars);
+})
+
 apiRouter.get('/calendars', verifyAuth, (req, res) => {
     res.send(calendars);
 });
-
-apiRouter.post('/calendar', verifyAuth, (req, res) => {
-    calendars = updateCalendars(JSON.parse(req.body));
-    res.send(calendars);
-})
 
 async function createUser(username, password) {
     const hashedPassword = await bcrypt.hash(password, salt)
@@ -90,8 +90,8 @@ async function findUser(field, value) {
     return users.find((u) => u[field] === value);
 }
 
-async function updateCalendars(newCalendar) {
-    const previousCalendar = calendars.find((c) => c['calendarID'] === newCalendar['calendarID']);
+function updateCalendars(newCalendar) {
+    const previousCalendar = calendars.find((c) => c['calendar-id'] === newCalendar['calendar-id']);
 
     if (previousCalendar) {
         calendars.splice(calendars.indexOf(previousCalendar), 0, newCalendar)

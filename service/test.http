@@ -5,6 +5,7 @@
 #Use the Open Log editor shortcut link to get an overview of the 50 recently executed requests and rerun any of them.
 
 ###
+
 POST http://localhost:3000/api/auth/create
 Content-Type: application/json
 
@@ -14,6 +15,7 @@ Content-Type: application/json
 }
 
 ###
+
 POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
@@ -23,9 +25,21 @@ Content-Type: application/json
 }
 
 ###
+
 DELETE http://localhost:3000/api/auth/logout
 Content-Type: application/json
 
 ###
 
+POST http://localhost:3000/api/calendar
+Content-Type: application/json
+
+{
+  "calendar-id": 1,
+  "event-times": []
+}
+
+###
+
 GET http://localhost:3000/api/calendars
+
