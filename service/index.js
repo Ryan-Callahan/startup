@@ -62,7 +62,7 @@ const verifyAuth = async (req, res, next) => {
     }
 };
 
-apiRouter.post('/calendar', verifyAuth, (req, res) => {
+apiRouter.post('/calendars', verifyAuth, (req, res) => {
     calendars = updateCalendars(req.body);
     res.send(calendars);
 })
@@ -94,7 +94,7 @@ function updateCalendars(newCalendar) {
     const previousCalendar = calendars.find((c) => c['calendar-id'] === newCalendar['calendar-id']);
 
     if (previousCalendar) {
-        calendars.splice(calendars.indexOf(previousCalendar), 0, newCalendar)
+        calendars.splice(calendars.indexOf(previousCalendar), 1, newCalendar)
     } else {
         calendars.push(newCalendar)
     }
