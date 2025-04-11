@@ -10,8 +10,8 @@ POST http://localhost:3000/api/auth/create
 Content-Type: application/json
 
 {
-  "username": "ryan",
-  "password": "callahan"
+  "username": "Test",
+  "password": "password"
 }
 
 ###
@@ -20,8 +20,8 @@ POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-  "username": "ryan",
-  "password": "callahan"
+  "username": "Test",
+  "password": "password"
 }
 
 ###

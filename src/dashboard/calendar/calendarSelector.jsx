@@ -1,10 +1,15 @@
 import React from 'react';
 import Popup from "reactjs-popup";
 import Button from "react-bootstrap/Button";
-import {Form} from "react-bootstrap";
+import {Form, FormControl, FormLabel} from "react-bootstrap";
 import CalendarSelectorUtils from "./CalendarSelectorUtils"
+import {CreateEvent} from "../event/createEvent";
 
 export function CalendarSelector({calendars, setCalendars}) {
+
+    function createCalendar() {
+    }
+
     return (
         <Popup
             trigger={
@@ -16,6 +21,7 @@ export function CalendarSelector({calendars, setCalendars}) {
             <Form>
                 <p>Your Calendars:</p>
                 {CalendarSelectorUtils.getCalendarBoxes(calendars, setCalendars)}
+                <Popup trigger={<Button>Create New Calendar</Button>}>adadadd</Popup>
             </Form>
         </Popup>
     )

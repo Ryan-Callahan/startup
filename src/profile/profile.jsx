@@ -2,11 +2,11 @@ import React from 'react';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css'
 
-export function Profile() {
+export function Profile({username}) {
     async function getCurrentUser() {
         let message = "Not logged in";
-        if (localStorage.getItem('user')) {
-            message = "Current User: " + localStorage.getItem('user');
+        if (username !== '') {
+            message = "Current User: " + username;
         }
         return (message);
     }

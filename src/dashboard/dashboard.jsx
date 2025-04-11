@@ -7,14 +7,15 @@ import TimeUtils from './calendar/TimeUtils'
 import {CalendarSelector} from "./calendar/calendarSelector";
 
 export function Dashboard() {
-    //TODO THIS IS TEST CODE
-    localStorage.setItem("testUser-entitledCalendars", '["4", "5", "6", "7"]')
-    localStorage.setItem("testUser-activeCalendars", '["4", "5"]')
-    let allowedCalendars = JSON.parse(localStorage.getItem("testUser-entitledCalendars"))
-    let activeCalendars = JSON.parse(localStorage.getItem("testUser-activeCalendars"))
-
+    const [allowedCalendars, setAllowedCalendars] = React.useState([])
     const [activeWeek, updateActiveWeek] = React.useState(TimeUtils.getTimezonedCurrentWeek())
-    const [calendars, setCalendars] = React.useState(new Map(allowedCalendars.map(calendar => [calendar, (activeCalendars.includes(calendar))])))
+    const [calendars, setCalendars] = React.useState(new Map(allowedCalendars.map(calendar => [calendar, false])))
+
+    React.useEffect(() => {
+        fetch('/api/users/calendars')
+            .then((response) => response.json())
+            .then((calendars) => {setAllowedCalendars(calendars)})
+    }, [])
 
     function getActiveCalendars() {
         const activeCalendars = []

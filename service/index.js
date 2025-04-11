@@ -78,7 +78,7 @@ apiRouter.post('/users/calendars', verifyAuth, async (req, res) => {
 
 apiRouter.get('/users/calendars', verifyAuth, async (req, res) => {
     const user = await findUser('token', req.cookies[authCookieName]);
-    res.send({ username: user.username, calendars: user.calendars })
+    res.send(user.calendars)
 })
 
 apiRouter.post('/calendars', verifyAuth, (req, res) => {

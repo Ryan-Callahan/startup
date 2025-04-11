@@ -21,7 +21,6 @@ export function CreateAccount(props) {
                     password: password
                 })
             })
-            console.log(response)
             if (response?.status === 200) {
                 props.onSubmit(username, password);
             } else {
