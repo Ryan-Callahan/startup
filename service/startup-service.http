@@ -11,6 +11,7 @@ Content-Type: application/json
 
 {
   "username": "Test",
+  "email": "test@email.com",
   "password": "password"
 }
 
@@ -48,8 +49,9 @@ POST http://localhost:3000/api/calendars
 Content-Type: application/json
 
 {
-  "calendar-id": 1,
-  "event-times": [1744322520000]
+  "calendar_id": 2,
+  "name": "ryans calendar",
+  "event_times": [1744322520000]
 }
 
 ###
@@ -63,7 +65,7 @@ Content-Type: application/json
 
 {
   "time": 1744322520000,
-  "event-ids": [1]
+  "event_ids": [1]
 }
 
 ###
@@ -76,11 +78,19 @@ POST http://localhost:3000/api/events
 Content-Type: application/json
 
 {
-  "event-id": 1,
-  "event": {
-    "name": "test event",
-    "description": "this is a test"
-  }
+  "event_id": 2,
+  "name": "test EEEE",
+  "description": "this is a test"
+}
+
+###
+
+POST http://localhost:3000/api/events
+Content-Type: application/json
+
+{
+  "name": "test event",
+  "description": "this is a test"
 }
 
 ###

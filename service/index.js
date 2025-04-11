@@ -12,8 +12,10 @@ const authCookieName = 'token';
 
 let users = [];
 let calendars = [];
+let calendarCtr = 1;
 let times = [];
 let events = [];
+let eventCtr = 1;
 
 let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
@@ -131,16 +133,23 @@ async function findUser(field, value) {
 function addCalendarToUser(user, calendars) {
     user.calendars = calendars;
     users.splice(users.indexOf(user), 1, user);
-    return user
+    return user;
 }
 
-function updateCalendars(newCalendar) {
-    const previousCalendar = calendars.find((c) => c['calendar-id'] === newCalendar['calendar-id']);
-
-    if (previousCalendar) {
-        calendars.splice(calendars.indexOf(previousCalendar), 1, newCalendar);
+function updateCalendars(calendar) {
+    if (calendar['calendar_id'] !== undefined) {
+        const previousCalendar = calendars.find((c) => c['calendar_id'] === calendar['calendar_id']);
+        if (previousCalendar) {
+            calendars.splice(calendars.indexOf(previousCalendar), 1, calendar);
+        } else {
+            calendars.push(calendar);
+        }
     } else {
-        calendars.push(newCalendar);
+        calendars.push({
+            calendar_id: calendarCtr,
+            name: calendar.name,
+            event_times: []
+        });
     }
 
     return calendars;
@@ -158,13 +167,20 @@ function updateTimes(newTime) {
     return times;
 }
 
-function updateEvents(newEvent) {
-    const previousEvent = events.find((e) => e['event-id'] === newEvent['event-id']);
-
-    if (previousEvent) {
-        events.splice(events.indexOf(previousEvent), 1, newEvent);
+function updateEvents(event) {
+    if (event['event_id'] !== undefined ) {
+        const previousEvent = events.find((e) => e['event_id'] === event['event_id']);
+        if (previousEvent) {
+            events.splice(events.indexOf(previousEvent), 1, event);
+        } else {
+            events.push(event);
+        }
     } else {
-        events.push(newEvent);
+        events.push({
+            event_id: eventCtr++,
+            name: event.name,
+            description: event.description
+        });
     }
 
     return events;

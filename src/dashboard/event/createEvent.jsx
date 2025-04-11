@@ -8,10 +8,11 @@ import CalendarSelectorUtils from "../calendar/CalendarSelectorUtils";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"
 
-export function CreateEvent({name, description, time, calendars, id, allCalendars}) {
+export function CreateEvent({name, description, time, calendars, id}) {
     const [eventName, setEventName] = React.useState((name != null) ? name : "");
     const [eventDescription, setEventDescription] = React.useState((description != null) ? description : "");
     const [eventTime, setEventTime] = React.useState((time != null) ? time : new Date())
+    //todo start here??? fix event calendars
     const [eventCalendars, setEventCalendars] = React.useState((calendars != null) ? calendars : new Map(allCalendars.map(calendar => [calendar, false])))
     const [isCalendarSelected, setIsCalendarSelected] = React.useState(CalendarSelectorUtils.isCalendarSelected(eventCalendars))
     const [eventID, setEventID] = React.useState((id != null) ? id : generateEventID("testEvent-1"))
@@ -83,7 +84,7 @@ export function CreateEvent({name, description, time, calendars, id, allCalendar
                         {CalendarSelectorUtils.getCalendarBoxes(eventCalendars, setEventCalendars, setIsCalendarSelected)}
                     </FormGroup>
                     <FormGroup>
-                        <Button variant="primary" onClick={() => { close(); createEvent()}} disabled={!eventName || !isCalendarSelected}>Create Event</Button>
+                        <Button variant="primary" onClick={() => {close(); createEvent()}} disabled={!eventName || !isCalendarSelected}>Create Event</Button>
                         <Button variant="primary" onClick={() => close()}>Cancel Event</Button>
                     </FormGroup>
                 </Form>

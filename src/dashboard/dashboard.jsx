@@ -7,14 +7,13 @@ import TimeUtils from './calendar/TimeUtils'
 import {CalendarSelector} from "./calendar/calendarSelector";
 
 export function Dashboard() {
-    const [allowedCalendars, setAllowedCalendars] = React.useState([])
     const [activeWeek, updateActiveWeek] = React.useState(TimeUtils.getTimezonedCurrentWeek())
-    const [calendars, setCalendars] = React.useState(new Map(allowedCalendars.map(calendar => [calendar, false])))
+    const [calendars, setCalendars] = React.useState(new Map());
 
     React.useEffect(() => {
         fetch('/api/users/calendars')
             .then((response) => response.json())
-            .then((calendars) => {setAllowedCalendars(calendars)})
+            .then((calendars) => {setCalendars(new Map(calendars.map(calendar => [calendar, false])))})
     }, [])
 
     function getActiveCalendars() {
@@ -45,9 +44,9 @@ export function Dashboard() {
         <main>
             <Container>
                 <Row>
-                    <Col><CalendarSelector calendars={calendars} setCalendars={setCalendars}/></Col>
+                    <Col><CalendarSelector calendars={calendars} setCalendars={setCalendars} set/></Col>
                     <Col>{getCalendarPaginator()}</Col>
-                    <Col><CreateEvent allCalendars={allowedCalendars}/></Col>
+                    <Col><CreateEvent calendars={calendars}/></Col>
                 </Row>
                 <br/>
                 <Row>

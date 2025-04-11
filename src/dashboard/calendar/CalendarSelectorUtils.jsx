@@ -11,10 +11,6 @@ class CalendarSelectorUtils {
         return false
     }
 
-    static getCpp() {
-        return this.c++;
-    }
-
     static getCalendarBoxes(calendars, setCalendars, setCalendarIsSelected) {
 
         function toggleActiveCalendar(calendar) {
