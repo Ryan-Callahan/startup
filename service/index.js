@@ -90,6 +90,12 @@ apiRouter.get('/users/calendars', verifyAuth, async (req, res) => {
     res.send(userCalendars)
 })
 
+apiRouter.get('/users/calendar/:calendarId', (req, res) => {
+    const calendarID = parseInt(req.params.calendarId);
+    const calendar = getCalendarAsObject(calendarID)
+    res.send(calendar)
+})
+
 apiRouter.post('/calendars', verifyAuth, async (req, res) => {
     let user = await findUser('token', req.cookies[authCookieName])
     const calendar = updateCalendars(req.body);
@@ -160,6 +166,30 @@ function findUserCalendars(userCalendars) {
     return c
 }
 
+function getCalendarAsObject(calendarID) {
+    const calendar = calendars.find((c) => c["calendar_id"] === calendarID)
+    const calendarTimes = calendar.event_times
+    return {
+        calendar_id: calendarID,
+        name: calendar.name,
+        times: (calendarTimes.length > 0) ? calendarTimes.flatMap(time => {
+            let eventTimes = times.find((t) => t["time"] === time)
+            eventTimes = eventTimes.event_ids
+            return {
+                time: time,
+                event_ids: (eventTimes.length > 0) ? eventTimes.flatMap(eventId => {
+                    const event = events.find((e) => e["event_id"] === eventId)
+                    return {
+                        event_id: eventId,
+                        name: event.name,
+                        description: event.description
+                    }
+                }) : []
+            }
+        }) : []
+    }
+}
+
 function updateCalendars(calendar) {
     if (calendar['calendar_id'] !== undefined) {
         const previousCalendar = calendars.find((c) => c['calendar_id'] === calendar['calendar_id']);
@@ -200,7 +230,7 @@ function updateTimes(newTime) {
     const previousTime = times.find((t) => t['time'] === newTime['time']);
 
     if (previousTime) {
-        const events = previousTime["event_ids"]
+        const events = [previousTime["event_ids"]].flat()
             events.push(newTime["event_ids"])
         const updatedTime = {
             time: previousTime['time'],

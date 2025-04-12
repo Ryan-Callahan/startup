@@ -17,65 +17,14 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3000/api/auth/login
-Content-Type: application/json
-
-{
-  "username": "test",
-  "password": "password"
-}
-
-###
-
-DELETE http://localhost:3000/api/auth/logout
-Content-Type: application/json
-
-###
-
-POST http://localhost:3000/api/users/calendars
-Content-Type: application/json
-
-[
-  2
-]
-
-###
-
-GET http://localhost:3000/api/users/calendars
-
-###
-
 POST http://localhost:3000/api/calendars
 Content-Type: application/json
 
 {
   "calendar_id": 1,
   "name": "ryans calendar",
-  "event_times": [1744322520000]
+  "event_times": [1744322520000, 1744322520001]
 }
-
-###
-
-POST http://localhost:3000/api/calendar/times
-Content-Type: application/json
-
-{
-  "calendar_id": 1,
-  "event_times": 2
-}
-
-###
-
-POST http://localhost:3000/api/calendars
-Content-Type: application/json
-
-{
-  "name": "test calendar"
-}
-
-###
-
-GET http://localhost:3000/api/calendars
 
 ###
 
@@ -84,22 +33,7 @@ Content-Type: application/json
 
 {
   "time": 1744322520000,
-  "event_ids": [1]
-}
-
-###
-
-GET http://localhost:3000/api/times
-
-###
-
-POST http://localhost:3000/api/events
-Content-Type: application/json
-
-{
-  "event_id": 2,
-  "name": "test EEEE",
-  "description": "this is a test"
+  "event_ids": [2]
 }
 
 ###
@@ -108,13 +42,9 @@ POST http://localhost:3000/api/events
 Content-Type: application/json
 
 {
-  "name": "test event",
+  "name": "test event 1",
   "description": "this is a test"
 }
-
-###
-
-GET http://localhost:3000/api/events
 
 ###
 

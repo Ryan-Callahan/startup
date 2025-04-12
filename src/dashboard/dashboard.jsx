@@ -22,8 +22,8 @@ export function Dashboard() {
 
     function getActiveCalendars() {
         const active = []
-        for (const calendar of activeCalendars.keys()) {
-            if (activeCalendars.get(calendar) === true) {
+        for (const calendar of userCalendars) {
+            if (activeCalendars.get(calendar.calendar_id) === true) {
                 active.push(calendar)
             }
         }

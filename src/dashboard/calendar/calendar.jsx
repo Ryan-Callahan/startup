@@ -8,10 +8,7 @@ export function Calendar(props) {
     const currentWeek = props.activeWeek;
     const calendars = props.calendars
 
-    const timesList = []
-    new Set(calendars.flatMap(calendar => {
-        return JSON.parse(localStorage.getItem(calendar))
-    })).forEach(item => timesList.push(item))
+    const timesList = calendars.map(calendar => calendar.event_times).flat().filter((value, index, self) => self.indexOf(value) === index)
 
     function getDateFromDay(day) {
         return TimeUtils.getDatePlusDays(currentWeek, day);
