@@ -8,18 +8,22 @@ import {CalendarSelector} from "./calendar/calendarSelector";
 
 export function Dashboard() {
     const [activeWeek, updateActiveWeek] = React.useState(TimeUtils.getTimezonedCurrentWeek())
-    const [calendars, setCalendars] = React.useState(new Map());
+    const [activeCalendars, setActiveCalendars] = React.useState(new Map());
+    const [userCalendars, setUserCalendars] = React.useState([]);
 
     React.useEffect(() => {
         fetch('/api/users/calendars')
             .then((response) => response.json())
-            .then((calendars) => {setCalendars(new Map(calendars.map(calendar => [calendar, false])))})
+            .then((calendars) => {
+                setActiveCalendars(new Map(calendars.map(calendar => [calendar.calendar_id, false])));
+                setUserCalendars(calendars);
+            })
     }, [])
 
     function getActiveCalendars() {
         const activeCalendars = []
-        for (const calendar of calendars.keys()) {
-            if (calendars.get(calendar) === true) {
+        for (const calendar of activeCalendars.keys()) {
+            if (activeCalendars.get(calendar) === true) {
                 activeCalendars.push(calendar)
             }
         }
@@ -44,9 +48,13 @@ export function Dashboard() {
         <main>
             <Container>
                 <Row>
-                    <Col><CalendarSelector calendars={calendars} setCalendars={setCalendars} set/></Col>
+                    <Col><CalendarSelector activeCalendars={activeCalendars} userCalendars={userCalendars}
+                                           setCalendars={(activeCalendars, userCalendars) => {
+                                               setActiveCalendars(activeCalendars);
+                                               setUserCalendars(userCalendars)
+                                           }}/></Col>
                     <Col>{getCalendarPaginator()}</Col>
-                    <Col><CreateEvent calendars={calendars}/></Col>
+                    <Col><CreateEvent calendars={activeCalendars}/></Col>
                 </Row>
                 <br/>
                 <Row>

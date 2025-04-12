@@ -5,18 +5,25 @@ import {Form, FormControl, FormLabel} from "react-bootstrap";
 import CalendarSelectorUtils from "./CalendarSelectorUtils"
 import {CreateEvent} from "../event/createEvent";
 
-export function CalendarSelector({calendars, setCalendars}) {
+export function CalendarSelector({activeCalendars, userCalendars, setCalendars}) {
     const [newCalendar, setNewCalendar] = React.useState('');
 
-    function createCalendar() {
-        fetch('/api/calendars', {
+    async function createCalendar() {
+        const response = await fetch('/api/calendars', {
             method: "POST",
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
                 name: newCalendar
             })
-        }).then(() => setCalendars(calendars.set(newCalendar, false)))
-            .then(() => setNewCalendar(''))
+        })
+
+        const calendar = await response.json()
+        const active = activeCalendars
+        const user = userCalendars
+        active.set(calendar.calendar_id, false)
+        user.push(calendar)
+        setCalendars(active, user)
+        setNewCalendar('')
     }
 
     return (
@@ -30,7 +37,7 @@ export function CalendarSelector({calendars, setCalendars}) {
         >
             <Form>
                 <span>Your Calendars:</span>
-                {CalendarSelectorUtils.getCalendarBoxes(calendars, setCalendars, (_) => null)}
+                {CalendarSelectorUtils.getCalendarBoxes(activeCalendars, userCalendars, setCalendars, (_) => null)}
                 <Popup trigger={<Button>Create New Calendar</Button>}>
                     {closeNewCalendar => (
                         <Form>

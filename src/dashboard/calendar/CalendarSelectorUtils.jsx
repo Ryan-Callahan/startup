@@ -11,27 +11,27 @@ class CalendarSelectorUtils {
         return false
     }
 
-    static getCalendarBoxes(calendars, setCalendars, setCalendarIsSelected) {
+    static getCalendarBoxes(activeCalendars, userCalendars, setCalendars, setCalendarIsSelected) {
 
         function toggleActiveCalendar(calendar) {
-            const updatedCalendars = new Map(calendars)
-            if (calendars.get(calendar) === true) {
+            const updatedCalendars = new Map(activeCalendars)
+            if (activeCalendars.get(calendar) === true) {
                 updatedCalendars.set(calendar, false)
             } else {
                 updatedCalendars.set(calendar, true)
             }
             setCalendarIsSelected(CalendarSelectorUtils.isCalendarSelected(updatedCalendars))
-            setCalendars(updatedCalendars)
+            setCalendars(updatedCalendars, userCalendars)
         }
 
         const e = []
-        for (const calendar of calendars.keys()) {
+        for (const calendar of activeCalendars.keys()) {
             e.push(
                 <Form.Check
                     key={"checkbox-" + calendar}
                     type="switch"
-                    label={calendar}
-                    checked={calendars.get(calendar)}
+                    label={userCalendars.find(c => c.calendar_id === calendar).name}
+                    checked={activeCalendars.get(calendar)}
                     onChange={() => toggleActiveCalendar(calendar)}
                 />
             )

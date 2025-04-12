@@ -83,7 +83,8 @@ apiRouter.post('/users/calendars', verifyAuth, async (req, res) => {
 
 apiRouter.get('/users/calendars', verifyAuth, async (req, res) => {
     const user = await findUser('token', req.cookies[authCookieName]);
-    res.send(user.calendars)
+    const userCalendars = findUserCalendars(user.calendars);
+    res.send(userCalendars)
 })
 
 apiRouter.post('/calendars', verifyAuth, async (req, res) => {
@@ -141,6 +142,14 @@ function addCalendarToUser(user, calendars) {
     user.calendars = userCalendars.flat().filter((value, index, self) => self.indexOf(value) === index);
     users.splice(users.indexOf(user), 1, user);
     return user;
+}
+
+function findUserCalendars(userCalendars) {
+    const c = []
+    userCalendars.forEach(calendar => {
+        c.push(calendars.find((c) => c["calendar_id"] === calendar))
+    })
+    return c
 }
 
 function updateCalendars(calendar) {
