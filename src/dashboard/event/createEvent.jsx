@@ -3,13 +3,11 @@ import Popup from "reactjs-popup";
 import Button from "react-bootstrap/Button";
 import {Form, FormControl, FormGroup, FormLabel} from "react-bootstrap";
 import TimeUtils from "../calendar/TimeUtils";
-import {CalendarSelector} from "../calendar/calendarSelector";
 import CalendarSelectorUtils from "../calendar/CalendarSelectorUtils";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"
 
-export function CreateEvent({id, name, description, time, calendars}) {
-    const [eventID, setEventID] = React.useState((id != null) ? id : generateEventID("testEvent-1"))
+export function CreateEvent({name, description, time, calendars}) {
     const [eventName, setEventName] = React.useState((name != null) ? name : "");
     const [eventDescription, setEventDescription] = React.useState((description != null) ? description : "");
     const [eventTime, setEventTime] = React.useState((time != null) ? time : new Date())
@@ -20,19 +18,10 @@ export function CreateEvent({id, name, description, time, calendars}) {
         setEventCalendars(new Map(calendars.map(calendar => [calendar.calendar_id, false])))
     }, [])
 
-    function generateEventID(id) {
-        let eventID = id
-        if (localStorage.getItem(eventID) === null) {
-            return eventID
-        } else {
-            return generateEventID("testEvent-" + (parseInt(eventID.split('-')[1]) + 1))
-        }
-    }
-
     async function createEvent() {
         const time = TimeUtils.getEpochToMinute(TimeUtils.getTimezoneTime(eventTime).getTime())
 
-        const eventResponse = fetch("/api/events" , {
+        fetch("/api/events" , {
             method: "POST",
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
@@ -41,7 +30,7 @@ export function CreateEvent({id, name, description, time, calendars}) {
             })
         }).then((response) => response.json()).then((event) => {
             console.log(event)
-            const timeResponse = fetch("/api/times", {
+            fetch("/api/times", {
                 method: "POST",
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify({
@@ -51,7 +40,7 @@ export function CreateEvent({id, name, description, time, calendars}) {
             })
 
             for (const calendar of eventCalendars.keys()) {
-                const calendarResponse = fetch('/api/calendar/times', {
+                fetch('/api/calendar/times', {
                     method: "POST",
                     headers: {'content-type': 'application/json'},
                     body: JSON.stringify({
