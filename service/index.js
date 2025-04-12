@@ -17,6 +17,9 @@ let times = [];
 let events = [];
 let eventCtr = 1;
 
+//todo remove test users
+createUser("test", "password");
+
 let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
@@ -83,9 +86,11 @@ apiRouter.get('/users/calendars', verifyAuth, async (req, res) => {
     res.send(user.calendars)
 })
 
-apiRouter.post('/calendars', verifyAuth, (req, res) => {
-    calendars = updateCalendars(req.body);
-    res.send(calendars);
+apiRouter.post('/calendars', verifyAuth, async (req, res) => {
+    let user = await findUser('token', req.cookies[authCookieName])
+    const calendar = updateCalendars(req.body);
+    addCalendarToUser(user, calendar.calendar_id)
+    res.send(calendar);
 });
 
 apiRouter.get('/calendars', verifyAuth, (req, res) => {
@@ -131,7 +136,9 @@ async function findUser(field, value) {
 }
 
 function addCalendarToUser(user, calendars) {
-    user.calendars = calendars;
+    const userCalendars = user.calendars;
+    userCalendars.push(calendars)
+    user.calendars = userCalendars.flat().filter((value, index, self) => self.indexOf(value) === index);
     users.splice(users.indexOf(user), 1, user);
     return user;
 }
@@ -144,15 +151,16 @@ function updateCalendars(calendar) {
         } else {
             calendars.push(calendar);
         }
+        return calendar
     } else {
-        calendars.push({
-            calendar_id: calendarCtr,
+        const newCalendar = {
+            calendar_id: calendarCtr++,
             name: calendar.name,
             event_times: []
-        });
+        }
+        calendars.push(newCalendar);
+        return newCalendar
     }
-
-    return calendars;
 }
 
 function updateTimes(newTime) {

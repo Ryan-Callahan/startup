@@ -36,7 +36,7 @@ POST http://localhost:3000/api/users/calendars
 Content-Type: application/json
 
 [
-  1
+  2
 ]
 
 ###
@@ -52,6 +52,15 @@ Content-Type: application/json
   "calendar_id": 2,
   "name": "ryans calendar",
   "event_times": [1744322520000]
+}
+
+###
+
+POST http://localhost:3000/api/calendars
+Content-Type: application/json
+
+{
+  "name": "test calendar"
 }
 
 ###
