@@ -21,13 +21,13 @@ export function Dashboard() {
     }, [])
 
     function getActiveCalendars() {
-        const activeCalendars = []
+        const active = []
         for (const calendar of activeCalendars.keys()) {
             if (activeCalendars.get(calendar) === true) {
-                activeCalendars.push(calendar)
+                active.push(calendar)
             }
         }
-        return activeCalendars
+        return active
     }
 
     function getCalendarPaginator() {
@@ -54,7 +54,7 @@ export function Dashboard() {
                                                setUserCalendars(userCalendars)
                                            }}/></Col>
                     <Col>{getCalendarPaginator()}</Col>
-                    <Col><CreateEvent calendars={activeCalendars}/></Col>
+                    <Col><CreateEvent calendars={userCalendars}/></Col>
                 </Row>
                 <br/>
                 <Row>

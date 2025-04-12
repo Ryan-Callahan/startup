@@ -8,14 +8,17 @@ import CalendarSelectorUtils from "../calendar/CalendarSelectorUtils";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"
 
-export function CreateEvent({name, description, time, calendars, id}) {
+export function CreateEvent({id, name, description, time, calendars}) {
+    const [eventID, setEventID] = React.useState((id != null) ? id : generateEventID("testEvent-1"))
     const [eventName, setEventName] = React.useState((name != null) ? name : "");
     const [eventDescription, setEventDescription] = React.useState((description != null) ? description : "");
     const [eventTime, setEventTime] = React.useState((time != null) ? time : new Date())
-    //todo start here??? fix event calendars
-    const [eventCalendars, setEventCalendars] = React.useState((calendars != null) ? calendars : new Map(allCalendars.map(calendar => [calendar, false])))
+    const [eventCalendars, setEventCalendars] = React.useState(new Map(calendars.map(calendar => [calendar.calendar_id, false])))
     const [isCalendarSelected, setIsCalendarSelected] = React.useState(CalendarSelectorUtils.isCalendarSelected(eventCalendars))
-    const [eventID, setEventID] = React.useState((id != null) ? id : generateEventID("testEvent-1"))
+
+    React.useEffect(() => {
+        setEventCalendars(new Map(calendars.map(calendar => [calendar.calendar_id, false])))
+    }, [])
 
     function generateEventID(id) {
         let eventID = id
@@ -26,34 +29,42 @@ export function CreateEvent({name, description, time, calendars, id}) {
         }
     }
 
-    function createEvent() {
-        const event = JSON.stringify({
-            name: eventName,
-            description: eventDescription
-        })
-        localStorage.setItem(eventID, event)
-
-        let eventIDs = []
+    async function createEvent() {
         const time = TimeUtils.getEpochToMinute(TimeUtils.getTimezoneTime(eventTime).getTime())
-        if (localStorage.getItem(time) !== null) {
-            eventIDs.push(JSON.parse(localStorage.getItem(time)))
-        }
-        eventIDs.push(eventID)
-        eventIDs = JSON.stringify(eventIDs.flat())
-        localStorage.setItem(time, eventIDs)
 
+        const eventResponse = fetch("/api/events" , {
+            method: "POST",
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({
+                name: eventName,
+                description: eventDescription
+            })
+        }).then((response) => response.json()).then((event) => {
+            console.log(event)
+            const timeResponse = fetch("/api/times", {
+                method: "POST",
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify({
+                    time: time,
+                    event_ids: event.event_id
+                })
+            })
 
-        for (const calendar of eventCalendars.keys()) {
-            if (eventCalendars.get(calendar)) {
-                let times = []
-                if (localStorage.getItem(calendar) !== null) {
-                    times.push(JSON.parse(localStorage.getItem(calendar)))
-                }
-                times.push(time)
-                times = JSON.stringify(times.flat())
-                localStorage.setItem(calendar, times)
+            for (const calendar of eventCalendars.keys()) {
+                const calendarResponse = fetch('/api/calendar/times', {
+                    method: "POST",
+                    headers: {'content-type': 'application/json'},
+                    body: JSON.stringify({
+                        calendar_id: calendar,
+                        event_times: time
+                    })
+                })
             }
-        }
+        })
+
+
+
+
         window.location.reload()
     }
 
@@ -81,7 +92,7 @@ export function CreateEvent({name, description, time, calendars, id}) {
                     </FormGroup>
                     <FormGroup>
                         <FormLabel>Calendars:</FormLabel>
-                        {CalendarSelectorUtils.getCalendarBoxes(eventCalendars, setEventCalendars, setIsCalendarSelected)}
+                        {CalendarSelectorUtils.getCalendarBoxes(eventCalendars, calendars, setEventCalendars, setIsCalendarSelected)}
                     </FormGroup>
                     <FormGroup>
                         <Button variant="primary" onClick={() => {close(); createEvent()}} disabled={!eventName || !isCalendarSelected}>Create Event</Button>

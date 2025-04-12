@@ -25,14 +25,14 @@ class CalendarSelectorUtils {
         }
 
         const e = []
-        for (const calendar of activeCalendars.keys()) {
+        for (const calendar of userCalendars) {
             e.push(
                 <Form.Check
-                    key={"checkbox-" + calendar}
+                    key={"checkbox-" + calendar.calendar_id}
                     type="switch"
-                    label={userCalendars.find(c => c.calendar_id === calendar).name}
-                    checked={activeCalendars.get(calendar)}
-                    onChange={() => toggleActiveCalendar(calendar)}
+                    label={calendar.name}
+                    checked={activeCalendars.get(calendar.calendar_id)}
+                    onChange={() => toggleActiveCalendar(calendar.calendar_id)}
                 />
             )
         }

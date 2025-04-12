@@ -17,6 +17,9 @@ let times = [];
 let events = [];
 let eventCtr = 1;
 
+//Used with .filter() on FlatArrays
+let UNIQUE = (value, index, self) => self.indexOf(value) === index
+
 //todo remove test users
 createUser("test", "password");
 
@@ -94,6 +97,11 @@ apiRouter.post('/calendars', verifyAuth, async (req, res) => {
     res.send(calendar);
 });
 
+apiRouter.post('/calendar/times', verifyAuth, async (req, res) => {
+    const calendar = addTimeToCalendar(req.body);
+    res.send(calendar);
+});
+
 apiRouter.get('/calendars', verifyAuth, (req, res) => {
     res.send(calendars);
 });
@@ -108,8 +116,8 @@ apiRouter.get('/times', verifyAuth, (req, res) => {
 });
 
 apiRouter.post('/events', verifyAuth, (req, res) => {
-    events = updateEvents(req.body);
-    res.send(events);
+    event = updateEvents(req.body);
+    res.send(event);
 });
 
 apiRouter.get('/events', verifyAuth, (req, res) => {
@@ -139,7 +147,7 @@ async function findUser(field, value) {
 function addCalendarToUser(user, calendars) {
     const userCalendars = user.calendars;
     userCalendars.push(calendars)
-    user.calendars = userCalendars.flat().filter((value, index, self) => self.indexOf(value) === index);
+    user.calendars = userCalendars.flat().filter(UNIQUE);
     users.splice(users.indexOf(user), 1, user);
     return user;
 }
@@ -172,11 +180,33 @@ function updateCalendars(calendar) {
     }
 }
 
+function addTimeToCalendar(calendar) {
+    const calendarID = calendar["calendar_id"]
+    const previousCalendar = calendars.find((c) => c["calendar_id"] === calendarID)
+
+    const times = previousCalendar["event_times"]
+    times.push(calendar["event_times"])
+    const updatedCalendar = {
+        calendar_id: calendarID,
+        name: previousCalendar["name"],
+        event_times: times.flat().filter(UNIQUE)
+    }
+    calendars.splice(calendars.indexOf(previousCalendar), 1, updatedCalendar);
+
+    return updatedCalendar
+}
+
 function updateTimes(newTime) {
     const previousTime = times.find((t) => t['time'] === newTime['time']);
 
     if (previousTime) {
-        times.splice(times.indexOf(previousTime), 1, newTime);
+        const events = previousTime["event_ids"]
+            events.push(newTime["event_ids"])
+        const updatedTime = {
+            time: previousTime['time'],
+            event_ids: events.flat().filter(UNIQUE)
+        }
+        times.splice(times.indexOf(previousTime), 1, updatedTime);
     } else {
         times.push(newTime);
     }
@@ -192,15 +222,16 @@ function updateEvents(event) {
         } else {
             events.push(event);
         }
+        return event
     } else {
-        events.push({
+        const newEvent = {
             event_id: eventCtr++,
             name: event.name,
             description: event.description
-        });
+        }
+        events.push(newEvent);
+        return newEvent
     }
-
-    return events;
 }
 
 function setAuthCookie(res, authToken) {
