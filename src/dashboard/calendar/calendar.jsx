@@ -7,8 +7,7 @@ import TimeUtils from "./TimeUtils";
 export function Calendar(props) {
     const currentWeek = props.activeWeek;
     const calendars = props.calendars
-
-    const timesList = calendars.map(calendar => calendar.event_times).flat().filter((value, index, self) => self.indexOf(value) === index)
+    const timesList = calendars.map(calendar => calendar.times).flat().filter((value, index, self) => self.indexOf(value) === index)
 
     function getDateFromDay(day) {
         return TimeUtils.getDatePlusDays(currentWeek, day);
@@ -17,7 +16,7 @@ export function Calendar(props) {
     function getEventsForDay(day) {
         const events = []
         timesList.forEach(time => {
-            const timeDate = TimeUtils.getDateFromEpoch(parseInt(time))
+            const timeDate = TimeUtils.getDateFromEpoch(time.time)
             if (TimeUtils.isDateSameDay(day, timeDate)) {
                 events.push(time)
             }

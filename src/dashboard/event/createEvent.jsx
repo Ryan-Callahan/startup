@@ -54,7 +54,7 @@ export function CreateEvent({name, description, time, calendars}) {
 
 
 
-        window.location.reload()
+        window.location.reload();
     }
 
     return (

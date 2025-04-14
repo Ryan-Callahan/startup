@@ -6,7 +6,7 @@ import Popup from "reactjs-popup";
 export function Time(props) {
     const hour = props.time.getUTCHours();
     const minutes = props.time.getUTCMinutes();
-    const eventIDs = props.eventIDs
+    const events = props.events
 
     function formattedHour() {
         return (hour > 12 ? hour - 12 : hour === 0 ? 12 : hour);
@@ -31,7 +31,7 @@ export function Time(props) {
                     <div className="event-card-container overflow-card"><Card>...</Card></div>
                 }
                 position="bottom left"
-                key={"Overflow-" + eventIDs}
+                key={"Overflow-" + events}
             >{o}</Popup>
         )
     }
@@ -39,12 +39,12 @@ export function Time(props) {
     function getEvents() {
         const e = []
         const o = []
-        if (eventIDs != null) {
-            for (let i = 0; i < eventIDs.length; i++) {
-                let event = localStorage.getItem(eventIDs[i]);
+        if (events != null && events.length > 0) {
+            let eventCtr = 0;
+            for (const event of events) {
                 if (event != null) {
-                    const eventElement = <Event key={"Event-" + eventIDs[i]} time={formattedTime()} date={props.time} event={JSON.parse(event)}/>;
-                    (i < 2) ? e.push(eventElement) : o.push(eventElement);
+                    const eventElement = <Event key={"Event-" + event.event_id} time={formattedTime()} date={props.time} event={event}/>;
+                    (++eventCtr <= 2) ? e.push(eventElement) : o.push(eventElement);
                 }
             }
         }

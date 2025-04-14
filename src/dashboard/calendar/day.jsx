@@ -6,7 +6,8 @@ import TimeUtils from "./TimeUtils";
 export function Day(props) {
     const eventTimes = props.eventTimes
     const relevantTimes = new Map
-    eventTimes.map(time => {
+    eventTimes.map(eventTime => {
+        const time = eventTime.time
         const roundedTime = TimeUtils.getEpochToHour(time)
         if (!relevantTimes.has(roundedTime)) {
             relevantTimes.set(roundedTime, [time])
@@ -15,10 +16,9 @@ export function Day(props) {
         }
     })
 
-    function getEventIDsForTime(time) {
+    function getEventsForTime(time) {
         if (relevantTimes.has(time)) {
-            const eventTimes = relevantTimes.get(time)
-            return eventTimes.flatMap(t => JSON.parse(localStorage.getItem(t)))
+            return relevantTimes.get(time).flatMap(times => eventTimes.find((t) => t.time === times).event_ids)
         } else {
             return null
         }
@@ -28,7 +28,7 @@ export function Day(props) {
         const times = []
         for (let i = 0; i < 24; i++) {
             const date = TimeUtils.getDatePlusHours(props.day, i)
-            times.push(<Time key={"Time-" + date.getTime()} time={date} eventIDs={getEventIDsForTime(date.getTime())}/>)
+            times.push(<Time key={"Time-" + date.getTime()} time={date} events={getEventsForTime(date.getTime())}/>)
         }
         return <>{times}</>
     }

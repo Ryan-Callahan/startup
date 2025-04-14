@@ -22,7 +22,7 @@ Content-Type: application/json
 
 {
   "calendar_id": 1,
-  "name": "ryans calendar",
+  "name": "ryans calendar 2",
   "event_times": [1744322520000, 1744322520001]
 }
 
@@ -32,8 +32,8 @@ POST http://localhost:3000/api/times
 Content-Type: application/json
 
 {
-  "time": 1744322520000,
-  "event_ids": [2]
+  "time": 1744322520001,
+  "event_ids": [1]
 }
 
 ###
@@ -48,4 +48,8 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/api/users/calendar/1
+GET http://localhost:3000/api/users/calendars/1
+
+###
+
+GET http://localhost:3000/api/users/calendars

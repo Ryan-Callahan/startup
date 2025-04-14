@@ -86,11 +86,21 @@ apiRouter.post('/users/calendars', verifyAuth, async (req, res) => {
 
 apiRouter.get('/users/calendars', verifyAuth, async (req, res) => {
     const user = await findUser('token', req.cookies[authCookieName]);
-    const userCalendars = findUserCalendars(user.calendars);
+    const userCalendarIDs = findUserCalendars(user.calendars).flatMap(calendar => calendar.calendar_id);
+    const userCalendars = []
+    for (const calendarID of userCalendarIDs) {
+        userCalendars.push(getCalendarAsObject(calendarID))
+    }
     res.send(userCalendars)
 })
 
-apiRouter.get('/users/calendar/:calendarId', (req, res) => {
+apiRouter.get('/users/calendars/ids', verifyAuth, async (req, res) => {
+    const user = await findUser('token', req.cookies[authCookieName]);
+    const userCalendars = findUserCalendars(user.calendars);
+    res.send(userCalendars.flatMap(calendar => calendar.calendar_id))
+})
+
+apiRouter.get('/users/calendars/:calendarId', verifyAuth, (req, res) => {
     const calendarID = parseInt(req.params.calendarId);
     const calendar = getCalendarAsObject(calendarID)
     res.send(calendar)
@@ -173,11 +183,11 @@ function getCalendarAsObject(calendarID) {
         calendar_id: calendarID,
         name: calendar.name,
         times: (calendarTimes.length > 0) ? calendarTimes.flatMap(time => {
-            let eventTimes = times.find((t) => t["time"] === time)
-            eventTimes = eventTimes.event_ids
+            const eventTime = times.find((t) => t["time"] === time)
+            const eventIds = [eventTime.event_ids].flat()
             return {
                 time: time,
-                event_ids: (eventTimes.length > 0) ? eventTimes.flatMap(eventId => {
+                event_ids: (eventIds.length > 0) ? eventIds.flatMap(eventId => {
                     const event = events.find((e) => e["event_id"] === eventId)
                     return {
                         event_id: eventId,
