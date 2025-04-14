@@ -3,10 +3,9 @@ import {Card, Container, Row} from "react-bootstrap";
 import {Event} from "../event/event";
 import Popup from "reactjs-popup";
 
-export function Time(props) {
-    const hour = props.time.getUTCHours();
-    const minutes = props.time.getUTCMinutes();
-    const events = props.events
+export function Time({time, events}) {
+    const hour = time.getUTCHours();
+    const minutes = time.getUTCMinutes();
 
     function formattedHour() {
         return (hour > 12 ? hour - 12 : hour === 0 ? 12 : hour);
@@ -43,7 +42,7 @@ export function Time(props) {
             let eventCtr = 0;
             for (const event of events) {
                 if (event != null) {
-                    const eventElement = <Event key={"Event-" + event.event_id} time={formattedTime()} date={props.time} event={event}/>;
+                    const eventElement = <Event key={"Event-" + event.event_id} time={formattedTime()} date={time} event={event}/>;
                     (++eventCtr <= 2) ? e.push(eventElement) : o.push(eventElement);
                 }
             }

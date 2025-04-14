@@ -3,8 +3,7 @@ import {Col, Row} from "react-bootstrap";
 import {Time} from "./time";
 import TimeUtils from "./TimeUtils";
 
-export function Day(props) {
-    const eventTimes = props.eventTimes
+export function Day({day, eventTimes}) {
     const relevantTimes = new Map
     eventTimes.map(eventTime => {
         const time = eventTime.time
@@ -27,7 +26,7 @@ export function Day(props) {
     function getTimes() {
         const times = []
         for (let i = 0; i < 24; i++) {
-            const date = TimeUtils.getDatePlusHours(props.day, i)
+            const date = TimeUtils.getDatePlusHours(day, i)
             times.push(<Time key={"Time-" + date.getTime()} time={date} events={getEventsForTime(date.getTime())}/>)
         }
         return <>{times}</>
@@ -36,7 +35,7 @@ export function Day(props) {
     return (
         <Col className="day">
             <Row className="weekHeader time content">
-                {TimeUtils.getDateAsString(props.day)}
+                {TimeUtils.getDateAsString(day)}
             </Row>
             {getTimes()}
         </Col>

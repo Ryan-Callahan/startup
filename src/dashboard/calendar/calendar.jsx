@@ -4,13 +4,11 @@ import {Day} from "./day";
 import './calendar.css';
 import TimeUtils from "./TimeUtils";
 
-export function Calendar(props) {
-    const currentWeek = props.activeWeek;
-    const calendars = props.calendars
+export function Calendar({activeWeek, calendars}) {
     const timesList = calendars.map(calendar => calendar.times).flat().filter((value, index, self) => self.indexOf(value) === index)
 
     function getDateFromDay(day) {
-        return TimeUtils.getDatePlusDays(currentWeek, day);
+        return TimeUtils.getDatePlusDays(activeWeek, day);
     }
 
     function getEventsForDay(day) {
