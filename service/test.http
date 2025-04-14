@@ -53,3 +53,9 @@ GET http://localhost:3000/api/users/calendars/1
 ###
 
 GET http://localhost:3000/api/users/calendars
+
+###
+
+GET https://mhw-db.com/monsters/1?p={"id": true, "name": true, "description": true}
+
+###

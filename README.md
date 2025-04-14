@@ -67,3 +67,8 @@ calendars will also reload for every user whenever they are updated by any user
   a page.
 - reactjs-popup is a module being used to display the profile menu in the top right corner of the webpage.
 - The calendar is being rendered using React. Functionality is mostly there and just requires the database to be implemented now.
+
+### Service
+- Node.js and Express are being used to expose endpoints in service
+- All references to localStorage that should be replaced with API calls have been replaced
+- Third-party endpoint is being called in the form of a random fact at the bottom of the webpage

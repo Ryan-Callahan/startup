@@ -1,20 +1,25 @@
 import React from 'react'
 
-export function MonsterFact(props) {
-    const facts = ["This is fact 1", "This is fact 2", "This is fact 3", "This is fact 4", "This is fact 5"]
-    const [activeFact, setActiveFact] = React.useState(getNewFact())
+export function MonsterFact() {
+    const [activeFact, setActiveFact] = React.useState("Loading monster fact...")
 
     React.useEffect(() => {
-        const interval = setInterval(() => {
-            setActiveFact(oldFact => getNewFact())
-        }, 5000)
+        async function generateMonsterFact() {
+            const randomInt = Math.floor(Math.random() * 1000 % 35) + 1
+            const response = await fetch(`https://mhw-db.com/monsters/${randomInt}`)
+            console.log(response)
+            const body = await response.json()
+            setActiveFact(body.name + " - " + body.description)
+        }
+
+        generateMonsterFact()
+
+        const interval = setInterval( () => {
+            generateMonsterFact()
+        }, 60000)
 
         return () => clearInterval(interval)
     }, [])
-
-    function getNewFact() {
-        return facts[Math.floor(Math.random() * 1000 % 5)]
-    }
 
     return (
         <p>{activeFact}</p>
