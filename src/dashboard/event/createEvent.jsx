@@ -29,7 +29,6 @@ export function CreateEvent({name, description, time, calendars}) {
                 description: eventDescription
             })
         }).then((response) => response.json()).then((event) => {
-            console.log(event)
             fetch("/api/times", {
                 method: "POST",
                 headers: {'content-type': 'application/json'},
