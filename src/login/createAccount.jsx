@@ -15,7 +15,7 @@ export function CreateAccount(props) {
         if (passwordCheck()) {
             const response = await fetch('/api/auth/create', {
                 method: "POST",
-                headers: { 'content-type': 'application/json' },
+                headers: {'content-type': 'application/json'},
                 body: JSON.stringify({
                     username: username,
                     password: password

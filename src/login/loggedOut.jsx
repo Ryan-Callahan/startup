@@ -13,7 +13,7 @@ export function LoggedOut(props) {
     async function loginUser(username, password) {
         const response = await fetch('/api/auth/login', {
             method: 'POST',
-            headers: { 'content-type': 'application/json' },
+            headers: {'content-type': 'application/json'},
             body: JSON.stringify({
                 username: username,
                 password: password
@@ -42,7 +42,7 @@ export function LoggedOut(props) {
                             <FormControl type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                         </FormGroup>
                         {displayError !== '' && (
-                          <errormessage>{displayError}</errormessage>
+                            <errormessage>{displayError}</errormessage>
                         )}
                         <Button variant="primary" onClick={() => loginUser(username, password)} disabled={!username || !password}>Login</Button>
                     </Form>

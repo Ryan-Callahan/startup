@@ -3,7 +3,6 @@ import Popup from "reactjs-popup";
 import Button from "react-bootstrap/Button";
 import {Form, FormControl, FormLabel} from "react-bootstrap";
 import CalendarSelectorUtils from "./CalendarSelectorUtils"
-import {CreateEvent} from "../event/createEvent";
 
 export function CalendarSelector({activeCalendars, userCalendars, setCalendars}) {
     const [newCalendar, setNewCalendar] = React.useState('');
@@ -45,7 +44,10 @@ export function CalendarSelector({activeCalendars, userCalendars, setCalendars})
                         <Form>
                             <FormLabel>New Calendar:</FormLabel>
                             <FormControl type="text" value={newCalendar} onChange={(e) => setNewCalendar(e.target.value)}/>
-                            <Button onClick={() => {closeNewCalendar(); createCalendar()}}>Create</Button>
+                            <Button onClick={() => {
+                                closeNewCalendar();
+                                createCalendar()
+                            }}>Create</Button>
                         </Form>
                     )}
                 </Popup>

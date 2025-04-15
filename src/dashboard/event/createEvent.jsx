@@ -21,7 +21,7 @@ export function CreateEvent({name, description, time, calendars}) {
     async function createEvent() {
         const time = TimeUtils.getEpochToMinute(TimeUtils.getTimezoneTime(eventTime).getTime())
 
-        fetch("/api/events" , {
+        fetch("/api/events", {
             method: "POST",
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
@@ -52,8 +52,6 @@ export function CreateEvent({name, description, time, calendars}) {
         })
 
 
-
-
         window.location.reload();
     }
 
@@ -77,14 +75,17 @@ export function CreateEvent({name, description, time, calendars}) {
                         <FormControl type="description" value={eventDescription} onChange={(e) => setEventDescription(e.target.value)}/>
                     </FormGroup>
                     <FormGroup>
-                        <DatePicker selected={eventTime} onChange={(date) => setEventTime(date)} showTimeSelect dateFormat="Pp" />
+                        <DatePicker selected={eventTime} onChange={(date) => setEventTime(date)} showTimeSelect dateFormat="Pp"/>
                     </FormGroup>
                     <FormGroup>
                         <FormLabel>Calendars:</FormLabel>
                         {CalendarSelectorUtils.getCalendarBoxes(eventCalendars, calendars, setEventCalendars, setIsCalendarSelected)}
                     </FormGroup>
                     <FormGroup>
-                        <Button variant="primary" onClick={() => {close(); createEvent()}} disabled={!eventName || !isCalendarSelected}>Create Event</Button>
+                        <Button variant="primary" onClick={() => {
+                            close();
+                            createEvent()
+                        }} disabled={!eventName || !isCalendarSelected}>Create Event</Button>
                         <Button variant="primary" onClick={() => close()}>Cancel Event</Button>
                     </FormGroup>
                 </Form>

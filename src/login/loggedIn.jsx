@@ -10,7 +10,9 @@ export function LoggedIn(props) {
             method: 'DELETE'
         })
             .catch(() => {})
-            .finally(() => {props.onLogout();});
+            .finally(() => {
+                props.onLogout();
+            });
     }
 
     return (

@@ -14,7 +14,7 @@ export function MonsterFact() {
 
         generateMonsterFact()
 
-        const interval = setInterval( () => {
+        const interval = setInterval(() => {
             generateMonsterFact()
         }, 60000)
 

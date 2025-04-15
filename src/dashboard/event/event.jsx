@@ -3,7 +3,6 @@ import Popup from "reactjs-popup";
 import {Card, Container, Row} from "react-bootstrap";
 import TimeUtils from "../calendar/TimeUtils";
 import Button from "react-bootstrap/Button";
-import {CreateEvent} from "./createEvent";
 
 export function Event({time, date, event}) {
 

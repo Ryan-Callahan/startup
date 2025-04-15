@@ -73,7 +73,7 @@ export default function App() {
                 </Routes>
 
                 <footer className="border-top">
-                    <MonsterFact />
+                    <MonsterFact/>
                     <small>Ryan Callahan 2025</small>
                     <div>
                         <a href="https://github.com/Ryan-Callahan/startup/tree/main">Github</a>
