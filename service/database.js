@@ -18,3 +18,5 @@ const eventsCollection = db.collection('events');
         process.exit(1);
     }
 })();
+
+//todo add in dao functions
