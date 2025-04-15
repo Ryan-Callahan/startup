@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Deploy Service to Startup" type="ShConfigurationType">
-    <option name="SCRIPT_TEXT" value="./deployService.sh -k &quot;C:\Users\ryanc\BYU\Winter25\cs260\DO_NOT_COMMIT_260RSAkey.pem&quot; -h schedulizer260.com -s startup " />
+    <option name="SCRIPT_TEXT" value="./deployService.sh -k C:\Users\ryanc\BYU\Winter25\cs260\DO_NOT_COMMIT_260RSAkey.pem -h schedulizer260.com -s startup " />
     <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
     <option name="SCRIPT_PATH" value="./deployService.sh -k &quot;$PROJECT_DIR$/../../Winter25/cs260/DO_NOT_COMMIT_260RSAkey.pem&quot; -h schedulizer260.com -s startup" />
     <option name="SCRIPT_OPTIONS" value="" />
