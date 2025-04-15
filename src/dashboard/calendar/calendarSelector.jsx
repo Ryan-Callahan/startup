@@ -19,7 +19,7 @@ export function CalendarSelector({activeCalendars, userCalendars, setCalendars})
         const calendar = await response.json()
         const active = activeCalendars
         const user = userCalendars
-        active.set(calendar.calendar_id, false)
+        active.set(calendar._id, false)
         user.push(calendar)
         setCalendars(active, user)
         setNewCalendar('')

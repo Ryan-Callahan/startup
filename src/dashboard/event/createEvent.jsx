@@ -11,11 +11,11 @@ export function CreateEvent({name, description, time, calendars}) {
     const [eventName, setEventName] = React.useState((name != null) ? name : "");
     const [eventDescription, setEventDescription] = React.useState((description != null) ? description : "");
     const [eventTime, setEventTime] = React.useState((time != null) ? time : new Date())
-    const [eventCalendars, setEventCalendars] = React.useState(new Map(calendars.map(calendar => [calendar.calendar_id, false])))
+    const [eventCalendars, setEventCalendars] = React.useState(new Map(calendars.map(calendar => [calendar._id, false])))
     const [isCalendarSelected, setIsCalendarSelected] = React.useState(CalendarSelectorUtils.isCalendarSelected(eventCalendars))
 
     React.useEffect(() => {
-        setEventCalendars(new Map(calendars.map(calendar => [calendar.calendar_id, false])))
+        setEventCalendars(new Map(calendars.map(calendar => [calendar._id, false])))
     }, [])
 
     async function createEvent() {
@@ -43,7 +43,7 @@ export function CreateEvent({name, description, time, calendars}) {
                     method: "POST",
                     headers: {'content-type': 'application/json'},
                     body: JSON.stringify({
-                        calendar_id: calendar,
+                        _id: calendar,
                         event_times: time
                     })
                 })

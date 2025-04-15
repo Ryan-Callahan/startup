@@ -21,8 +21,7 @@ POST http://localhost:3000/api/calendars
 Content-Type: application/json
 
 {
-  "calendar_id": 1,
-  "name": "ryans calendar 2",
+  "_id": 1,
   "event_times": [1744322520000, 1744322520001]
 }
 

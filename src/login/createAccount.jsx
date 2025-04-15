@@ -17,6 +17,7 @@ export function CreateAccount(props) {
                 method: "POST",
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify({
+                    email: email,
                     username: username,
                     password: password
                 })

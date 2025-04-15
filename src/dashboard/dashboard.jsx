@@ -15,7 +15,7 @@ export function Dashboard() {
         fetch('/api/users/calendars')
             .then((response) => response.json())
             .then((calendars) => {
-                setActiveCalendars(new Map(calendars.map(calendar => [calendar.calendar_id, false])));
+                setActiveCalendars(new Map(calendars.map(calendar => [calendar._id, false])));
                 setUserCalendars(calendars);
             })
     }, [])
@@ -23,7 +23,7 @@ export function Dashboard() {
     function getActiveCalendars() {
         const active = []
         for (const calendar of userCalendars) {
-            if (activeCalendars.get(calendar.calendar_id) === true) {
+            if (activeCalendars.get(calendar._id) === true) {
                 active.push(calendar)
             }
         }

@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
@@ -19,4 +19,36 @@ const eventsCollection = db.collection('events');
     }
 })();
 
-//todo add in dao functions
+async function addUser(user) {
+    await usersCollection.insertOne(user);
+}
+
+function getUser(field, value) {
+    return usersCollection.findOne({ [field]: value });
+}
+
+async function updateUser(user) {
+    await usersCollection.updateOne({ email: user.email }, { $set: user });
+}
+
+async function addCalendar(calendar) {
+    await calendarsCollection.insertOne(calendar);
+}
+
+async function getCalendar(calendarID) {
+    const id = new ObjectId(calendarID);
+    return calendarsCollection.findOne({ _id: id });
+}
+
+async function updateCalendar(calendar) {
+    await calendarsCollection.updateOne({ _id: calendar._id }, { $set: calendar });
+}
+
+module.exports = {
+    addUser,
+    getUser,
+    updateUser,
+    addCalendar,
+    getCalendar,
+    updateCalendar
+}

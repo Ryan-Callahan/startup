@@ -10,7 +10,7 @@ POST http://localhost:3000/api/auth/create
 Content-Type: application/json
 
 {
-  "username": "Test",
+  "username": "test",
   "email": "test@email.com",
   "password": "password"
 }
@@ -49,7 +49,7 @@ POST http://localhost:3000/api/calendars
 Content-Type: application/json
 
 {
-  "calendar_id": 1,
+  "_id": 1,
   "name": "ryans calendar",
   "event_times": [1744322520000]
 }
@@ -60,7 +60,7 @@ POST http://localhost:3000/api/calendar/times
 Content-Type: application/json
 
 {
-  "calendar_id": 1,
+  "_id": 1,
   "event_times": 2
 }
 
@@ -118,4 +118,4 @@ GET http://localhost:3000/api/events
 
 ###
 
-GET http://localhost:3000/api/users/calendars/1
+GET http://localhost:3000/api/users/calendars/67fee629ff393891b691e126
