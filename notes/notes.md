@@ -41,6 +41,10 @@ deployReact
 ./deployReact.sh -k "C:\Users\ryanc\BYU\Winter25\cs260\DO_NOT_COMMIT_260RSAkey.pem" -h schedulizer260.com -s startup
 ```
 
+deployService
+```
+./deployService.sh -k "C:\Users\ryanc\BYU\Winter25\cs260\DO_NOT_COMMIT_260RSAkey.pem" -h schedulizer260.com -s startup
+```
 
 ### Calendar stuff
  - The calendar will use an html grid system, each cell will need to be styled appropriately with borders and spacing
