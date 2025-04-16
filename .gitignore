@@ -1,2 +1,4 @@
 /service/dbConfig.json
 /.idea/
+/service/node_modules/
+/node_modules/
