@@ -21,17 +21,16 @@ export function CreateEvent({name, description, time, calendars}) {
     async function createEvent() {
         const time = TimeUtils.getEpochToMinute(TimeUtils.getTimezoneTime(eventTime).getTime())
 
-        //TODO fix the bug here!!! events are not being created properly
-
-        fetch("/api/events", {
+        const response = await fetch("/api/events", {
             method: "POST",
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({
                 name: eventName,
                 description: eventDescription
             })
-        }).then((response) => response.json()).then((event) => {
-            fetch("/api/times", {
+        })
+        const event = await response.json();
+        await fetch("/api/times", {
                 method: "POST",
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify({
@@ -40,18 +39,16 @@ export function CreateEvent({name, description, time, calendars}) {
                 })
             })
 
-            for (const calendar of eventCalendars.keys()) {
-                fetch('/api/calendar/times', {
-                    method: "POST",
-                    headers: {'content-type': 'application/json'},
-                    body: JSON.stringify({
-                        _id: calendar,
-                        event_times: time
-                    })
+        for (const calendar of eventCalendars.keys()) {
+            await fetch('/api/calendar/times', {
+                method: "POST",
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify({
+                    _id: calendar,
+                    event_times: time
                 })
-            }
-        })
-
+            })
+        }
 
         window.location.reload();
     }
