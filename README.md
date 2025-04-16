@@ -72,3 +72,9 @@ calendars will also reload for every user whenever they are updated by any user
 - Node.js and Express are being used to expose endpoints in service
 - All references to localStorage that should be replaced with API calls have been replaced
 - Third-party endpoint is being called in the form of a random fact at the bottom of the webpage
+
+### DB
+- mongoDB is being used to store json objects in the form of calendars, events, times, and users
+- created a DAO for accessing the mongoDB database
+- mongodb credentials are being stored in dbConfig.json for secure development
+- More notes in notes/notes.md about specific details relating to how json is being stored

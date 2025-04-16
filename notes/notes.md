@@ -1,5 +1,7 @@
 # My Notes
 ## A Memoir by Ryan Callahan
+these notes include future plans, not everything will be implemented. 
+This is essentially being used as scratch paper.
 
 ### Git / Github
 - Used for version control and collaboration
@@ -86,8 +88,7 @@ deployService
 
 ### The Event JSON Object
  - Each event will consist of:
-   - Parent calendar
-   - Title
+   - Name
    - Description
    - Misc. information if i'm not lazy
  - Each event needs a unique identifier
@@ -101,36 +102,27 @@ deployService
    event from every single calendar that takes place at a given date only to display a fraction of them.
 
 Calendar JSON <br/>
-*Keys are integer values, requires a table keeping track of which calendars a user has access to.*
 ```json
 {
-  "4": [
-    1741312740000,
-    1741312984000
-  ]
+  "_id": ObjectId('...'),
+  "name": "calendar",
+  "event_times": [...]
 }
 
 ```
 Times JSON
 ```json
 {
-  "1741312740000": [
-    "1",
-    "2"
-  ]
+  "time": 1741312740000,
+  "event_ids": [...]
 }
 ```
 Event JSON
 ```json
 {
-  "1": {
-    "name": "Ryan's appointment",
-    "description": "the appointed hour shall arrive"
-  },
-  "2": {
-    "name": "Second appointment",
-    "description": "the appointed hour has arrived"
-  }
+  "_id": ObjectId('...'),
+  "name": "name",
+  "description": "..."
 }
 ```
 
