@@ -23,8 +23,6 @@ export function CalendarSelector({activeCalendars, userCalendars, setCalendars})
         user.push(calendar)
         setCalendars(active, user)
         setNewCalendar('')
-
-        window.location.reload();
     }
 
     return (

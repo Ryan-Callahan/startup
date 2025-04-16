@@ -111,29 +111,14 @@ apiRouter.post('/calendar/times', verifyAuth, async (req, res) => {
     res.send(calendar);
 });
 
-//todo deprecate
-apiRouter.get('/calendars', verifyAuth, (req, res) => {
-    res.send("calendars");
-});
-
 apiRouter.post('/times', verifyAuth, async (req, res) => {
     const time = await updateTime(req.body);
     res.send(time);
 });
 
-//todo deprecate
-apiRouter.get('/times', verifyAuth, (req, res) => {
-    res.send("times");
-});
-
 apiRouter.post('/events', verifyAuth, async (req, res) => {
     const event = await updateEvents(req.body);
     res.send(event);
-});
-
-//todo deprecate
-apiRouter.get('/events', verifyAuth, (req, res) => {
-    res.send("events");
 });
 
 async function createUser(user) {

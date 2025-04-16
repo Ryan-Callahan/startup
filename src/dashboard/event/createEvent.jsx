@@ -21,6 +21,9 @@ export function CreateEvent({name, description, time, calendars}) {
     async function createEvent() {
         const time = TimeUtils.getEpochToMinute(TimeUtils.getTimezoneTime(eventTime).getTime())
 
+        //todo figure out the calendar structure and update the calendar with the new event and times so that the page will reload
+        // console.log(calendars)
+
         const response = await fetch("/api/events", {
             method: "POST",
             headers: {'content-type': 'application/json'},
@@ -29,6 +32,7 @@ export function CreateEvent({name, description, time, calendars}) {
                 description: eventDescription
             })
         })
+
         const event = await response.json();
         await fetch("/api/times", {
                 method: "POST",
@@ -49,8 +53,6 @@ export function CreateEvent({name, description, time, calendars}) {
                 })
             })
         }
-
-        window.location.reload();
     }
 
     return (
