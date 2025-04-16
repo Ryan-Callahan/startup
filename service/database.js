@@ -31,6 +31,10 @@ async function updateUser(user) {
     await usersCollection.updateOne({ email: user.email }, { $set: user });
 }
 
+async function deleteUser(user) {
+    await usersCollection.deleteOne( { email: user.email })
+}
+
 async function addCalendar(calendar) {
     await calendarsCollection.insertOne(calendar);
 }
@@ -43,16 +47,42 @@ async function updateCalendar(calendar) {
     await calendarsCollection.updateOne({ _id: calendar._id }, { $set: calendar });
 }
 
+async function deleteCalendar(calendarId) {
+    let calId = new ObjectId(calendarId);
+    await calendarsCollection.deleteOne({ _id: calId })
+    const users = usersCollection.find({ calendars: calId})
+    for await (const user of users) {
+        const calendars = [user.calendars].flat().filter(id => !id.equals(calId));
+        await updateUser({
+            email: user.email,
+            calendars: calendars
+        })
+    }
+}
+
 async function addTime(time) {
     await timesCollection.insertOne(time);
 }
 
+//this should probably be added on to the calendar it belongs to instead of creating a brand new object
 function getTime(time) {
     return timesCollection.findOne({ time: time });
 }
 
 async function updateTime(time) {
     await timesCollection.updateOne({ time: time.time }, { $set: time });
+}
+
+async function deleteTime(time) {
+    await timesCollection.deleteOne({ time: time })
+    const calendars = calendarsCollection.find({ event_times: time })
+    for await (const calendar of calendars) {
+        const eventTimes = [calendar.event_times].flat().filter(t => t !== time)
+        await updateCalendar({
+            _id: calendar._id,
+            event_times: eventTimes
+        })
+    }
 }
 
 async function addEvent(event) {
@@ -67,17 +97,37 @@ async function updateEvent(event) {
     await eventsCollection.updateOne( { _id: event._id }, { $set: event });
 }
 
+async function deleteEvent(eventId) {
+    await eventsCollection.deleteOne({ _id: new ObjectId(eventId) });
+    const times = timesCollection.find({ event_ids: eventId});
+    for await (const time of times) {
+        const eventIds = [time.event_ids].flat().filter(id => id !== eventId)
+        if (eventIds.length > 0) {
+            await updateTime({
+                time: time.time,
+                event_ids: eventIds
+            })
+        } else {
+            await deleteTime(time.time)
+        }
+    }
+}
+
 module.exports = {
     addUser,
     getUser,
     updateUser,
+    deleteUser,
     addCalendar,
     getCalendar,
     updateCalendar,
+    deleteCalendar,
     addTime,
     getTime,
     updateTime,
+    deleteTime,
     addEvent,
     getEvent,
-    updateEvent
+    updateEvent,
+    deleteEvent
 }

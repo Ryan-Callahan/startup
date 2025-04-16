@@ -4,10 +4,13 @@ import {Card, Container, Row} from "react-bootstrap";
 import TimeUtils from "../calendar/TimeUtils";
 import Button from "react-bootstrap/Button";
 
-export function Event({time, date, event}) {
+export function Event({time, date, event, setCalendars}) {
 
-    function deleteEvent() {
-        console.log("event will be deleted when I have built a DAO that will actually delete events properly..... there is no way in heck I am doing that in javascript")
+    async function deleteEvent() {
+        await fetch(`/api/events/${event._id}`, {
+            method: "DELETE"
+        });
+        setCalendars(await (await fetch("/api/users/calendars")).json());
     }
 
     function getEventCard() {
@@ -29,6 +32,7 @@ export function Event({time, date, event}) {
             modal
             contentStyle={{width: "400px"}}
         >
+            {close => (
             <Container>
                 <Row style={{textDecoration: "underline", fontSize: "14pt"}}>
                     {event.name}
@@ -39,8 +43,12 @@ export function Event({time, date, event}) {
                 <Row style={{paddingTop: "5px"}}>
                     {event.description}
                 </Row>
-                <Button type="secondary" onClick={() => deleteEvent()}>Delete Event</Button>
+                <Button type="secondary" onClick={() => {
+                    close();
+                    deleteEvent();
+                }}>Delete Event</Button>
             </Container>
+                )}
         </Popup>
     )
 }

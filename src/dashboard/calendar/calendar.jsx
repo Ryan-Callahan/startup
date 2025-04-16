@@ -4,7 +4,7 @@ import {Day} from "./day";
 import './calendar.css';
 import TimeUtils from "./TimeUtils";
 
-export function Calendar({activeWeek, calendars}) {
+export function Calendar({activeWeek, calendars, setCalendars}) {
     const timesList = calendars.map(calendar => calendar.times).flat().filter((value, index, self) => self.indexOf(value) === index)
 
     function getDateFromDay(day) {
@@ -26,7 +26,7 @@ export function Calendar({activeWeek, calendars}) {
         const days = []
         for (let i = 0; i < 7; i++) {
             const day = getDateFromDay(i)
-            days.push(<Day key={"Date-" + day.getTime()} day={day} eventTimes={getEventsForDay(day)}/>)
+            days.push(<Day key={"Date-" + day.getTime()} day={day} eventTimes={getEventsForDay(day)} setCalendars={setCalendars}/>)
         }
         return <>{days}</>
     }

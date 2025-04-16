@@ -60,7 +60,7 @@ export function Dashboard() {
                 <Row>
                     <Col>
                         <div style={{maxHeight: '80vh', overflow: 'auto', border: '3px solid black'}}>
-                            <Calendar activeWeek={activeWeek} calendars={getActiveCalendars()}/>
+                            <Calendar activeWeek={activeWeek} calendars={getActiveCalendars()} setCalendars={setUserCalendars}/>
                         </div>
                     </Col>
                 </Row>

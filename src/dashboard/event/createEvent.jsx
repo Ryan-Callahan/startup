@@ -51,8 +51,7 @@ export function CreateEvent({name, description, time, calendars, setCalendars}) 
             })
         }
 
-        const newCalendars = await (await fetch("/api/users/calendars")).json()
-        setCalendars(newCalendars)
+        setCalendars(await (await fetch("/api/users/calendars")).json())
     }
 
     return (

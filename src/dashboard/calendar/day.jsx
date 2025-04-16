@@ -3,7 +3,7 @@ import {Col, Row} from "react-bootstrap";
 import {Time} from "./time";
 import TimeUtils from "./TimeUtils";
 
-export function Day({day, eventTimes}) {
+export function Day({day, eventTimes, setCalendars}) {
     const relevantTimes = new Map
     eventTimes.map(eventTime => {
         const time = eventTime.time
@@ -27,7 +27,7 @@ export function Day({day, eventTimes}) {
         const times = []
         for (let i = 0; i < 24; i++) {
             const date = TimeUtils.getDatePlusHours(day, i)
-            times.push(<Time key={"Time-" + date.getTime()} time={date} events={getEventsForTime(date.getTime())}/>)
+            times.push(<Time key={"Time-" + date.getTime()} time={date} events={getEventsForTime(date.getTime())} setCalendars={setCalendars}/>)
         }
         return <>{times}</>
     }

@@ -6,12 +6,11 @@
 
 ###
 
-POST http://localhost:3000/api/auth/create
+POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
   "username": "Test",
-  "email": "test@email.com",
   "password": "password"
 }
 
@@ -58,3 +57,9 @@ GET http://localhost:3000/api/users/calendars
 GET https://mhw-db.com/monsters/1?p={"id": true, "name": true, "description": true}
 
 ###
+
+DELETE http://localhost:3000/api/events/67ff01428dcbc46d9fe2775e
+
+###
+
+DELETE http://localhost:3000/api/calendar/67ff02f2ca70106a9b6fe28a

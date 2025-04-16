@@ -3,7 +3,7 @@ import {Card, Container, Row} from "react-bootstrap";
 import {Event} from "../event/event";
 import Popup from "reactjs-popup";
 
-export function Time({time, events}) {
+export function Time({time, events, setCalendars}) {
     const hour = time.getUTCHours();
     const minutes = time.getUTCMinutes();
 
@@ -42,7 +42,7 @@ export function Time({time, events}) {
             let eventCtr = 0;
             for (const event of events) {
                 if (event != null) {
-                    const eventElement = <Event key={"Event-" + event.event_id} time={formattedTime()} date={time} event={event}/>;
+                    const eventElement = <Event key={"Event-" + event._id} time={formattedTime()} date={time} event={event} setCalendars={setCalendars}/>;
                     (++eventCtr <= 2) ? e.push(eventElement) : o.push(eventElement);
                 }
             }

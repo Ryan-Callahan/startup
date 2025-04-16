@@ -111,6 +111,11 @@ apiRouter.post('/calendar/times', verifyAuth, async (req, res) => {
     res.send(calendar);
 });
 
+apiRouter.delete('/calendar/:calendarId', verifyAuth, async (req, res) => {
+    const calendarId = req.params.calendarId;
+    await DB.deleteCalendar(calendarId)
+});
+
 apiRouter.post('/times', verifyAuth, async (req, res) => {
     const time = await updateTime(req.body);
     res.send(time);
@@ -119,6 +124,19 @@ apiRouter.post('/times', verifyAuth, async (req, res) => {
 apiRouter.post('/events', verifyAuth, async (req, res) => {
     const event = await updateEvents(req.body);
     res.send(event);
+});
+
+apiRouter.delete('/events/:eventId', verifyAuth, async (req, res) => {
+    const eventId = req.params.eventId;
+    await DB.deleteEvent(eventId);
+});
+
+app.use(function (err, req, res, next) {
+    res.status(500).send({ type: err.name, message: err.message });
+});
+
+app.use((_req, res) => {
+    res.sendFile('index.html', { root: 'public' });
 });
 
 async function createUser(user) {
