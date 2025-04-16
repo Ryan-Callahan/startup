@@ -11,11 +11,6 @@ app.use(express.static('public'));
 const salt = bcrypt.genSaltSync(10);
 const authCookieName = 'token';
 
-let calendarCtr = 1;
-let times = [];
-let events = [];
-let eventCtr = 1;
-
 //Used with .filter() on FlatArrays
 let UNIQUE = (value, index, self) => self.indexOf(value) === index
 
@@ -100,8 +95,7 @@ apiRouter.get('/users/calendars/ids', verifyAuth, async (req, res) => {
 
 apiRouter.get('/users/calendars/:calendarId', verifyAuth, async (req, res) => {
     const calendarID = req.params.calendarId;
-    // const calendar = await getCalendarAsObject(calendarID)
-    const calendar = await DB.getCalendar(calendarID)
+    const calendar = await getCalendarAsObject(calendarID)
     res.send(calendar)
 })
 
@@ -122,22 +116,24 @@ apiRouter.get('/calendars', verifyAuth, (req, res) => {
     res.send("calendars");
 });
 
-apiRouter.post('/times', verifyAuth, (req, res) => {
-    times = updateTimes(req.body);
-    res.send(times);
+apiRouter.post('/times', verifyAuth, async (req, res) => {
+    const time = await updateTime(req.body);
+    res.send(time);
 });
 
+//todo deprecate
 apiRouter.get('/times', verifyAuth, (req, res) => {
-    res.send(times);
+    res.send("times");
 });
 
-apiRouter.post('/events', verifyAuth, (req, res) => {
-    event = updateEvents(req.body);
+apiRouter.post('/events', verifyAuth, async (req, res) => {
+    const event = await updateEvents(req.body);
     res.send(event);
 });
 
+//todo deprecate
 apiRouter.get('/events', verifyAuth, (req, res) => {
-    res.send(events);
+    res.send("events");
 });
 
 async function createUser(user) {
@@ -177,27 +173,28 @@ async function findUserCalendars(userCalendars) {
     return c
 }
 
+//hehehehe good luck
 async function getCalendarAsObject(calendarID) {
     const calendar = await DB.getCalendar(calendarID)
     const calendarTimes = calendar.event_times
     return {
         _id: calendarID,
         name: calendar.name,
-        times: (calendarTimes.length > 0) ? calendarTimes.flatMap(time => {
-            const eventTime = times.find((t) => t["time"] === time)
+        times: (calendarTimes.length > 0) ? (await Promise.all(calendarTimes.map(async (time) => {
+            const eventTime = await DB.getTime(time);
             const eventIds = [eventTime.event_ids].flat()
             return {
                 time: time,
-                event_ids: (eventIds.length > 0) ? eventIds.flatMap(eventId => {
-                    const event = events.find((e) => e["event_id"] === eventId)
+                event_ids: (eventIds.length > 0) ? (await Promise.all(eventIds.map(async (eventId) => {
+                    const event = await DB.getEvent(eventId)
                     return {
-                        event_id: eventId,
+                        _id: eventId,
                         name: event.name,
                         description: event.description
                     }
-                }) : []
+                }))).flat() : []
             }
-        }) : []
+        }))).flat() : []
     }
 }
 
@@ -227,8 +224,7 @@ async function addTimeToCalendar(calendar) {
     const times = previousCalendar["event_times"]
     times.push(calendar["event_times"])
     const updatedCalendar = {
-        _id: calendarID,
-        name: previousCalendar["name"],
+        _id: previousCalendar._id,
         event_times: times.flat().filter(UNIQUE)
     }
     await DB.updateCalendar(updatedCalendar);
@@ -236,40 +232,39 @@ async function addTimeToCalendar(calendar) {
     return updatedCalendar
 }
 
-function updateTimes(newTime) {
-    const previousTime = times.find((t) => t['time'] === newTime['time']);
+async function updateTime(newTime) {
+    const previousTime = await DB.getTime(newTime.time);
 
     if (previousTime) {
         const events = [previousTime["event_ids"]].flat()
-            events.push(newTime["event_ids"])
+        events.push(newTime["event_ids"])
         const updatedTime = {
             time: previousTime['time'],
             event_ids: events.flat().filter(UNIQUE)
         }
-        times.splice(times.indexOf(previousTime), 1, updatedTime);
+        await DB.updateTime(updatedTime);
+        return updatedTime;
     } else {
-        times.push(newTime);
+        await DB.addTime(newTime);
+        return newTime;
     }
-
-    return times;
 }
 
-function updateEvents(event) {
-    if (event['event_id'] !== undefined ) {
-        const previousEvent = events.find((e) => e['event_id'] === event['event_id']);
+async function updateEvents(event) {
+    if (event['_id'] !== undefined ) {
+        const previousEvent = DB.getEvent(event['_id']);
         if (previousEvent) {
-            events.splice(events.indexOf(previousEvent), 1, event);
+            await DB.updateEvent(event);
         } else {
-            events.push(event);
+            await DB.addEvent(event);
         }
         return event
     } else {
         const newEvent = {
-            event_id: eventCtr++,
             name: event.name,
             description: event.description
         }
-        events.push(newEvent);
+        await DB.addEvent(newEvent);
         return newEvent
     }
 }

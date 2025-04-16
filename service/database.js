@@ -36,12 +36,35 @@ async function addCalendar(calendar) {
 }
 
 async function getCalendar(calendarID) {
-    const id = new ObjectId(calendarID);
-    return calendarsCollection.findOne({ _id: id });
+    return calendarsCollection.findOne({ _id: new ObjectId(calendarID) });
 }
 
 async function updateCalendar(calendar) {
     await calendarsCollection.updateOne({ _id: calendar._id }, { $set: calendar });
+}
+
+async function addTime(time) {
+    await timesCollection.insertOne(time);
+}
+
+function getTime(time) {
+    return timesCollection.findOne({ time: time });
+}
+
+async function updateTime(time) {
+    await timesCollection.updateOne({ time: time.time }, { $set: time });
+}
+
+async function addEvent(event) {
+    await eventsCollection.insertOne(event);
+}
+
+function getEvent(event) {
+    return eventsCollection.findOne({ _id: new ObjectId(event) })
+}
+
+async function updateEvent(event) {
+    await eventsCollection.updateOne( { _id: event._id }, { $set: event });
 }
 
 module.exports = {
@@ -50,5 +73,11 @@ module.exports = {
     updateUser,
     addCalendar,
     getCalendar,
-    updateCalendar
+    updateCalendar,
+    addTime,
+    getTime,
+    updateTime,
+    addEvent,
+    getEvent,
+    updateEvent
 }
