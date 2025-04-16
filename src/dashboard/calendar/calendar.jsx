@@ -5,7 +5,7 @@ import './calendar.css';
 import TimeUtils from "./TimeUtils";
 
 export function Calendar({activeWeek, calendars, setCalendars}) {
-    const timesList = calendars.map(calendar => calendar.times).flat().filter((value, index, self) => self.indexOf(value) === index)
+    const timesList = calendars.map(calendar => calendar.event_times).flat()
 
     function getDateFromDay(day) {
         return TimeUtils.getDatePlusDays(activeWeek, day);

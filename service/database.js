@@ -75,13 +75,17 @@ async function updateTime(time) {
 
 async function deleteTime(time) {
     await timesCollection.deleteOne({time: time})
-    const calendars = calendarsCollection.find({event_times: time})
-    for await (const calendar of calendars) {
-        const eventTimes = [calendar.event_times].flat().filter(t => t !== time)
-        await updateCalendar({
-            _id: calendar._id,
-            event_times: eventTimes
-        })
+    const calendars = await calendarsCollection.find({event_times: time}).toArray();
+    for (const calendar of calendars) {
+        try {
+            const eventTimes = [calendar.event_times].flat().filter(t => t !== time);
+            await updateCalendar({
+                _id: calendar._id,
+                event_times: eventTimes
+            })
+        } catch (err) {
+            console.log(`Error deleting time ${time} from calendar ${calendar._id}:`, err);
+        }
     }
 }
 
@@ -99,16 +103,20 @@ async function updateEvent(event) {
 
 async function deleteEvent(eventId) {
     await eventsCollection.deleteOne({_id: new ObjectId(eventId)});
-    const times = timesCollection.find({event_ids: eventId});
-    for await (const time of times) {
-        const eventIds = [time.event_ids].flat().filter(id => id !== eventId)
-        if (eventIds.length > 0) {
-            await updateTime({
-                time: time.time,
-                event_ids: eventIds
-            })
-        } else {
-            await deleteTime(time.time)
+    const times = await timesCollection.find({event_ids: eventId}).toArray();
+    for (const time of times) {
+        try {
+            const eventIds = [time.event_ids].flat().filter(id => id !== eventId)
+            if (eventIds.length > 0) {
+                await updateTime({
+                    time: time.time,
+                    event_ids: eventIds
+                })
+            } else {
+                await deleteTime(time.time)
+            }
+        } catch (err) {
+            console.log(`Error deleting time ${time.time} from event ${eventId}:`, err)
         }
     }
 }

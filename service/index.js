@@ -114,6 +114,7 @@ apiRouter.post('/calendar/times', verifyAuth, async (req, res) => {
 apiRouter.delete('/calendar/:calendarId', verifyAuth, async (req, res) => {
     const calendarId = req.params.calendarId;
     await DB.deleteCalendar(calendarId)
+    res.status(204).end();
 });
 
 apiRouter.post('/times', verifyAuth, async (req, res) => {
@@ -129,6 +130,7 @@ apiRouter.post('/events', verifyAuth, async (req, res) => {
 apiRouter.delete('/events/:eventId', verifyAuth, async (req, res) => {
     const eventId = req.params.eventId;
     await DB.deleteEvent(eventId);
+    res.status(204).end();
 });
 
 app.use(function (err, req, res, next) {
@@ -183,7 +185,7 @@ async function getCalendarAsObject(calendarID) {
     return {
         _id: calendarID,
         name: calendar.name,
-        times: (calendarTimes.length > 0) ? (await Promise.all(calendarTimes.map(async (time) => {
+        event_times: (calendarTimes.length > 0) ? (await Promise.all(calendarTimes.map(async (time) => {
             const eventTime = await DB.getTime(time);
             const eventIds = [eventTime.event_ids].flat()
             return {
