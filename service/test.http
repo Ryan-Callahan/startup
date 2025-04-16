@@ -21,7 +21,10 @@ Content-Type: application/json
 
 {
   "_id": 1,
-  "event_times": [1744322520000, 1744322520001]
+  "event_times": [
+    1744322520000,
+    1744322520001
+  ]
 }
 
 ###
@@ -31,7 +34,9 @@ Content-Type: application/json
 
 {
   "time": 1744322520001,
-  "event_ids": [1]
+  "event_ids": [
+    1
+  ]
 }
 
 ###

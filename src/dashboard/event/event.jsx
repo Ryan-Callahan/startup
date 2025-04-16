@@ -1,3 +1,5 @@
+// noinspection JSIgnoredPromiseFromCall
+
 import React from 'react';
 import Popup from "reactjs-popup";
 import {Card, Container, Row} from "react-bootstrap";
@@ -33,22 +35,22 @@ export function Event({time, date, event, setCalendars}) {
             contentStyle={{width: "400px"}}
         >
             {close => (
-            <Container>
-                <Row style={{textDecoration: "underline", fontSize: "14pt"}}>
-                    {event.name}
-                </Row>
-                <Row style={{opacity: "70%", fontSize: "9pt"}}>
-                    {TimeUtils.getDateAsString(date)} {time}
-                </Row>
-                <Row style={{paddingTop: "5px"}}>
-                    {event.description}
-                </Row>
-                <Button type="secondary" onClick={() => {
-                    close();
-                    deleteEvent();
-                }}>Delete Event</Button>
-            </Container>
-                )}
+                <Container>
+                    <Row style={{textDecoration: "underline", fontSize: "14pt"}}>
+                        {event.name}
+                    </Row>
+                    <Row style={{opacity: "70%", fontSize: "9pt"}}>
+                        {TimeUtils.getDateAsString(date)} {time}
+                    </Row>
+                    <Row style={{paddingTop: "5px"}}>
+                        {event.description}
+                    </Row>
+                    <Button type="secondary" onClick={() => {
+                        close();
+                        deleteEvent();
+                    }}>Delete Event</Button>
+                </Container>
+            )}
         </Popup>
     )
 }

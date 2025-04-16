@@ -1,3 +1,5 @@
+// noinspection JSIgnoredPromiseFromCall
+
 import React from 'react';
 import Popup from "reactjs-popup";
 import Button from "react-bootstrap/Button";
@@ -32,13 +34,13 @@ export function CreateEvent({name, description, time, calendars, setCalendars}) 
 
         const event = await response.json();
         await fetch("/api/times", {
-                method: "POST",
-                headers: {'content-type': 'application/json'},
-                body: JSON.stringify({
-                    time: time,
-                    event_ids: event._id
-                })
+            method: "POST",
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({
+                time: time,
+                event_ids: event._id
             })
+        })
 
         for (const calendar of eventCalendars.keys()) {
             await fetch('/api/calendar/times', {

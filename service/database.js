@@ -1,4 +1,4 @@
-const { MongoClient, ObjectId } = require('mongodb');
+const {MongoClient, ObjectId} = require('mongodb');
 const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
@@ -11,7 +11,7 @@ const eventsCollection = db.collection('events');
 
 (async function testConnection() {
     try {
-        await db.command({ ping: 1 });
+        await db.command({ping: 1});
         console.log(`Connect to database`);
     } catch (ex) {
         console.log(`Unable to connect to database with ${url} because ${ex.message}`);
@@ -24,15 +24,15 @@ async function addUser(user) {
 }
 
 function getUser(field, value) {
-    return usersCollection.findOne({ [field]: value });
+    return usersCollection.findOne({[field]: value});
 }
 
 async function updateUser(user) {
-    await usersCollection.updateOne({ email: user.email }, { $set: user });
+    await usersCollection.updateOne({email: user.email}, {$set: user});
 }
 
 async function deleteUser(user) {
-    await usersCollection.deleteOne( { email: user.email })
+    await usersCollection.deleteOne({email: user.email})
 }
 
 async function addCalendar(calendar) {
@@ -40,17 +40,17 @@ async function addCalendar(calendar) {
 }
 
 async function getCalendar(calendarID) {
-    return calendarsCollection.findOne({ _id: new ObjectId(calendarID) });
+    return calendarsCollection.findOne({_id: new ObjectId(calendarID)});
 }
 
 async function updateCalendar(calendar) {
-    await calendarsCollection.updateOne({ _id: calendar._id }, { $set: calendar });
+    await calendarsCollection.updateOne({_id: calendar._id}, {$set: calendar});
 }
 
 async function deleteCalendar(calendarId) {
     let calId = new ObjectId(calendarId);
-    await calendarsCollection.deleteOne({ _id: calId })
-    const users = usersCollection.find({ calendars: calId})
+    await calendarsCollection.deleteOne({_id: calId})
+    const users = usersCollection.find({calendars: calId})
     for await (const user of users) {
         const calendars = [user.calendars].flat().filter(id => !id.equals(calId));
         await updateUser({
@@ -64,18 +64,18 @@ async function addTime(time) {
     await timesCollection.insertOne(time);
 }
 
-//this should probably be added on to the calendar it belongs to instead of creating a brand new object
+//this should probably be added on to the calendar it belongs to instead of creating a brand-new object
 function getTime(time) {
-    return timesCollection.findOne({ time: time });
+    return timesCollection.findOne({time: time});
 }
 
 async function updateTime(time) {
-    await timesCollection.updateOne({ time: time.time }, { $set: time });
+    await timesCollection.updateOne({time: time.time}, {$set: time});
 }
 
 async function deleteTime(time) {
-    await timesCollection.deleteOne({ time: time })
-    const calendars = calendarsCollection.find({ event_times: time })
+    await timesCollection.deleteOne({time: time})
+    const calendars = calendarsCollection.find({event_times: time})
     for await (const calendar of calendars) {
         const eventTimes = [calendar.event_times].flat().filter(t => t !== time)
         await updateCalendar({
@@ -90,16 +90,16 @@ async function addEvent(event) {
 }
 
 function getEvent(event) {
-    return eventsCollection.findOne({ _id: new ObjectId(event) })
+    return eventsCollection.findOne({_id: new ObjectId(event)})
 }
 
 async function updateEvent(event) {
-    await eventsCollection.updateOne( { _id: event._id }, { $set: event });
+    await eventsCollection.updateOne({_id: event._id}, {$set: event});
 }
 
 async function deleteEvent(eventId) {
-    await eventsCollection.deleteOne({ _id: new ObjectId(eventId) });
-    const times = timesCollection.find({ event_ids: eventId});
+    await eventsCollection.deleteOne({_id: new ObjectId(eventId)});
+    const times = timesCollection.find({event_ids: eventId});
     for await (const time of times) {
         const eventIds = [time.event_ids].flat().filter(id => id !== eventId)
         if (eventIds.length > 0) {

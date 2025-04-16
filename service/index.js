@@ -21,11 +21,11 @@ const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 apiRouter.post('/auth/create', async (req, res) => {
     if (await findUser('email', req.body.email) || await findUser('username', req.body.username)) {
-        res.status(409).send({ msg: 'Existing user' });
+        res.status(409).send({msg: 'Existing user'});
     } else {
         const user = await createUser(req.body);
         setAuthCookie(res, user.token);
-        res.send({ username: user.username });
+        res.send({username: user.username});
     }
 });
 
@@ -36,17 +36,17 @@ apiRouter.post('/auth/login', async (req, res) => {
             user.token = uuid.v4();
             await DB.updateUser(user)
             setAuthCookie(res, user.token);
-            res.send({ username: user.username });
-        return;
+            res.send({username: user.username});
+            return;
         }
     }
-    res.status(401).send({ msg: 'Unauthorized' });
+    res.status(401).send({msg: 'Unauthorized'});
 });
 
 apiRouter.get('/auth/username', async (req, res) => {
     const user = await findUser('token', req.cookies[authCookieName]);
     if (user) {
-        res.send({ username: user.username })
+        res.send({username: user.username})
     } else {
         res.status(202).end()
     }
@@ -67,14 +67,14 @@ const verifyAuth = async (req, res, next) => {
     if (user) {
         next();
     } else {
-        res.status(401).send({ msg: 'Unauthorized' });
+        res.status(401).send({msg: 'Unauthorized'});
     }
 };
 
 apiRouter.post('/users/calendars', verifyAuth, async (req, res) => {
     let user = await findUser('token', req.cookies[authCookieName])
     user = await addCalendarToUser(user, req.body);
-    res.send({ username: user.username, calendars: user.calendars})
+    res.send({username: user.username, calendars: user.calendars})
 });
 
 apiRouter.get('/users/calendars', verifyAuth, async (req, res) => {
@@ -132,11 +132,11 @@ apiRouter.delete('/events/:eventId', verifyAuth, async (req, res) => {
 });
 
 app.use(function (err, req, res, next) {
-    res.status(500).send({ type: err.name, message: err.message });
+    res.status(500).send({type: err.name, message: err.message});
 });
 
 app.use((_req, res) => {
-    res.sendFile('index.html', { root: 'public' });
+    res.sendFile('index.html', {root: 'public'});
 });
 
 async function createUser(user) {
@@ -254,7 +254,7 @@ async function updateTime(newTime) {
 }
 
 async function updateEvents(event) {
-    if (event['_id'] !== undefined ) {
+    if (event['_id'] !== undefined) {
         const previousEvent = DB.getEvent(event['_id']);
         if (previousEvent) {
             await DB.updateEvent(event);

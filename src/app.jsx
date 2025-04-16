@@ -17,19 +17,17 @@ export default function App() {
     const [authState, setAuthState] = React.useState(currentAuthState);
 
     React.useEffect(() => {
-        async function getUser() {
-            const response = await fetch('/api/auth/username')
-            const body = await response.json();
-            if (body) {
-                setUser(body.username)
-                setAuthState(AuthState.Authenticated)
-            } else {
-                setUser('')
-                setAuthState(AuthState.Unauthenticated)
-            }
-        }
-
-        getUser().then(r => null)
+        fetch('/api/auth/username')
+            .then(response => response.json())
+            .then(body => {
+                if (body) {
+                    setUser(body.username)
+                    setAuthState(AuthState.Authenticated)
+                } else {
+                    setUser('')
+                    setAuthState(AuthState.Unauthenticated)
+                }
+            });
     }, [])
 
     return (
