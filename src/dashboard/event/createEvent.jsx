@@ -7,7 +7,7 @@ import CalendarSelectorUtils from "../calendar/CalendarSelectorUtils";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"
 
-export function CreateEvent({name, description, time, calendars}) {
+export function CreateEvent({name, description, time, calendars, setCalendars}) {
     const [eventName, setEventName] = React.useState((name != null) ? name : "");
     const [eventDescription, setEventDescription] = React.useState((description != null) ? description : "");
     const [eventTime, setEventTime] = React.useState((time != null) ? time : new Date())
@@ -20,9 +20,6 @@ export function CreateEvent({name, description, time, calendars}) {
 
     async function createEvent() {
         const time = TimeUtils.getEpochToMinute(TimeUtils.getTimezoneTime(eventTime).getTime())
-
-        //todo figure out the calendar structure and update the calendar with the new event and times so that the page will reload
-        // console.log(calendars)
 
         const response = await fetch("/api/events", {
             method: "POST",
@@ -53,6 +50,9 @@ export function CreateEvent({name, description, time, calendars}) {
                 })
             })
         }
+
+        const newCalendars = await (await fetch("/api/users/calendars")).json()
+        setCalendars(newCalendars)
     }
 
     return (

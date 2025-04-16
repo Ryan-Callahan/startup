@@ -54,7 +54,7 @@ export function Dashboard() {
                                                setUserCalendars(userCalendars)
                                            }}/></Col>
                     <Col>{getCalendarPaginator()}</Col>
-                    <Col><CreateEvent calendars={userCalendars}/></Col>
+                    <Col><CreateEvent calendars={userCalendars} setCalendars={setUserCalendars}/></Col>
                 </Row>
                 <br/>
                 <Row>
