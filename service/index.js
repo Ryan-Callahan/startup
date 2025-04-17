@@ -13,7 +13,8 @@ const salt = bcrypt.genSaltSync(10);
 const authCookieName = 'token';
 
 //Used with .filter() on FlatArrays
-let UNIQUE = (value, index, self) => self.indexOf(value) === index
+const UNIQUE_VALUES = (value, index, self) => self.indexOf(value) === index
+const UNIQUE_OBJECTS = (value, index, self) => self.findIndex(obj => obj.toString() === value.toString()) === index;
 
 let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
@@ -167,7 +168,7 @@ async function findUser(field, value) {
 async function addCalendarToUser(user, calendars) {
     const userCalendars = user.calendars;
     userCalendars.push(calendars)
-    user.calendars = userCalendars.flat().filter(UNIQUE);
+    user.calendars = userCalendars.flat().filter(UNIQUE_OBJECTS);
     await DB.updateUser(user);
     return user;
 }
@@ -232,7 +233,7 @@ async function addTimeToCalendar(calendar) {
     times.push(calendar["event_times"])
     const updatedCalendar = {
         _id: previousCalendar._id,
-        event_times: times.flat().filter(UNIQUE)
+        event_times: times.flat().filter(UNIQUE_VALUES)
     }
     await DB.updateCalendar(updatedCalendar);
 
@@ -247,7 +248,7 @@ async function updateTime(newTime) {
         events.push(newTime["event_ids"])
         const updatedTime = {
             time: previousTime['time'],
-            event_ids: events.flat().filter(UNIQUE)
+            event_ids: events.flat().filter(UNIQUE_VALUES)
         }
         await DB.updateTime(updatedTime);
         return updatedTime;
