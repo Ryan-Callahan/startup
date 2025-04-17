@@ -10,6 +10,7 @@ import {Nav, NavItem} from "react-bootstrap";
 import {AuthState} from "./login/authState";
 import {Profile} from "./profile/profile";
 import {MonsterFact} from "./monster-fact/monsterFact";
+import {Error} from "./error/error";
 
 export default function App() {
     const [username, setUsername] = React.useState();
@@ -79,7 +80,7 @@ export default function App() {
                     <small>Ryan Callahan 2025</small>
                     <div>
                         <a href="https://github.com/Ryan-Callahan/startup/tree/main">Github</a>
-                        <a href="https://schedulizer260.com">Other Sites</a>
+                        <a href="https://ryan-callahan.com">Other Sites</a>
                     </div>
                 </footer>
             </div>
@@ -88,5 +89,5 @@ export default function App() {
 }
 
 function NotFound() {
-    return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
+    return <main className="container-fluid bg-secondary text-center"><div>404: Return to sender. Address unknown.</div><Error/></main>;
 }

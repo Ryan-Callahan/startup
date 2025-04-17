@@ -40,6 +40,9 @@ export function CalendarInfo({calendar, toggleActiveCalendar, activeCalendars, s
             method: "DELETE"
         });
         setCalendars(await (await fetch("/api/users/calendars")).json());
+
+        //todo send to all users that have the calendar
+        CalendarNotifier.broadcastEvent("calendar", "update-users", {users: []});
     }
 
     return (

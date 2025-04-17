@@ -8,7 +8,8 @@ import {CalendarSelector} from "./calendar/calendarSelector";
 import {CalendarNotifier} from "./CalendarClient.js";
 
 export function Dashboard() {
-    const [activeWeek, updateActiveWeek] = React.useState(TimeUtils.getTimezonedCurrentWeek())
+    const [activeWeek, updateActiveWeek] = React.useState(TimeUtils.getTimezonedCurrentWeek());
+    //todo cache this, then pull from cache
     const [activeCalendars, setActiveCalendars] = React.useState(new Map());
     const [userCalendars, setUserCalendars] = React.useState([]);
 
@@ -22,6 +23,7 @@ export function Dashboard() {
 
     function handleEvent(event) {
         //todo make this update only relevant users
+        console.log(`Received event ${event.type} from ${event.from}`)
         if (event.type === "update-users") {
             console.log("Updating calendars...")
             updateCalendars();
