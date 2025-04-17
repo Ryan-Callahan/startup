@@ -42,7 +42,7 @@ export default function App() {
                             </NavItem>
                             {authState === AuthState.Authenticated && (
                                 <NavItem className="nav-item">
-                                    <NavLink className="nav-link link-light" eventKey="link-1" to="dashboard">Home</NavLink>
+                                    <NavLink className="nav-link link-light" to="dashboard">Home</NavLink>
                                 </NavItem>
                             )}
                             <NavItem className="nav-item">

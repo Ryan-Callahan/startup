@@ -15,11 +15,11 @@ export function Dashboard() {
     React.useEffect(() => {
         updateCalendars()
         CalendarNotifier.addHandler(handleEvent);
-
+        console.log("Dashboard mounted");
         return () => {
             CalendarNotifier.removeHandler(handleEvent);
         }
-    }, []);
+    });
 
     function handleEvent(event) {
         updateCalendars();

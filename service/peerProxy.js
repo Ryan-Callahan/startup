@@ -1,10 +1,10 @@
 const {WebSocketServer, WebSocket} = require('ws');
 
 function PeerProxy(httpServer) {
-    const socketServer = new WebSocketServer({server: httpServer, path: '/ws'});
+    const socketServer = new WebSocketServer({server: httpServer});
 
-    socketServer.on('connection', (socket, req) => {
-        console.log("New WebSocket connection", req.url);
+    socketServer.on('connection', (socket) => {
+        console.log('Websocket Connection');
         socket.isAlive = true;
 
         socket.on('message', function message(data) {
@@ -17,7 +17,11 @@ function PeerProxy(httpServer) {
 
         socket.on('pong', () => {
             socket.isAlive = true;
-        })
+        });
+    });
+
+    socketServer.on('error', (error) => {
+        console.log('Websocket Server Error:', error);
     });
 
     setInterval(() => {
@@ -27,7 +31,7 @@ function PeerProxy(httpServer) {
             }
             client.isAlive = false;
             client.ping();
-        }, 20000);
+        }, 60000);
     });
 }
 

@@ -1,8 +1,8 @@
 class EventMessage {
-    constructor(from, type, msg) {
+    constructor(from, type, value) {
         this.from = from;
         this.type = type;
-        this.msg = msg;
+        this.value = value;
     }
 }
 
@@ -12,18 +12,26 @@ class CalendarClient {
 
     constructor() {
         let port = window.location.port;
-        const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-        this.socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
+        const protocol = window.location.protocol === "http:" ? "ws" : "wss";
+        try {
+            this.socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
+        } catch (e) {
+            console.log("Error connecting to websocket:", e);
+        }
 
         this.socket.onopen = (event) => {
-            this.receiveEvent(new EventMessage("startup", "system", {msg: "Connected"}));
+            try {
+                this.receiveEvent(new EventMessage("startup", "system", {msg: "Connected"}));
+            } catch (e) {
+                console.log("Error receiving event:", e);
+            }
         }
         this.socket.onmessage = async (msg) => {
             try {
-                const event = JSON.parse(await msg.data.text())
+                const event = JSON.parse(await msg.data.text());
                 this.receiveEvent(event);
             } catch (e) {
-                console.log("Error receiving event:", e)
+                console.log("Error receiving event:", e);
             }
         }
         this.socket.onclose = (event) => {
@@ -51,7 +59,7 @@ class CalendarClient {
         this.events.push(event);
 
         this.events.forEach(event => {
-            this.handlers.forEach(handler => handler(event));
+            this.handlers.forEach(async handler => await handler(event));
         })
     }
 
@@ -62,5 +70,4 @@ class CalendarClient {
 }
 
 const CalendarNotifier = new CalendarClient();
-
 export {CalendarNotifier};
