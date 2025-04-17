@@ -21,7 +21,7 @@ class CalendarClient {
 
         this.socket.onopen = (event) => {
             try {
-                this.receiveEvent(new EventMessage("startup", "system", {msg: "Connected"}));
+                this.receiveEvent(new EventMessage("startup-calendar", "system", {msg: "Connected"}));
             } catch (e) {
                 console.error("Error receiving event:", e);
             }
@@ -40,7 +40,7 @@ class CalendarClient {
                 reason: event.reason,
                 wasClean: event.wasClean
             });
-            this.receiveEvent(new EventMessage("startup", "system", {msg: "Disconnected"}));
+            this.receiveEvent(new EventMessage("startup-calendar", "system", {msg: "Disconnected"}));
         }
         this.socket.onerror = (error) => {
             console.error("Websocket Error:", error);
