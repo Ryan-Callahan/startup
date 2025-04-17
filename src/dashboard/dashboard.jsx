@@ -15,15 +15,17 @@ export function Dashboard() {
     React.useEffect(() => {
         updateCalendars()
         CalendarNotifier.addHandler(handleEvent);
-        console.log("Dashboard mounted");
         return () => {
             CalendarNotifier.removeHandler(handleEvent);
         }
     }, []);
 
     function handleEvent(event) {
-        updateCalendars();
-        console.log(event);
+        //todo make this update only relevant users
+        if (event.type === "update-users") {
+            console.log("Updating calendars...")
+            updateCalendars();
+        }
     }
 
     function updateCalendars() {

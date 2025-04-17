@@ -27,7 +27,9 @@ export function CalendarInfo({calendar, toggleActiveCalendar, activeCalendars, s
             setCalendars(await (await fetch("/api/users/calendars")).json());
         }
 
-        CalendarNotifier.broadcastEvent("startup", "system", {msg: `Calendar ${calendar} has been shared with ${inviteUser}`});
+        //todo make this send only relevant users
+        //make an endpoint that returns all usernames that have that calendar
+        CalendarNotifier.broadcastEvent("calendar", "update-users", {users: [inviteUser]});
     }
 
     async function deleteCalendar() {

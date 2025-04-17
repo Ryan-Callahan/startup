@@ -12,8 +12,8 @@ import {Profile} from "./profile/profile";
 import {MonsterFact} from "./monster-fact/monsterFact";
 
 export default function App() {
-    const [user, setUser] = React.useState();
-    const currentAuthState = user ? AuthState.Authenticated : AuthState.Unauthenticated;
+    const [username, setUsername] = React.useState();
+    const currentAuthState = username ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
 
     React.useEffect(() => {
@@ -25,10 +25,10 @@ export default function App() {
             .then((response) => response.json())
             .then(body => {
                 if (body) {
-                    setUser(body.username)
+                    setUsername(body.username)
                     setAuthState(AuthState.Authenticated)
                 } else {
-                    setUser('')
+                    setUsername('')
                     setAuthState(AuthState.Unauthenticated)
                 }
             });
@@ -53,18 +53,18 @@ export default function App() {
                                 <NavLink className="nav-link link-light" to="about">About</NavLink>
                             </NavItem>
                         </Nav>
-                        <Profile username={user}/>
+                        <Profile username={username}/>
                     </nav>
                 </header>
 
                 <Routes>
                     <Route path='/' element={
                         <Login
-                            user={user}
+                            user={username}
                             authState={authState}
                             onAuthChange={(user, authState) => {
                                 setAuthState(authState);
-                                setUser(user);
+                                setUsername(user);
                             }}
                         />
                     } exact/>
