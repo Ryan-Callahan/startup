@@ -28,7 +28,7 @@ class CalendarSelectorUtils {
         const e = []
         for (const calendar of userCalendars) {
             e.push(
-                <CalendarInfo calendar={calendar} toggleActiveCalendar={toggleActiveCalendar} activeCalendars={activeCalendars} setCalendars={setCalendars}/>
+                <CalendarInfo key={calendar._id} calendar={calendar} toggleActiveCalendar={toggleActiveCalendar} activeCalendars={activeCalendars} setCalendars={setCalendars}/>
             )
         }
         return (
