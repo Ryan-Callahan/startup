@@ -11,11 +11,12 @@ class CalendarClient {
     handlers = []
 
     constructor() {
+        let port = window.location.port;
         const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-        this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+        this.socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
 
-        this.socket.onopen = () => {
-            this.receiveEvent(new EventMessage("Startup", "system", {msg: "Connected"}));
+        this.socket.onopen = (event) => {
+            this.receiveEvent(new EventMessage("startup", "system", {msg: "Connected"}));
         }
         this.socket.onmessage = async (msg) => {
             try {
@@ -25,8 +26,16 @@ class CalendarClient {
                 console.log("Error receiving event:", e)
             }
         }
-        this.socket.onclose = () => {
-            this.receiveEvent(new EventMessage("Startup", "system", {msg: "Disconnected"}));
+        this.socket.onclose = (event) => {
+            console.warn("WebSocket closed", {
+                code: event.code,
+                reason: event.reason,
+                wasClean: event.wasClean
+            });
+            this.receiveEvent(new EventMessage("startup", "system", {msg: "Disconnected"}));
+        }
+        this.socket.onerror = (error) => {
+            console.log("Websocket Error:", error);
         }
     }
 
@@ -35,7 +44,7 @@ class CalendarClient {
     }
 
     removeHandler(handler) {
-        this.handlers.filter(h => h !== handler);
+        this.handlers = this.handlers.filter(h => h !== handler);
     }
 
     receiveEvent(event) {

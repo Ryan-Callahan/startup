@@ -2,6 +2,7 @@ import React from 'react';
 import {Col, Container, Form, FormControl, FormLabel, Image, Row} from "react-bootstrap";
 import Popup from "reactjs-popup";
 import Button from "react-bootstrap/Button";
+import {CalendarNotifier} from "./CalendarClient";
 
 export function CalendarInfo({calendar, toggleActiveCalendar, activeCalendars, setCalendars}) {
     const [inviteUser, setInviteUser] = React.useState('');
@@ -25,6 +26,8 @@ export function CalendarInfo({calendar, toggleActiveCalendar, activeCalendars, s
             setInviteUser('');
             setCalendars(await (await fetch("/api/users/calendars")).json());
         }
+
+        CalendarNotifier.broadcastEvent("startup", "system", {msg: `Calendar ${calendar} has been shared with ${inviteUser}`});
     }
 
     async function deleteCalendar() {

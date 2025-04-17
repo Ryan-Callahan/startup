@@ -5,6 +5,7 @@ import {Calendar} from "./calendar/calendar";
 import {CreateEvent} from "./event/createEvent"
 import TimeUtils from './calendar/TimeUtils'
 import {CalendarSelector} from "./calendar/calendarSelector";
+import {CalendarNotifier} from "./calendar/CalendarClient";
 
 export function Dashboard() {
     const [activeWeek, updateActiveWeek] = React.useState(TimeUtils.getTimezonedCurrentWeek())
@@ -12,6 +13,20 @@ export function Dashboard() {
     const [userCalendars, setUserCalendars] = React.useState([]);
 
     React.useEffect(() => {
+        updateCalendars()
+        CalendarNotifier.addHandler(handleEvent);
+
+        return () => {
+            CalendarNotifier.removeHandler(handleEvent);
+        }
+    }, []);
+
+    function handleEvent(event) {
+        updateCalendars();
+        console.log(event);
+    }
+
+    function updateCalendars() {
         fetch('/api/users/calendars', {
             method: 'GET',
             headers: {
@@ -21,8 +36,8 @@ export function Dashboard() {
             .then((calendars) => {
                 setActiveCalendars(new Map(calendars.map(calendar => [calendar._id, false])));
                 setUserCalendars(calendars);
-            })
-    }, [])
+            });
+    }
 
     function getActiveCalendars() {
         const active = []
