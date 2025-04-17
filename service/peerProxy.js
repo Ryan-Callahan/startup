@@ -1,6 +1,6 @@
-const {WebSocketServer, WebSocket} = require('ws');
+const {WebSocketServer} = require('ws');
 
-function PeerProxy(httpServer) {
+function peerProxy(httpServer) {
     const socketServer = new WebSocketServer({server: httpServer});
 
     socketServer.on('connection', (socket) => {
@@ -18,16 +18,29 @@ function PeerProxy(httpServer) {
         socket.on('pong', () => {
             socket.isAlive = true;
         });
+
+        socket.on('close', (code, reason) => {
+            console.log(`Socket Closed: ${code} ${reason}`);
+        })
+
+        socket.on('error', (error) => {
+            console.log('Websocket Client Error:', error);
+        })
     });
 
     socketServer.on('error', (error) => {
         console.log('Websocket Server Error:', error);
     });
 
+    socketServer.on('close', () => {
+        console.log('Websocket Server Closed');
+    })
+
     setInterval(() => {
-        socketServer.clients.forEach((client) => {
+        socketServer.clients.forEach(function each(client) {
             if (client.isAlive === false) {
-                return client.terminate();
+                console.log('Websocket Client Terminated');
+                return client.close(1000, 'No Response');
             }
             client.isAlive = false;
             client.ping();
@@ -35,4 +48,4 @@ function PeerProxy(httpServer) {
     });
 }
 
-module.exports = PeerProxy;
+module.exports = { peerProxy };

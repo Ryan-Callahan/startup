@@ -5,7 +5,7 @@ import {Calendar} from "./calendar/calendar";
 import {CreateEvent} from "./event/createEvent"
 import TimeUtils from './calendar/TimeUtils'
 import {CalendarSelector} from "./calendar/calendarSelector";
-import {CalendarNotifier} from "./calendar/CalendarClient";
+import {CalendarNotifier} from "./CalendarClient.js";
 
 export function Dashboard() {
     const [activeWeek, updateActiveWeek] = React.useState(TimeUtils.getTimezonedCurrentWeek())
@@ -19,7 +19,7 @@ export function Dashboard() {
         return () => {
             CalendarNotifier.removeHandler(handleEvent);
         }
-    });
+    }, []);
 
     function handleEvent(event) {
         updateCalendars();

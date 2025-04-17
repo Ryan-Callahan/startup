@@ -16,14 +16,14 @@ class CalendarClient {
         try {
             this.socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
         } catch (e) {
-            console.log("Error connecting to websocket:", e);
+            console.error("Error connecting to websocket:", e);
         }
 
         this.socket.onopen = (event) => {
             try {
                 this.receiveEvent(new EventMessage("startup", "system", {msg: "Connected"}));
             } catch (e) {
-                console.log("Error receiving event:", e);
+                console.error("Error receiving event:", e);
             }
         }
         this.socket.onmessage = async (msg) => {
@@ -31,7 +31,7 @@ class CalendarClient {
                 const event = JSON.parse(await msg.data.text());
                 this.receiveEvent(event);
             } catch (e) {
-                console.log("Error receiving event:", e);
+                console.error("Error receiving event:", e);
             }
         }
         this.socket.onclose = (event) => {
@@ -43,7 +43,7 @@ class CalendarClient {
             this.receiveEvent(new EventMessage("startup", "system", {msg: "Disconnected"}));
         }
         this.socket.onerror = (error) => {
-            console.log("Websocket Error:", error);
+            console.error("Websocket Error:", error);
         }
     }
 

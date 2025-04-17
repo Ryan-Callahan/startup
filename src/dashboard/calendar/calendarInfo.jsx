@@ -2,7 +2,7 @@ import React from 'react';
 import {Col, Container, Form, FormControl, FormLabel, Image, Row} from "react-bootstrap";
 import Popup from "reactjs-popup";
 import Button from "react-bootstrap/Button";
-import {CalendarNotifier} from "./CalendarClient";
+import {CalendarNotifier} from "../CalendarClient.js";
 
 export function CalendarInfo({calendar, toggleActiveCalendar, activeCalendars, setCalendars}) {
     const [inviteUser, setInviteUser] = React.useState('');

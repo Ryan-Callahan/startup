@@ -17,8 +17,12 @@ export default function App() {
     const [authState, setAuthState] = React.useState(currentAuthState);
 
     React.useEffect(() => {
-        fetch('/api/auth/username')
-            .then(response => response.json())
+        fetch('/api/auth/username', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }})
+            .then((response) => response.json())
             .then(body => {
                 if (body) {
                     setUser(body.username)
