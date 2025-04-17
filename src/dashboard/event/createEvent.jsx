@@ -61,6 +61,7 @@ export function CreateEvent({name, description, time, calendars, setCalendars}) 
             trigger={
                 <Button>Create Event</Button>
             }
+            nested
             modal
         >
             {close => (
@@ -80,7 +81,7 @@ export function CreateEvent({name, description, time, calendars, setCalendars}) 
                     </FormGroup>
                     <FormGroup>
                         <FormLabel>Calendars:</FormLabel>
-                        {CalendarSelectorUtils.getCalendarBoxes(eventCalendars, calendars, setEventCalendars, setIsCalendarSelected)}
+                        {CalendarSelectorUtils.getCalendarBoxes(eventCalendars, calendars, setEventCalendars, setCalendars, setIsCalendarSelected)}
                     </FormGroup>
                     <FormGroup>
                         <Button variant="primary" onClick={() => {

@@ -3,7 +3,8 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
 const app = express();
-const DB = require('./database')
+const DB = require('./database');
+const peerProxy = require('./peerProxy');
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static('public'));
@@ -71,10 +72,11 @@ const verifyAuth = async (req, res, next) => {
     }
 };
 
-apiRouter.post('/users/calendars', verifyAuth, async (req, res) => {
-    let user = await findUser('token', req.cookies[authCookieName])
-    user = await addCalendarToUser(user, req.body);
-    res.send({username: user.username, calendars: user.calendars})
+apiRouter.post('/user/calendars', verifyAuth, async (req, res) => {
+    const user = await findUser('username', req.body.username);
+    const calendarId = req.body.calendar_id;
+    await addCalendarToUser(user, DB.objectId(calendarId));
+    res.status(200).send({username: user.username, calendars: user.calendars})
 });
 
 apiRouter.get('/users/calendars', verifyAuth, async (req, res) => {
@@ -282,6 +284,8 @@ function setAuthCookie(res, authToken) {
     });
 }
 
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
+
+peerProxy(httpService);

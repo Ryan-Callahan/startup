@@ -12,7 +12,11 @@ export function Dashboard() {
     const [userCalendars, setUserCalendars] = React.useState([]);
 
     React.useEffect(() => {
-        fetch('/api/users/calendars')
+        fetch('/api/users/calendars', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }})
             .then((response) => response.json())
             .then((calendars) => {
                 setActiveCalendars(new Map(calendars.map(calendar => [calendar._id, false])));
@@ -49,10 +53,7 @@ export function Dashboard() {
             <Container>
                 <Row>
                     <Col><CalendarSelector activeCalendars={activeCalendars} userCalendars={userCalendars}
-                                           setCalendars={(activeCalendars, userCalendars) => {
-                                               setActiveCalendars(activeCalendars);
-                                               setUserCalendars(userCalendars)
-                                           }}/></Col>
+                                           setActiveCalendars={setActiveCalendars} setCalendars={setUserCalendars}/></Col>
                     <Col>{getCalendarPaginator()}</Col>
                     <Col><CreateEvent calendars={userCalendars} setCalendars={setUserCalendars}/></Col>
                 </Row>
