@@ -44,8 +44,8 @@ function peerProxy(httpServer) {
             }
             client.isAlive = false;
             client.ping();
-        }, 60000);
-    });
+        });
+    }, 10000);
 }
 
 module.exports = { peerProxy };
